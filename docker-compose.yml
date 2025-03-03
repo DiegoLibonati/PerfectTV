@@ -1,0 +1,39 @@
+services:
+  perfect-tv-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.development
+    restart: always
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api/app:/home/app/app
+    ports:
+      - 5000:5000
+    depends_on:
+      - perfect-tv-db
+    networks:
+      - perfect-tv-net
+
+  perfect-tv-db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: perfecttvdb
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - perfect-tv-net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "root", "-d", "perfecttvdb"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+
+networks:
+  perfect-tv-net:
