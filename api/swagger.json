@@ -1,0 +1,41 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "PerfectTV API Documentation",
+        "version": "1.0.0",
+        "description": "PerfectTV API documentation with OpenAPI 3.0 and Redoc."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/app/v1/alive": {
+            "get": {
+                "summary": "Prueba de conexión",
+                "responses": {
+                    "200": {
+                        "description": "Respuesta exitosa",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Respuesta estándar",
+                                        "value": {
+                                            "code": "GET_ALIVE_SUJCCESSFULLY",
+                                            "message": "API Working.",
+                                            "author": "Diego Martin Libonati",
+                                            "version": "1.0.0"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                }
+            }
+        }
+    }
+}
