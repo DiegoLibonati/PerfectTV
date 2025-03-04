@@ -1,10 +1,12 @@
 import app from "@app/index";
 import appRoutes from "@app/routes/v1/App.routes";
 import docsRoutes from "@app/routes/v1/Docs.routes";
+import typeRoutes from "@app/routes/v1/Type.routes";
 import { responseConstants } from "@app/constants/Response.constants";
 
 app.use("/app/v1", appRoutes);
-app.use("/doc/v1", docsRoutes);
+app.use("/doc/v1/docs", docsRoutes);
+app.use("/type/v1/types", typeRoutes);
 app.use("*", (req, res) => {
   const baseUrl = req.baseUrl;
 

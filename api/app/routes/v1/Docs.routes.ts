@@ -6,7 +6,7 @@ const docsRoutes = express.Router();
 const docsController = new DocsController();
 
 docsRoutes
-  .get("/swagger.json", (req, res) => docsController.getSwaggerFile(req, res))
-  .get("/docs", (req, res) => docsController.getDocs(req, res));
+  .get("/", (req, res) => docsController.getDocs(req, res))
+  .get("/swagger.json", (req, res) => docsController.getSwaggerFile(req, res));
 
 export default docsRoutes;

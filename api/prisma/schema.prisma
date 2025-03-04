@@ -1,11 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -15,6 +9,26 @@ datasource db {
 }
 
 model Channel {
-  id    Int     @id @default(autoincrement())
-  name  String @unique
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  thumbUrl    String
+  url         String   @unique
+  number      Int      @unique
+  idType      Int
+  idCategory  Int
+  category    Category @relation(fields: [idCategory], references: [id])
+  type        Type     @relation(fields: [idType], references: [id])
+}
+
+model Type {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  channels Channel[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  channels Channel[]
 }
