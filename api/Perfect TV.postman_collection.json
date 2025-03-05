@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "405242e7-566c-47e0-8fdb-2320d0591399",
+		"name": "Perfect TV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27611586"
+	},
+	"item": [
+		{
+			"name": "App Routes",
+			"item": [
+				{
+					"name": "GET Alive",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_APP}}/alive",
+							"host": [
+								"{{API_URL_APP}}"
+							],
+							"path": [
+								"alive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Docs Routes",
+			"item": [
+				{
+					"name": "GET swagger.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DOCS}}/swagger.json",
+							"host": [
+								"{{API_URL_DOCS}}"
+							],
+							"path": [
+								"swagger.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Docs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DOCS}}/",
+							"host": [
+								"{{API_URL_DOCS}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Type Routes",
+			"item": [
+				{
+					"name": "GET Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_TYPE}}/",
+							"host": [
+								"{{API_URL_TYPE}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"private\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_TYPE}}/add",
+							"host": [
+								"{{API_URL_TYPE}}"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_TYPE}}/delete/1",
+							"host": [
+								"{{API_URL_TYPE}}"
+							],
+							"path": [
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category Routes",
+			"item": [
+				{
+					"name": "GET Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_CATEGORY}}/",
+							"host": [
+								"{{API_URL_CATEGORY}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"private\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_CATEGORY}}/add",
+							"host": [
+								"{{API_URL_CATEGORY}}"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_CATEGORY}}/delete/1",
+							"host": [
+								"{{API_URL_CATEGORY}}"
+							],
+							"path": [
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL_APP",
+			"value": "http://localhost:5000/app/v1",
+			"type": "string"
+		},
+		{
+			"key": "API_URL_DOCS",
+			"value": "http://localhost:5000/doc/v1/docs",
+			"type": "string"
+		},
+		{
+			"key": "API_URL_TYPE",
+			"value": "http://localhost:5000/type/v1/types",
+			"type": "string"
+		},
+		{
+			"key": "API_URL_CATEGORY",
+			"value": "http://localhost:5000/category/v1/categories",
+			"type": "string"
+		}
+	]
+}
