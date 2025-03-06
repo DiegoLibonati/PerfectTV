@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 
-import { responseConstants } from "@app/constants/Response.constants";
+import {
+  responseSuccess,
+  responseNotFound,
+  responseAlreadyExists,
+  responseNotValid,
+} from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
 class CategoryController {
@@ -8,8 +13,8 @@ class CategoryController {
     const categories = await prisma.category.findMany();
 
     res.status(200).json({
-      code: responseConstants.successGetCategories.code,
-      message: responseConstants.successGetCategories.message,
+      code: responseSuccess.getCategories.code,
+      message: responseSuccess.getCategories.message,
       data: categories,
     });
     return;
@@ -22,8 +27,8 @@ class CategoryController {
 
     if (!categoryName) {
       res.status(400).json({
-        code: responseConstants.notValidFields.code,
-        message: responseConstants.notValidFields.message,
+        code: responseNotValid.fields.code,
+        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -34,8 +39,8 @@ class CategoryController {
 
     if (categoryExists) {
       res.status(400).json({
-        code: responseConstants.alreadyExistsCategory.code,
-        message: responseConstants.alreadyExistsCategory.message,
+        code: responseAlreadyExists.category.code,
+        message: responseAlreadyExists.category.message,
       });
       return;
     }
@@ -45,8 +50,8 @@ class CategoryController {
     });
 
     res.status(201).json({
-      code: responseConstants.successAddCategory.code,
-      message: responseConstants.successAddCategory.message,
+      code: responseSuccess.addCategory.code,
+      message: responseSuccess.addCategory.message,
       data: category,
     });
     return;
@@ -57,8 +62,8 @@ class CategoryController {
 
     if (!idCategory) {
       res.status(400).json({
-        code: responseConstants.notValidParams.code,
-        message: responseConstants.notValidParams.message,
+        code: responseNotValid.params.code,
+        message: responseNotValid.params.message,
       });
       return;
     }
@@ -69,8 +74,8 @@ class CategoryController {
 
     if (!categoryExists) {
       res.status(404).json({
-        code: responseConstants.notFoundCategory.code,
-        message: responseConstants.notFoundCategory.message,
+        code: responseNotFound.category.code,
+        message: responseNotFound.category.message,
       });
       return;
     }
@@ -80,8 +85,8 @@ class CategoryController {
     });
 
     res.status(200).json({
-      code: responseConstants.successDeleteCategory.code,
-      message: responseConstants.successDeleteCategory.message,
+      code: responseSuccess.deleteCategory.code,
+      message: responseSuccess.deleteCategory.message,
       data: categoryDeleted,
     });
     return;

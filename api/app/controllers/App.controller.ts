@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 
-import { responseConstants } from "@app/constants/Response.constants";
+import { responseSuccess } from "@app/constants/Response.constants";
 
 class AppController {
   alive(req: Request, res: Response) {
     res.status(200).json({
-      code: responseConstants.successAlive.code,
-      message: responseConstants.successAlive.message,
+      code: responseSuccess.alive.code,
+      message: responseSuccess.alive.message,
       author: "Diego Martin Libonati",
       version: "1.0.0",
     });

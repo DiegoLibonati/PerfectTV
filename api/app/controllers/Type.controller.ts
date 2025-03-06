@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { responseConstants } from "@app/constants/Response.constants";
+import { responseSuccess, responseNotFound, responseAlreadyExists, responseNotValid } from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
 class TypeController {
@@ -8,8 +8,8 @@ class TypeController {
     const types = await prisma.type.findMany();
 
     res.status(200).json({
-      code: responseConstants.successGetTypes.code,
-      message: responseConstants.successGetTypes.message,
+      code: responseSuccess.getTypes.code,
+      message: responseSuccess.getTypes.message,
       data: types,
     });
     return;
@@ -22,8 +22,8 @@ class TypeController {
 
     if (!typeName) {
       res.status(400).json({
-        code: responseConstants.notValidFields.code,
-        message: responseConstants.notValidFields.message,
+        code: responseNotValid.fields.code,
+        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -34,8 +34,8 @@ class TypeController {
 
     if (typeExists) {
       res.status(400).json({
-        code: responseConstants.alreadyExistsType.code,
-        message: responseConstants.alreadyExistsType.message,
+        code: responseAlreadyExists.type.code,
+        message: responseAlreadyExists.type.message,
       });
       return;
     }
@@ -43,8 +43,8 @@ class TypeController {
     const type = await prisma.type.create({ data: { name: typeName } });
 
     res.status(201).json({
-      code: responseConstants.successAddType.code,
-      message: responseConstants.successAddType.message,
+      code: responseSuccess.addType.code,
+      message: responseSuccess.addType.message,
       data: type,
     });
     return;
@@ -55,8 +55,8 @@ class TypeController {
 
     if (!idType) {
       res.status(400).json({
-        code: responseConstants.notValidParams.code,
-        message: responseConstants.notValidParams.message,
+        code: responseNotValid.params.code,
+        message: responseNotValid.params.message,
       });
       return;
     }
@@ -67,8 +67,8 @@ class TypeController {
 
     if (!typeExists) {
       res.status(404).json({
-        code: responseConstants.notFoundType.code,
-        message: responseConstants.notFoundType.message,
+        code: responseNotFound.type.code,
+        message: responseNotFound.type.message,
       });
       return;
     }
@@ -78,8 +78,8 @@ class TypeController {
     });
 
     res.status(200).json({
-      code: responseConstants.successDeleteType.code,
-      message: responseConstants.successDeleteType.message,
+      code: responseSuccess.deleteType.code,
+      message: responseSuccess.deleteType.message,
       data: typeDeleted,
     });
     return;

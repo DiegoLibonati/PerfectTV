@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 
-import { responseConstants } from "@app/constants/Response.constants";
+import {
+  responseSuccess,
+  responseNotFound,
+  responseAlreadyExists,
+  responseNotValid,
+} from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
 class CategoryController {
@@ -8,8 +13,8 @@ class CategoryController {
     const channels = await prisma.channel.findMany();
 
     res.status(200).json({
-      code: responseConstants.successGetChannels.code,
-      message: responseConstants.successGetChannels.message,
+      code: responseSuccess.getChannels.code,
+      message: responseSuccess.getChannels.message,
       data: channels,
     });
     return;
@@ -38,8 +43,8 @@ class CategoryController {
       !channelCategory
     ) {
       res.status(400).json({
-        code: responseConstants.notValidFields.code,
-        message: responseConstants.notValidFields.message,
+        code: responseNotValid.fields.code,
+        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -50,8 +55,8 @@ class CategoryController {
 
     if (channelExists) {
       res.status(400).json({
-        code: responseConstants.alreadyExistsChannel.code,
-        message: responseConstants.alreadyExistsChannel.message,
+        code: responseAlreadyExists.channel.code,
+        message: responseAlreadyExists.channel.message,
       });
       return;
     }
@@ -62,8 +67,8 @@ class CategoryController {
 
     if (!typeExists) {
       res.status(404).json({
-        code: responseConstants.notFoundType.code,
-        message: responseConstants.notFoundType.message,
+        code: responseNotFound.type.code,
+        message: responseNotFound.type.message,
       });
       return;
     }
@@ -74,8 +79,8 @@ class CategoryController {
 
     if (!categoryExists) {
       res.status(404).json({
-        code: responseConstants.notFoundCategory.code,
-        message: responseConstants.notFoundCategory.message,
+        code: responseNotFound.category.code,
+        message: responseNotFound.category.message,
       });
       return;
     }
@@ -93,8 +98,8 @@ class CategoryController {
     });
 
     res.status(201).json({
-      code: responseConstants.successAddChannel.code,
-      message: responseConstants.successAddChannel.message,
+      code: responseSuccess.addChannel.code,
+      message: responseSuccess.addChannel.message,
       data: channel,
     });
     return;
@@ -105,8 +110,8 @@ class CategoryController {
 
     if (!idChannel) {
       res.status(400).json({
-        code: responseConstants.notValidParams.code,
-        message: responseConstants.notValidParams.message,
+        code: responseNotValid.params.code,
+        message: responseNotValid.params.message,
       });
       return;
     }
@@ -117,8 +122,8 @@ class CategoryController {
 
     if (!channelExists) {
       res.status(404).json({
-        code: responseConstants.notFoundChannel.code,
-        message: responseConstants.notFoundChannel.message,
+        code: responseNotFound.channel.code,
+        message: responseNotFound.channel.message,
       });
       return;
     }
@@ -128,8 +133,8 @@ class CategoryController {
     });
 
     res.status(200).json({
-      code: responseConstants.successDeleteChannel.code,
-      message: responseConstants.successDeleteChannel.message,
+      code: responseSuccess.deleteChannel.code,
+      message: responseSuccess.deleteChannel.message,
       data: channelDeleted,
     });
     return;

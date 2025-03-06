@@ -1,7 +1,7 @@
 import request from "supertest";
 
 import app from "@app/index";
-import { responseConstants } from "@app/constants/Response.constants";
+import { responseSuccess, responseNotFound, responseAlreadyExists, responseNotValid } from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
 describe("Category.routes.ts", () => {
@@ -17,8 +17,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseConstants.notValidFields.code,
-        message: responseConstants.notValidFields.message,
+        code: responseNotValid.fields.code,
+        message: responseNotValid.fields.message,
       });
     });
 
@@ -32,8 +32,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(201);
       expect(data).toEqual({
-        code: responseConstants.successAddCategory.code,
-        message: responseConstants.successAddCategory.message,
+        code: responseSuccess.addCategory.code,
+        message: responseSuccess.addCategory.message,
         data: {
           id: expect.any(Number),
           name: name,
@@ -51,8 +51,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseConstants.alreadyExistsCategory.code,
-        message: responseConstants.alreadyExistsCategory.message,
+        code: responseAlreadyExists.category.code,
+        message: responseAlreadyExists.category.message,
       });
     });
   });
@@ -66,8 +66,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseConstants.successGetCategories.code,
-        message: responseConstants.successGetCategories.message,
+        code: responseSuccess.getCategories.code,
+        message: responseSuccess.getCategories.message,
         data: expect.arrayContaining([
           expect.objectContaining({
             id: expect.any(Number),
@@ -91,8 +91,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(404);
       expect(data).toEqual({
-        code: responseConstants.notFoundCategory.code,
-        message: responseConstants.notFoundCategory.message,
+        code: responseNotFound.category.code,
+        message: responseNotFound.category.message,
       });
     });
 
@@ -111,8 +111,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseConstants.successDeleteCategory.code,
-        message: responseConstants.successDeleteCategory.message,
+        code: responseSuccess.deleteCategory.code,
+        message: responseSuccess.deleteCategory.message,
         data: {
           id: expect.any(Number),
           name: name,

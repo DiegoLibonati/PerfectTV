@@ -1,7 +1,7 @@
 import request from "supertest";
 
 import app from "@app/index";
-import { responseConstants } from "@app/constants/Response.constants";
+import { responseSuccess, responseNotFound } from "@app/constants/Response.constants";
 
 describe("* ROUTES", () => {
   const prefix = "/123412412/v1";
@@ -14,9 +14,9 @@ describe("* ROUTES", () => {
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(404);
-      expect(data["code"]).toBe(responseConstants.notFoundRoute.code);
+      expect(data["code"]).toBe(responseNotFound.route.code);
       expect(data["message"]).toBe(
-        `${responseConstants.notFoundRoute.message} Path: ${prefix}/not-exists`
+        `${responseNotFound.route.message} Path: ${prefix}/not-exists`
       );
     });
   });
@@ -33,8 +33,8 @@ describe("App.routes.ts", () => {
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(200);
-      expect(data["code"]).toBe(responseConstants.successAlive.code);
-      expect(data["message"]).toBe(responseConstants.successAlive.message);
+      expect(data["code"]).toBe(responseSuccess.alive.code);
+      expect(data["message"]).toBe(responseSuccess.alive.message);
       expect(data["author"]).toBe("Diego Martin Libonati");
       expect(data["version"]).toBe("1.0.0");
     });

@@ -1,7 +1,12 @@
 import request from "supertest";
 
 import app from "@app/index";
-import { responseConstants } from "@app/constants/Response.constants";
+import {
+  responseSuccess,
+  responseNotFound,
+  responseAlreadyExists,
+  responseNotValid,
+} from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
 describe("Type.routes.ts", () => {
@@ -17,8 +22,8 @@ describe("Type.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseConstants.notValidFields.code,
-        message: responseConstants.notValidFields.message,
+        code: responseNotValid.fields.code,
+        message: responseNotValid.fields.message,
       });
     });
 
@@ -32,8 +37,8 @@ describe("Type.routes.ts", () => {
 
       expect(statusCode).toBe(201);
       expect(data).toEqual({
-        code: responseConstants.successAddType.code,
-        message: responseConstants.successAddType.message,
+        code: responseSuccess.addType.code,
+        message: responseSuccess.addType.message,
         data: {
           id: expect.any(Number),
           name: name,
@@ -51,8 +56,8 @@ describe("Type.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseConstants.alreadyExistsType.code,
-        message: responseConstants.alreadyExistsType.message,
+        code: responseAlreadyExists.type.code,
+        message: responseAlreadyExists.type.message,
       });
     });
   });
@@ -66,8 +71,8 @@ describe("Type.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseConstants.successGetTypes.code,
-        message: responseConstants.successGetTypes.message,
+        code: responseSuccess.getTypes.code,
+        message: responseSuccess.getTypes.message,
         data: expect.arrayContaining([
           expect.objectContaining({
             id: expect.any(Number),
@@ -91,8 +96,8 @@ describe("Type.routes.ts", () => {
 
       expect(statusCode).toBe(404);
       expect(data).toEqual({
-        code: responseConstants.notFoundType.code,
-        message: responseConstants.notFoundType.message,
+        code: responseNotFound.type.code,
+        message: responseNotFound.type.message,
       });
     });
 
@@ -107,8 +112,8 @@ describe("Type.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseConstants.successDeleteType.code,
-        message: responseConstants.successDeleteType.message,
+        code: responseSuccess.deleteType.code,
+        message: responseSuccess.deleteType.message,
         data: {
           id: expect.any(Number),
           name: name,

@@ -3,7 +3,12 @@ import request from "supertest";
 import { Category, Type } from "@app/entities/models";
 
 import app from "@app/index";
-import { responseConstants } from "@app/constants/Response.constants";
+import {
+  responseSuccess,
+  responseNotFound,
+  responseAlreadyExists,
+  responseNotValid,
+} from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
 describe("Channel.routes.ts", () => {
@@ -43,8 +48,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseConstants.notValidFields.code,
-        message: responseConstants.notValidFields.message,
+        code: responseNotValid.fields.code,
+        message: responseNotValid.fields.message,
       });
     });
 
@@ -64,8 +69,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(404);
       expect(data).toEqual({
-        code: responseConstants.notFoundType.code,
-        message: responseConstants.notFoundType.message,
+        code: responseNotFound.type.code,
+        message: responseNotFound.type.message,
       });
     });
 
@@ -85,8 +90,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(404);
       expect(data).toEqual({
-        code: responseConstants.notFoundCategory.code,
-        message: responseConstants.notFoundCategory.message,
+        code: responseNotFound.category.code,
+        message: responseNotFound.category.message,
       });
     });
 
@@ -106,8 +111,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(201);
       expect(data).toEqual({
-        code: responseConstants.successAddChannel.code,
-        message: responseConstants.successAddChannel.message,
+        code: responseSuccess.addChannel.code,
+        message: responseSuccess.addChannel.message,
         data: {
           id: expect.any(Number),
           name: name,
@@ -137,8 +142,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseConstants.alreadyExistsChannel.code,
-        message: responseConstants.alreadyExistsChannel.message,
+        code: responseAlreadyExists.channel.code,
+        message: responseAlreadyExists.channel.message,
       });
     });
   });
@@ -152,8 +157,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseConstants.successGetChannels.code,
-        message: responseConstants.successGetChannels.message,
+        code: responseSuccess.getChannels.code,
+        message: responseSuccess.getChannels.message,
         data: expect.arrayContaining([
           expect.objectContaining({
             id: expect.any(Number),
@@ -183,8 +188,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(404);
       expect(data).toEqual({
-        code: responseConstants.notFoundChannel.code,
-        message: responseConstants.notFoundChannel.message,
+        code: responseNotFound.channel.code,
+        message: responseNotFound.channel.message,
       });
     });
 
@@ -201,8 +206,8 @@ describe("Channel.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseConstants.successDeleteChannel.code,
-        message: responseConstants.successDeleteChannel.message,
+        code: responseSuccess.deleteChannel.code,
+        message: responseSuccess.deleteChannel.message,
         data: {
           id: expect.any(Number),
           name: name,
