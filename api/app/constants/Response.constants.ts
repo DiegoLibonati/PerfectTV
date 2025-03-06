@@ -27,9 +27,33 @@ export const responseConstants = {
     code: "DELETE_CATEGORY_SUCCESSFULLY",
     message: "A category was successfully deleted.",
   },
+  successGetChannels: {
+    code: "GET_CHANNEL_SUCCESSFULLY",
+    message: "The channels were successfully obtained.",
+  },
+  successAddChannel: {
+    code: "POST_ADD_CHANNEL_SUCCESSFULLY",
+    message: "A new channel was successfully added.",
+  },
+  successDeleteChannel: {
+    code: "DELETE_CHANNEL_SUCCESSFULLY",
+    message: "A channel was successfully deleted.",
+  },
   notFoundRoute: {
     code: "NOT_FOUND_ROUTE",
     message: "The requested route was not found.",
+  },
+  alreadyExistsType: {
+    code: "ALREADY_EXISTS_TYPE",
+    message: "This type already exists.",
+  },
+  alreadyExistsCategory: {
+    code: "ALREADY_EXISTS_CATEGORY",
+    message: "This category already exists.",
+  },
+  alreadyExistsChannel: {
+    code: "ALREADY_EXISTS_CHANNEL",
+    message: "This channel already exists.",
   },
   notFoundType: {
     code: "NOT_FOUND_TYPE",
@@ -38,6 +62,10 @@ export const responseConstants = {
   notFoundCategory: {
     code: "NOT_FOUND_CATEGORY",
     message: "The requested category was not found.",
+  },
+  notFoundChannel: {
+    code: "NOT_FOUND_CHANNEL",
+    message: "The requested channel was not found.",
   },
   notValidFields: {
     code: "NOT_VALID_FIELDS",

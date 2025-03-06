@@ -28,6 +28,18 @@ class CategoryController {
       return;
     }
 
+    const categoryExists = await prisma.category.findUnique({
+      where: { name: categoryName },
+    });
+
+    if (categoryExists) {
+      res.status(400).json({
+        code: responseConstants.alreadyExistsCategory.code,
+        message: responseConstants.alreadyExistsCategory.message,
+      });
+      return;
+    }
+
     const category = await prisma.category.create({
       data: { name: categoryName },
     });

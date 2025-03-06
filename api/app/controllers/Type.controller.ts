@@ -28,6 +28,18 @@ class TypeController {
       return;
     }
 
+    const typeExists = await prisma.type.findUnique({
+      where: { name: typeName },
+    });
+
+    if (typeExists) {
+      res.status(400).json({
+        code: responseConstants.alreadyExistsType.code,
+        message: responseConstants.alreadyExistsType.message,
+      });
+      return;
+    }
+
     const type = await prisma.type.create({ data: { name: typeName } });
 
     res.status(201).json({

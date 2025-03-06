@@ -40,6 +40,21 @@ describe("Category.routes.ts", () => {
         },
       });
     });
+
+    test("It should show that the category to be added already exists.", async () => {
+      const res = await request(app).post(`${prefix}/add`).send({
+        name: name,
+      });
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(400);
+      expect(data).toEqual({
+        code: responseConstants.alreadyExistsCategory.code,
+        message: responseConstants.alreadyExistsCategory.message,
+      });
+    });
   });
 
   describe("GET Categories", () => {
