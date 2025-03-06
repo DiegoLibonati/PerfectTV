@@ -10,7 +10,10 @@ import prisma from "@app/database/Prisma.database";
 
 class CategoryController {
   async getChannels(req: Request, res: Response) {
-    const channels = await prisma.channel.findMany();
+    const channels = await prisma.channel.findMany({
+      include: { type: true, category: true },
+      omit: { idCategory: true, idType: true },
+    });
 
     res.status(200).json({
       code: responseSuccess.getChannels.code,

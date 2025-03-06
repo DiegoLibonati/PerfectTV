@@ -94,7 +94,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"private\"\r\n}",
+							"raw": "{\r\n    \"name\": \"public\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,7 +160,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"private\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Noticias\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -185,13 +185,79 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_CATEGORY}}/delete/1",
+							"raw": "{{API_URL_CATEGORY}}/delete/4",
 							"host": [
 								"{{API_URL_CATEGORY}}"
 							],
 							"path": [
 								"delete",
-								"1"
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Channel Routes",
+			"item": [
+				{
+					"name": "GET Channel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_CHANNEL}}/",
+							"host": [
+								"{{API_URL_CHANNEL}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Channel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"TN\",\r\n    \"description\": \"Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.\",\r\n    \"thumbUrl\": \"https://television-libre.net/img/tn.png\",\r\n    \"url\": \"https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1\",\r\n    \"number\": 3,\r\n    \"idType\": 2,\r\n    \"idCategory\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_CHANNEL}}/add",
+							"host": [
+								"{{API_URL_CHANNEL}}"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Channel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_CHANNEL}}/delete/4",
+							"host": [
+								"{{API_URL_CHANNEL}}"
+							],
+							"path": [
+								"delete",
+								"4"
 							]
 						}
 					},
@@ -241,6 +307,11 @@
 		{
 			"key": "API_URL_CATEGORY",
 			"value": "http://localhost:5000/category/v1/categories",
+			"type": "string"
+		},
+		{
+			"key": "API_URL_CHANNEL",
+			"value": "http://localhost:5000/channel/v1/channels",
 			"type": "string"
 		}
 	]

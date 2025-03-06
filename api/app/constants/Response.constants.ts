@@ -30,7 +30,7 @@ export const responseSuccess: ResponseConstants = {
     message: "A category was successfully deleted.",
   },
   getChannels: {
-    code: "GET_CHANNEL_SUCCESSFULLY",
+    code: "GET_CHANNELS_SUCCESSFULLY",
     message: "The channels were successfully obtained.",
   },
   addChannel: {
