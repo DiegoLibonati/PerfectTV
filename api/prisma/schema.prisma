@@ -17,18 +17,29 @@ model Channel {
   number      Int      @unique
   idType      Int
   idCategory  Int
+  idSource    Int
   category    Category @relation(fields: [idCategory], references: [id])
   type        Type     @relation(fields: [idType], references: [id])
+  source      Source   @relation(fields: [idSource], references: [id])
 }
 
 model Type {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  channels Channel[]
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  description String
+  channels    Channel[]
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  channels Channel[]
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  description String    
+  channels    Channel[]
+}
+
+model Source {
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  description String    
+  channels    Channel[]
 }

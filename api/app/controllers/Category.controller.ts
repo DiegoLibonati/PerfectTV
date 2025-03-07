@@ -23,9 +23,10 @@ class CategoryController {
   async addCategory(req: Request, res: Response) {
     const body = req.body;
 
-    const categoryName = body.name ? body.name.trim() : null;
+    const code = body.code ? body.code.trim() : null;
+    const description = body.description ? body.description.trim() : null;
 
-    if (!categoryName) {
+    if (!code || !description) {
       res.status(400).json({
         code: responseNotValid.fields.code,
         message: responseNotValid.fields.message,
@@ -34,7 +35,7 @@ class CategoryController {
     }
 
     const categoryExists = await prisma.category.findUnique({
-      where: { name: categoryName },
+      where: { code: code },
     });
 
     if (categoryExists) {
@@ -46,7 +47,7 @@ class CategoryController {
     }
 
     const category = await prisma.category.create({
-      data: { name: categoryName },
+      data: { code: code, description: description },
     });
 
     res.status(201).json({

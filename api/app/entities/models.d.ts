@@ -7,16 +7,26 @@ export type Channel = {
   number: number;
   idType: number;
   idCategory: number;
+  idSource: number;
 };
 
 export type Type = {
   id: number;
-  name: string;
+  code: string;
+  description: string;
   channels: Channel[];
 };
 
 export type Category = {
   id: number;
-  name: string;
+  code: string;
+  description: string;
+  channels: Channel[];
+};
+
+export type Source = {
+  id: number;
+  code: string;
+  description: string;
   channels: Channel[];
 };

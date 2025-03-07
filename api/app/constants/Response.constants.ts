@@ -45,6 +45,18 @@ export const responseSuccess: ResponseConstants = {
     code: "UPDATE_CHANNEL_SUCCESSFULLY",
     message: "A channel was successfully updated.",
   },
+  getSources: {
+    code: "GET_SOURCES_SUCCESSFULLY",
+    message: "The sources were successfully obtained.",
+  },
+  addSource: {
+    code: "POST_ADD_SOURCE_SUCCESSFULLY",
+    message: "A new source was successfully added.",
+  },
+  deleteSource: {
+    code: "DELETE_SOURCE_SUCCESSFULLY",
+    message: "A source was successfully deleted.",
+  },
 };
 
 export const responseNotFound: ResponseConstants = {
@@ -64,6 +76,10 @@ export const responseNotFound: ResponseConstants = {
     code: "NOT_FOUND_ROUTE",
     message: "The requested route was not found.",
   },
+  source: {
+    code: "NOT_FOUND_SOURCE",
+    message: "The requested source was not found.",
+  },
 };
 
 export const responseAlreadyExists: ResponseConstants = {
@@ -78,6 +94,10 @@ export const responseAlreadyExists: ResponseConstants = {
   channel: {
     code: "ALREADY_EXISTS_CHANNEL",
     message: "This channel already exists.",
+  },
+  source: {
+    code: "ALREADY_EXISTS_SOURCE",
+    message: "This source already exists.",
   },
 };
 

@@ -10,12 +10,15 @@ import {
 import prisma from "@app/database/Prisma.database";
 
 describe("Type.routes.ts", () => {
-  const name = "test";
+  const code = "test";
+  const description = "description test";
   const prefix = "/type/v1/types";
 
   describe("POST Add Type", () => {
     test("It should return that no valid fields were entered.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({ name: "" });
+      const res = await request(app)
+        .post(`${prefix}/add`)
+        .send({ code: "", description: "" });
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -29,7 +32,8 @@ describe("Type.routes.ts", () => {
 
     test("It must add a new type.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        name: name,
+        code: code,
+        description: description,
       });
 
       const data = res.body;
@@ -41,14 +45,16 @@ describe("Type.routes.ts", () => {
         message: responseSuccess.addType.message,
         data: {
           id: expect.any(Number),
-          name: name,
+          code: code,
+          description: description,
         },
       });
     });
 
     test("It should show that the type to be added already exists.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        name: name,
+        code: code,
+        description: description,
       });
 
       const data = res.body;
@@ -74,10 +80,11 @@ describe("Type.routes.ts", () => {
         code: responseSuccess.getTypes.code,
         message: responseSuccess.getTypes.message,
         data: expect.arrayContaining([
-          expect.objectContaining({
+          {
             id: expect.any(Number),
-            name: expect.any(String),
-          }),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
         ]),
       });
     });
@@ -103,7 +110,7 @@ describe("Type.routes.ts", () => {
 
     test("It must delete the type entered by test.", async () => {
       const types = await prisma.type.findMany();
-      const typeTest = types.find((type) => type.name === name);
+      const typeTest = types.find((type) => type.code === code);
 
       const res = await request(app).delete(`${prefix}/delete/${typeTest?.id}`);
 
@@ -116,7 +123,8 @@ describe("Type.routes.ts", () => {
         message: responseSuccess.deleteType.message,
         data: {
           id: expect.any(Number),
-          name: name,
+          code: code,
+          description: description,
         },
       });
     });

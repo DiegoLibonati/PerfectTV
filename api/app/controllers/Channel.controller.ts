@@ -10,10 +10,27 @@ import prisma from "@app/database/Prisma.database";
 
 class CategoryController {
   async getChannels(req: Request, res: Response) {
+    const reload = req.query.reload;
+
     const channels = await prisma.channel.findMany({
-      include: { type: true, category: true },
-      omit: { idCategory: true, idType: true },
+      include: { type: true, category: true, source: true },
+      omit: { idCategory: true, idType: true, idSource: true },
     });
+
+    const invalidUrlChannelExists = channels.some(
+      (channel) => !channel.url.includes("https")
+    );
+
+    if (!reload && !invalidUrlChannelExists) {
+      res.status(200).json({
+        code: responseSuccess.getChannels.code,
+        message: responseSuccess.getChannels.message,
+        data: channels,
+      });
+      return;
+    }
+
+    // TODO: Si el param: reload. Se busca de nuevo URLS
 
     res.status(200).json({
       code: responseSuccess.getChannels.code,
@@ -26,24 +43,24 @@ class CategoryController {
   async addChannel(req: Request, res: Response) {
     const body = req.body;
 
-    const channelName = body.name ? body.name.trim() : null;
-    const channelDescription = body.description
-      ? body.description.trim()
-      : null;
-    const channelThumbUrl = body.thumbUrl ? body.thumbUrl.trim() : null;
-    const channelUrl = body.url ? body.url.trim() : null;
-    const channelNumber = body.number;
-    const channelType = body.idType;
-    const channelCategory = body.idCategory;
+    const name = body.name ? body.name.trim() : null;
+    const description = body.description ? body.description.trim() : null;
+    const thumbUrl = body.thumbUrl ? body.thumbUrl.trim() : null;
+    const url = body.url ? body.url.trim() : null;
+    const number = body.number;
+    const idType = body.idType;
+    const idCategory = body.idCategory;
+    const idSource = body.idSource;
 
     if (
-      !channelName ||
-      !channelDescription ||
-      !channelThumbUrl ||
-      !channelUrl ||
-      !channelNumber ||
-      !channelType ||
-      !channelCategory
+      !name ||
+      !description ||
+      !thumbUrl ||
+      !url ||
+      !number ||
+      !idType ||
+      !idCategory ||
+      !idSource
     ) {
       res.status(400).json({
         code: responseNotValid.fields.code,
@@ -53,7 +70,7 @@ class CategoryController {
     }
 
     const channelExists = await prisma.channel.findUnique({
-      where: { name: channelName, number: channelNumber },
+      where: { name: name, number: number },
     });
 
     if (channelExists) {
@@ -65,7 +82,7 @@ class CategoryController {
     }
 
     const typeExists = await prisma.type.findUnique({
-      where: { id: Number(channelType) },
+      where: { id: Number(idType) },
     });
 
     if (!typeExists) {
@@ -77,7 +94,7 @@ class CategoryController {
     }
 
     const categoryExists = await prisma.category.findUnique({
-      where: { id: Number(channelCategory) },
+      where: { id: Number(idCategory) },
     });
 
     if (!categoryExists) {
@@ -88,16 +105,31 @@ class CategoryController {
       return;
     }
 
+    const sourceExists = await prisma.source.findUnique({
+      where: { id: Number(idSource) },
+    });
+
+    if (!sourceExists) {
+      res.status(404).json({
+        code: responseNotFound.source.code,
+        message: responseNotFound.source.message,
+      });
+      return;
+    }
+
     const channel = await prisma.channel.create({
       data: {
-        name: channelName,
-        description: channelDescription,
-        thumbUrl: channelThumbUrl,
-        url: channelUrl,
-        number: channelNumber,
-        idType: channelType,
-        idCategory: channelCategory,
+        name: name,
+        description: description,
+        thumbUrl: thumbUrl,
+        url: url,
+        number: number,
+        idType: idType,
+        idCategory: idCategory,
+        idSource: idSource,
       },
+      include: { type: true, category: true, source: true },
+      omit: { idCategory: true, idType: true, idSource: true },
     });
 
     res.status(201).json({
@@ -132,29 +164,31 @@ class CategoryController {
       return;
     }
 
-    const channelName = body.name ? body.name.trim() : null;
-    const channelDescription = body.description
-      ? body.description.trim()
-      : null;
-    const channelThumbUrl = body.thumbUrl ? body.thumbUrl.trim() : null;
-    const channelUrl = body.url ? body.url.trim() : null;
-    const channelNumber = body.number;
-    const channelType = body.idType;
-    const channelCategory = body.idCategory;
+    const name = body.name ? body.name.trim() : null;
+    const description = body.description ? body.description.trim() : null;
+    const thumbUrl = body.thumbUrl ? body.thumbUrl.trim() : null;
+    const url = body.url ? body.url.trim() : null;
+    const number = body.number;
+    const idType = body.idType;
+    const idCategory = body.idCategory;
+    const idSource = body.idSource;
 
     const data = {
-      ...(channelName && { name: channelName }),
-      ...(channelDescription && { description: channelDescription }),
-      ...(channelThumbUrl && { thumbUrl: channelThumbUrl }),
-      ...(channelUrl && { url: channelUrl }),
-      ...(channelNumber !== undefined && { number: channelNumber }),
-      ...(channelType !== undefined && { idType: channelType }),
-      ...(channelCategory !== undefined && { idCategory: channelCategory }),
+      ...(name && { name: name }),
+      ...(description && { description: description }),
+      ...(thumbUrl && { thumbUrl: thumbUrl }),
+      ...(url && { url: url }),
+      ...(number !== undefined && { number: number }),
+      ...(idType !== undefined && { idType: idType }),
+      ...(idCategory !== undefined && { idCategory: idCategory }),
+      ...(idSource !== undefined && { idSource: idSource }),
     };
 
     const channelUpdated = await prisma.channel.update({
       where: { id: Number(idChannel) },
       data: data,
+      include: { type: true, category: true, source: true },
+      omit: { idCategory: true, idType: true, idSource: true },
     });
 
     res.status(200).json({
@@ -190,6 +224,8 @@ class CategoryController {
 
     const channelDeleted = await prisma.channel.delete({
       where: { id: Number(idChannel) },
+      include: { type: true, category: true, source: true },
+      omit: { idCategory: true, idType: true, idSource: true },
     });
 
     res.status(200).json({

@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 
-import { responseSuccess, responseNotFound, responseAlreadyExists, responseNotValid } from "@app/constants/Response.constants";
+import {
+  responseSuccess,
+  responseNotFound,
+  responseAlreadyExists,
+  responseNotValid,
+} from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
 class TypeController {
@@ -18,9 +23,10 @@ class TypeController {
   async addType(req: Request, res: Response) {
     const body = req.body;
 
-    const typeName = body.name ? body.name.trim() : null;
+    const code = body.code ? body.code.trim() : null;
+    const description = body.description ? body.description.trim() : null;
 
-    if (!typeName) {
+    if (!code || !description) {
       res.status(400).json({
         code: responseNotValid.fields.code,
         message: responseNotValid.fields.message,
@@ -29,7 +35,7 @@ class TypeController {
     }
 
     const typeExists = await prisma.type.findUnique({
-      where: { name: typeName },
+      where: { code: code },
     });
 
     if (typeExists) {
@@ -40,7 +46,9 @@ class TypeController {
       return;
     }
 
-    const type = await prisma.type.create({ data: { name: typeName } });
+    const type = await prisma.type.create({
+      data: { code: code, description: description },
+    });
 
     res.status(201).json({
       code: responseSuccess.addType.code,

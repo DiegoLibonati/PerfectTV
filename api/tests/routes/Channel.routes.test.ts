@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import { Category, Type } from "@app/entities/models";
+import { Category, Source, Type } from "@app/entities/models";
 
 import app from "@app/index";
 import {
@@ -12,10 +12,12 @@ import {
 import prisma from "@app/database/Prisma.database";
 
 describe("Channel.routes.ts", () => {
-  let types: Pick<Type, "id" | "name">[];
-  let categories: Pick<Category, "id" | "name">[];
+  let types: Pick<Type, "id" | "code" | "description">[];
+  let categories: Pick<Category, "id" | "code" | "description">[];
+  let sources: Pick<Source, "id" | "code" | "description">[];
   let channelType: number;
   let channelCategory: number;
+  let channelSource: number;
 
   const name = "test";
   const description = "test description";
@@ -27,18 +29,21 @@ describe("Channel.routes.ts", () => {
 
   const notExistsChannelType = 123123;
   const notExistsChannelCategory = 1233232;
+  const notExistsChannelSource = 1233232;
 
   const newUrl = "https://youtube.com.ar/test.liveStream";
 
   beforeAll(async () => {
     types = await prisma.type.findMany();
     categories = await prisma.category.findMany();
+    sources = await prisma.source.findMany();
 
-    if (types.length === 0 || categories.length === 0)
+    if (!types.length || !categories.length || !sources.length)
       throw "Add types and categories firts.";
 
     channelType = types[0].id;
     channelCategory = categories[0].id;
+    channelSource = sources[0].id;
   });
 
   describe("POST Add Channel", () => {
@@ -64,6 +69,7 @@ describe("Channel.routes.ts", () => {
         number: number,
         idType: notExistsChannelType,
         idCategory: channelCategory,
+        idSource: channelSource,
       });
 
       const data = res.body;
@@ -85,6 +91,7 @@ describe("Channel.routes.ts", () => {
         number: number,
         idType: channelType,
         idCategory: notExistsChannelCategory,
+        idSource: channelSource,
       });
 
       const data = res.body;
@@ -97,6 +104,28 @@ describe("Channel.routes.ts", () => {
       });
     });
 
+    test("It should show that a channel source with the entered id was not found.", async () => {
+      const res = await request(app).post(`${prefix}/add`).send({
+        name: name,
+        description: description,
+        thumbUrl: thumbUrl,
+        url: url,
+        number: number,
+        idType: channelType,
+        idCategory: channelCategory,
+        idSource: notExistsChannelSource,
+      });
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(404);
+      expect(data).toEqual({
+        code: responseNotFound.source.code,
+        message: responseNotFound.source.message,
+      });
+    });
+
     test("It must add a new channel.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
         name: name,
@@ -106,6 +135,7 @@ describe("Channel.routes.ts", () => {
         number: number,
         idType: channelType,
         idCategory: channelCategory,
+        idSource: channelSource,
       });
 
       const data = res.body;
@@ -122,8 +152,21 @@ describe("Channel.routes.ts", () => {
           thumbUrl: thumbUrl,
           url: url,
           number: number,
-          idType: channelType,
-          idCategory: channelCategory,
+          type: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          category: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          source: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
         },
       });
     });
@@ -137,6 +180,7 @@ describe("Channel.routes.ts", () => {
         number: number,
         idType: channelType,
         idCategory: channelCategory,
+        idSource: channelSource,
       });
 
       const data = res.body;
@@ -162,22 +206,29 @@ describe("Channel.routes.ts", () => {
         code: responseSuccess.getChannels.code,
         message: responseSuccess.getChannels.message,
         data: expect.arrayContaining([
-          expect.objectContaining({
+          {
             id: expect.any(Number),
             name: expect.any(String),
             description: expect.any(String),
             thumbUrl: expect.any(String),
             url: expect.any(String),
             number: expect.any(Number),
-            type: expect.objectContaining({
+            type: {
               id: expect.any(Number),
-              name: expect.any(String),
-            }),
-            category:expect.objectContaining({
+              code: expect.any(String),
+              description: expect.any(String),
+            },
+            category: {
               id: expect.any(Number),
-              name: expect.any(String),
-            }),
-          }),
+              code: expect.any(String),
+              description: expect.any(String),
+            },
+            source: {
+              id: expect.any(Number),
+              code: expect.any(String),
+              description: expect.any(String),
+            },
+          },
         ]),
       });
     });
@@ -223,8 +274,21 @@ describe("Channel.routes.ts", () => {
           thumbUrl: thumbUrl,
           url: newUrl,
           number: number,
-          idType: channelType,
-          idCategory: channelCategory,
+          type: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          category: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          source: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
         },
       });
     });
@@ -270,8 +334,21 @@ describe("Channel.routes.ts", () => {
           thumbUrl: thumbUrl,
           url: newUrl,
           number: number,
-          idType: channelType,
-          idCategory: channelCategory,
+          type: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          category: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          source: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
         },
       });
     });

@@ -1,8 +1,9 @@
 import { Type } from "@app/entities/models";
 
-export const typesConstants: Pick<Type, "name">[] = [
+export const typesConstants: Pick<Type, "code" | "description">[] = [
   {
-    name: "public",
+    code: "public",
+    description: "Canales de Televisión Públicos",
   },
-  { name: "private" },
+  { code: "private", description: "Canales de Televisión Privados" },
 ];

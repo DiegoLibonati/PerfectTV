@@ -1,7 +1,8 @@
 import { Category } from "@app/entities/models";
 
-export const categoriesConstants: Pick<Category, "name">[] = [
+export const categoriesConstants: Pick<Category, "code" | "description">[] = [
   {
-    name: "Noticias",
+    code: "news",
+    description: "Canales de Televisión de Noticias"
   },
 ];

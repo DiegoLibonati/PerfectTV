@@ -9,12 +9,12 @@ import {
 } from "@app/constants/Response.constants";
 import prisma from "@app/database/Prisma.database";
 
-describe("Category.routes.ts", () => {
+describe("Source.routes.ts", () => {
   const code = "test";
   const description = "description test";
-  const prefix = "/category/v1/categories";
+  const prefix = "/source/v1/sources";
 
-  describe("POST Add Category", () => {
+  describe("POST Add Source", () => {
     test("It should return that no valid fields were entered.", async () => {
       const res = await request(app)
         .post(`${prefix}/add`)
@@ -30,7 +30,7 @@ describe("Category.routes.ts", () => {
       });
     });
 
-    test("It must add a new category.", async () => {
+    test("It must add a new source.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
         code: code,
         description: description,
@@ -41,8 +41,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(201);
       expect(data).toEqual({
-        code: responseSuccess.addCategory.code,
-        message: responseSuccess.addCategory.message,
+        code: responseSuccess.addSource.code,
+        message: responseSuccess.addSource.message,
         data: {
           id: expect.any(Number),
           code: code,
@@ -51,7 +51,7 @@ describe("Category.routes.ts", () => {
       });
     });
 
-    test("It should show that the category to be added already exists.", async () => {
+    test("It should show that the source to be added already exists.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
         code: code,
         description: description,
@@ -62,14 +62,14 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseAlreadyExists.category.code,
-        message: responseAlreadyExists.category.message,
+        code: responseAlreadyExists.source.code,
+        message: responseAlreadyExists.source.message,
       });
     });
   });
 
-  describe("GET Categories", () => {
-    test("It must return the result success of the categories", async () => {
+  describe("GET Sources", () => {
+    test("It must return the result success of the sources", async () => {
       const res = await request(app).get(`${prefix}/`);
 
       const data = res.body;
@@ -77,8 +77,8 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseSuccess.getCategories.code,
-        message: responseSuccess.getCategories.message,
+        code: responseSuccess.getSources.code,
+        message: responseSuccess.getSources.message,
         data: expect.arrayContaining([
           {
             id: expect.any(Number),
@@ -90,12 +90,12 @@ describe("Category.routes.ts", () => {
     });
   });
 
-  describe("DELETE Delete Category", () => {
-    const categoryNotExistsId = "100";
+  describe("DELETE Delete Source", () => {
+    const sourceNotExistsId = "100";
 
-    test("It should return that there is no category with the entered id.", async () => {
+    test("It should return that there is no source with the entered id.", async () => {
       const res = await request(app).delete(
-        `${prefix}/delete/${categoryNotExistsId}`
+        `${prefix}/delete/${sourceNotExistsId}`
       );
 
       const data = res.body;
@@ -103,28 +103,24 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(404);
       expect(data).toEqual({
-        code: responseNotFound.category.code,
-        message: responseNotFound.category.message,
+        code: responseNotFound.source.code,
+        message: responseNotFound.source.message,
       });
     });
 
-    test("It must delete the category entered by test.", async () => {
-      const categories = await prisma.category.findMany();
-      const categoryTest = categories.find(
-        (category) => category.code === code
-      );
+    test("It must delete the source entered by test.", async () => {
+      const sources = await prisma.source.findMany();
+      const sourceTest = sources.find((source) => source.code === code);
 
-      const res = await request(app).delete(
-        `${prefix}/delete/${categoryTest?.id}`
-      );
+      const res = await request(app).delete(`${prefix}/delete/${sourceTest?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseSuccess.deleteCategory.code,
-        message: responseSuccess.deleteCategory.message,
+        code: responseSuccess.deleteSource.code,
+        message: responseSuccess.deleteSource.message,
         data: {
           id: expect.any(Number),
           code: code,

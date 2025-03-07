@@ -3,12 +3,14 @@ import { config } from "@app/config/env.conf";
 import prisma from "@app/database/Prisma.database";
 import { typesConstants } from "./constants/Types.constants";
 import { categoriesConstants } from "./constants/Categories.constants";
+import { sourcesConstants } from "./constants/Sources.constants";
 import "@app/routes/init";
 
-const { PORT, HOT_RELOAD } = config;
+const { PORT, HOT_RELOAD, PUPPETEER_EXECUTABLE_PATH } = config;
 
 const onInit = () => {
   console.log(`Server running on  ${PORT} ✅`);
+  console.log(`Navigator URL: ${PUPPETEER_EXECUTABLE_PATH}.`);
   console.log(`Documentation in /doc/v1/docs`);
 
   if (HOT_RELOAD === "true")
@@ -35,14 +37,16 @@ const fillDatabase = async () => {
 
   const types = await prisma.type.findMany();
   const categories = await prisma.category.findMany();
+  const sources = await prisma.source.findMany();
 
-  if (types.length || categories.length) {
+  if (types.length || categories.length || sources.length) {
     console.log("Content already exists in the database ✅");
     return;
   }
 
   await prisma.type.createMany({ data: typesConstants });
   await prisma.category.createMany({ data: categoriesConstants });
+  await prisma.source.createMany({ data: sourcesConstants });
 
   console.log("Initial content was successfully added to the database ✅");
 };
