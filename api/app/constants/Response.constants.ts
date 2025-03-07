@@ -41,6 +41,10 @@ export const responseSuccess: ResponseConstants = {
     code: "DELETE_CHANNEL_SUCCESSFULLY",
     message: "A channel was successfully deleted.",
   },
+  updateChannel: {
+    code: "UPDATE_CHANNEL_SUCCESSFULLY",
+    message: "A channel was successfully updated.",
+  },
 };
 
 export const responseNotFound: ResponseConstants = {

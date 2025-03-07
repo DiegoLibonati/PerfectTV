@@ -108,6 +108,63 @@ class CategoryController {
     return;
   }
 
+  async updateChannel(req: Request, res: Response) {
+    const idChannel = req.params.idChannel;
+    const body = req.body;
+
+    if (!idChannel) {
+      res.status(400).json({
+        code: responseNotValid.params.code,
+        message: responseNotValid.params.message,
+      });
+      return;
+    }
+
+    const channelExists = await prisma.channel.findUnique({
+      where: { id: Number(idChannel) },
+    });
+
+    if (!channelExists) {
+      res.status(404).json({
+        code: responseNotFound.channel.code,
+        message: responseNotFound.channel.message,
+      });
+      return;
+    }
+
+    const channelName = body.name ? body.name.trim() : null;
+    const channelDescription = body.description
+      ? body.description.trim()
+      : null;
+    const channelThumbUrl = body.thumbUrl ? body.thumbUrl.trim() : null;
+    const channelUrl = body.url ? body.url.trim() : null;
+    const channelNumber = body.number;
+    const channelType = body.idType;
+    const channelCategory = body.idCategory;
+
+    const data = {
+      ...(channelName && { name: channelName }),
+      ...(channelDescription && { description: channelDescription }),
+      ...(channelThumbUrl && { thumbUrl: channelThumbUrl }),
+      ...(channelUrl && { url: channelUrl }),
+      ...(channelNumber !== undefined && { number: channelNumber }),
+      ...(channelType !== undefined && { idType: channelType }),
+      ...(channelCategory !== undefined && { idCategory: channelCategory }),
+    };
+
+    const channelUpdated = await prisma.channel.update({
+      where: { id: Number(idChannel) },
+      data: data,
+    });
+
+    res.status(200).json({
+      code: responseSuccess.updateChannel.code,
+      message: responseSuccess.updateChannel.message,
+      data: channelUpdated,
+    });
+    return;
+  }
+
   async deleteChannel(req: Request, res: Response) {
     const idChannel = req.params.idChannel;
 

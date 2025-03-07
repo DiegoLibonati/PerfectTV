@@ -28,6 +28,8 @@ describe("Channel.routes.ts", () => {
   const notExistsChannelType = 123123;
   const notExistsChannelCategory = 1233232;
 
+  const newUrl = "https://youtube.com.ar/test.liveStream";
+
   beforeAll(async () => {
     types = await prisma.type.findMany();
     categories = await prisma.category.findMany();
@@ -167,10 +169,63 @@ describe("Channel.routes.ts", () => {
             thumbUrl: expect.any(String),
             url: expect.any(String),
             number: expect.any(Number),
-            idType: expect.any(Number),
-            idCategory: expect.any(Number),
+            type: expect.objectContaining({
+              id: expect.any(Number),
+              name: expect.any(String),
+            }),
+            category:expect.objectContaining({
+              id: expect.any(Number),
+              name: expect.any(String),
+            }),
           }),
         ]),
+      });
+    });
+  });
+
+  describe("PATCH Update Channel", () => {
+    const channelNotExistsId = "100";
+
+    test("It should return that there is no channel with the entered id.", async () => {
+      const res = await request(app).patch(
+        `${prefix}/update/${channelNotExistsId}`
+      );
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(404);
+      expect(data).toEqual({
+        code: responseNotFound.channel.code,
+        message: responseNotFound.channel.message,
+      });
+    });
+
+    test("It must make an update of a channel with the properties entered.", async () => {
+      const channels = await prisma.channel.findMany();
+      const channelTest = channels.find((category) => category.name === name);
+
+      const res = await request(app)
+        .patch(`${prefix}/update/${channelTest?.id}`)
+        .send({ url: newUrl });
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(200);
+      expect(data).toEqual({
+        code: responseSuccess.updateChannel.code,
+        message: responseSuccess.updateChannel.message,
+        data: {
+          id: expect.any(Number),
+          name: name,
+          description: description,
+          thumbUrl: thumbUrl,
+          url: newUrl,
+          number: number,
+          idType: channelType,
+          idCategory: channelCategory,
+        },
       });
     });
   });
@@ -213,7 +268,7 @@ describe("Channel.routes.ts", () => {
           name: name,
           description: description,
           thumbUrl: thumbUrl,
-          url: url,
+          url: newUrl,
           number: number,
           idType: channelType,
           idCategory: channelCategory,
