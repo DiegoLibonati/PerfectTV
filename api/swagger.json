@@ -14,15 +14,18 @@
     "paths": {
         "/app/v1/alive": {
             "get": {
-                "summary": "Prueba de conexión",
+                "summary": "Connection test",
+                "tags": [
+                    "App"
+                ],
                 "responses": {
                     "200": {
-                        "description": "Respuesta exitosa",
+                        "description": "Successful response",
                         "content": {
                             "application/json": {
                                 "examples": {
                                     "Simple Response": {
-                                        "summary": "Respuesta estándar",
+                                        "summary": "Standard response",
                                         "value": {
                                             "code": "GET_ALIVE_SUJCCESSFULLY",
                                             "message": "API Working.",
@@ -33,9 +36,1118 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/doc/v1/docs": {
+            "get": {
+                "summary": "View Redoc documentation",
+                "tags": [
+                    "Docs"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/doc/v1/docs/swagger.json": {
+            "get": {
+                "summary": "JSON content of the documentation.",
+                "tags": [
+                    "Docs"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/category/v1/categories/": {
+            "get": {
+                "summary": "Obtains the totality of the categories.",
+                "tags": [
+                    "Category"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_CATEGORIES_SUCCESSFULLY",
+                                            "message": "The categories were successfully obtained.",
+                                            "data": [
+                                                {
+                                                    "id": 1,
+                                                    "code": "news",
+                                                    "description": "Canales de Televisión de Noticias"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/category/v1/categories/add": {
+            "post": {
+                "summary": "Add a new category.",
+                "tags": [
+                    "Category"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "News"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Channel News"
+                                    }
+                                },
+                                "required": [
+                                    "code",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "POST_ADD_CATEGORY_SUCCESSFULLY",
+                                            "message": "A new category was successfully added.",
+                                            "data": {
+                                                "id": 22,
+                                                "code": "Noticias2",
+                                                "description": "News"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Fields": {
+                                        "summary": "Invalid Fields",
+                                        "value": {
+                                            "code": "NOT_VALID_FIELDS",
+                                            "message": "You must enter valid fields."
+                                        }
+                                    },
+                                    "Category Exists": {
+                                        "summary": "Category Exists",
+                                        "value": {
+                                            "code": "ALREADY_EXISTS_CATEGORY",
+                                            "message": "This category already exists."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/category/v1/categories/delete/{idCategory}": {
+            "delete": {
+                "summary": "Delete a category by ID",
+                "tags": [
+                    "Category"
+                ],
+                "parameters": [
+                    {
+                        "name": "idCategory",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the category to delete",
+                        "schema": {
+                            "type": "integer",
+                            "example": 22
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "DELETE_CATEGORY_SUCCESSFULLY",
+                                            "message": "A category was successfully deleted.",
+                                            "data": {
+                                                "id": 22,
+                                                "code": "Noticias2",
+                                                "description": "News"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS",
+                                            "message": "You must enter valid params."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Errors not found.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found category": {
+                                        "summary": "Not found category.",
+                                        "value": {
+                                            "code": "NOT_FOUND_CATEGORY",
+                                            "message": "The requested category was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/type/v1/types/": {
+            "get": {
+                "summary": "Obtains the totality of the types.",
+                "tags": [
+                    "Type"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_TYPES_SUCCESSFULLY",
+                                            "message": "The types were successfully obtained.",
+                                            "data": [
+                                                {
+                                                    "id": 1,
+                                                    "code": "public",
+                                                    "description": "Public channels."
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/type/v1/types/add": {
+            "post": {
+                "summary": "Add a new type.",
+                "tags": [
+                    "Type"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "public"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "public channel"
+                                    }
+                                },
+                                "required": [
+                                    "code",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "POST_ADD_TYPE_SUCCESSFULLY",
+                                            "message": "A new type was successfully added.",
+                                            "data": {
+                                                "id": 1,
+                                                "code": "public",
+                                                "description": "Public channels."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Fields": {
+                                        "summary": "Invalid Fields",
+                                        "value": {
+                                            "code": "NOT_VALID_FIELDS",
+                                            "message": "You must enter valid fields."
+                                        }
+                                    },
+                                    "Type Exists": {
+                                        "summary": "Type Exists",
+                                        "value": {
+                                            "code": "ALREADY_EXISTS_TYPE",
+                                            "message": "This type already exists."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/type/v1/types/delete/{idType}": {
+            "delete": {
+                "summary": "Delete a type by ID",
+                "tags": [
+                    "Type"
+                ],
+                "parameters": [
+                    {
+                        "name": "idType",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the type to delete",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "DELETE_TYPE_SUCCESSFULLY",
+                                            "message": "A type was successfully deleted.",
+                                            "data": {
+                                                "id": 1,
+                                                "code": "public",
+                                                "description": "Channel public"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS",
+                                            "message": "You must enter valid params."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Errors not found.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found type": {
+                                        "summary": "Not found type.",
+                                        "value": {
+                                            "code": "NOT_FOUND_TYPE",
+                                            "message": "The requested type was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/source/v1/sources/": {
+            "get": {
+                "summary": "Obtains the totality of the sources.",
+                "tags": [
+                    "Source"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_SOURCES_SUCCESSFULLY",
+                                            "message": "The sources were successfully obtained.",
+                                            "data": [
+                                                {
+                                                    "id": 1,
+                                                    "code": "youtube",
+                                                    "description": "Canales de Televisión de YouTube"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "code": "twitch",
+                                                    "description": "Canales de Televisión de Twitch"
+                                                },
+                                                {
+                                                    "id": 3,
+                                                    "code": "ftv",
+                                                    "description": "Canales de Televisión de FTV"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/source/v1/sources/add": {
+            "post": {
+                "summary": "Add a new source.",
+                "tags": [
+                    "Source"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "youtube"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "YouTube Channels"
+                                    }
+                                },
+                                "required": [
+                                    "code",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "code": "POST_ADD_SOURCE_SUCCESSFULLY",
+                                        "message": "A new source was successfully added.",
+                                        "data": {
+                                            "id": 5,
+                                            "code": "youtube2",
+                                            "description": "a"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Fields": {
+                                        "summary": "Invalid Fields",
+                                        "value": {
+                                            "code": "NOT_VALID_FIELDS",
+                                            "message": "You must enter valid fields."
+                                        }
+                                    },
+                                    "Source Exists": {
+                                        "summary": "Source Exists",
+                                        "value": {
+                                            "code": "ALREADY_EXISTS_SOURCE",
+                                            "message": "This source already exists."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/source/v1/sources/delete/{idSource}": {
+            "delete": {
+                "summary": "Delete a source by ID",
+                "tags": [
+                    "Source"
+                ],
+                "parameters": [
+                    {
+                        "name": "idSource",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the source to delete",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "DELETE_SOURCE_SUCCESSFULLY",
+                                            "message": "A source was successfully deleted.",
+                                            "data": {
+                                                "id": 5,
+                                                "code": "youtube2",
+                                                "description": "a"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS",
+                                            "message": "You must enter valid params."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Errors not found.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found source": {
+                                        "summary": "Not found Source.",
+                                        "value": {
+                                            "code": "NOT_FOUND_SOURCE",
+                                            "message": "The requested source was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/channel/v1/channels/": {
+            "get": {
+                "summary": "Obtains the totality of the channels.",
+                "tags": [
+                    "Channel"
+                ],
+                "parameters": [
+                    {
+                        "name": "reload",
+                        "in": "query",
+                        "description": "Key to know if URLS need to be reloaded again.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_CHANNELS_SUCCESSFULLY",
+                                            "message": "The channels were successfully obtained.",
+                                            "data": [
+                                                {
+                                                    "id": 2,
+                                                    "name": "TN",
+                                                    "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
+                                                    "thumbUrl": "https://url.com/img/tn.png",
+                                                    "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
+                                                    "number": 3,
+                                                    "type": {
+                                                        "id": 1,
+                                                        "code": "public",
+                                                        "description": "Canales de Televisión Públicos"
+                                                    },
+                                                    "category": {
+                                                        "id": 1,
+                                                        "code": "news",
+                                                        "description": "Canales de Televisión de Noticias"
+                                                    },
+                                                    "source": {
+                                                        "id": 1,
+                                                        "code": "youtube",
+                                                        "description": "Canales de Televisión de YouTube"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/channel/v1/channels/add": {
+            "post": {
+                "summary": "Add a new channel.",
+                "tags": [
+                    "Channel"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "TN"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino."
+                                    },
+                                    "thumbUrl": {
+                                        "type": "string",
+                                        "example": "https://url.com/img/tn.png"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "example": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1"
+                                    },
+                                    "number": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "idType": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "idCategory": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "idSource": {
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "thumbUrl",
+                                    "url",
+                                    "number",
+                                    "idType",
+                                    "idCategory",
+                                    "idSource"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "POST_ADD_CHANNEL_SUCCESSFULLY",
+                                            "message": "A new channel was successfully added.",
+                                            "data": {
+                                                "id": 18,
+                                                "name": "TN2",
+                                                "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
+                                                "thumbUrl": "https://television-libre.net/img/tn.png",
+                                                "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
+                                                "number": 33,
+                                                "type": {
+                                                    "id": 1,
+                                                    "code": "public",
+                                                    "description": "Canales de Televisión Públicos"
+                                                },
+                                                "category": {
+                                                    "id": 1,
+                                                    "code": "news",
+                                                    "description": "Canales de Televisión de Noticias"
+                                                },
+                                                "source": {
+                                                    "id": 3,
+                                                    "code": "ftv",
+                                                    "description": "Canales de Televisión de FTV"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Fields": {
+                                        "summary": "Invalid Fields",
+                                        "value": {
+                                            "code": "NOT_VALID_FIELDS",
+                                            "message": "You must enter valid fields."
+                                        }
+                                    },
+                                    "Channel Exists": {
+                                        "summary": "Channel Exists",
+                                        "value": {
+                                            "code": "ALREADY_EXISTS_CHANNEL",
+                                            "message": "This channel already exists."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found type": {
+                                        "summary": "Not found type",
+                                        "value": {
+                                            "code": "NOT_FOUND_TYPE",
+                                            "message": "The requested type was not found."
+                                        }
+                                    },
+                                    "Not found category": {
+                                        "summary": "Not found category",
+                                        "value": {
+                                            "code": "NOT_FOUND_CATEGORY",
+                                            "message": "The requested category was not found."
+                                        }
+                                    },
+                                    "Not found source": {
+                                        "summary": "Not found source",
+                                        "value": {
+                                            "code": "NOT_FOUND_SOURCE",
+                                            "message": "The requested source was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/channel/v1/channels/update/{idChannel}": {
+            "patch": {
+                "summary": "Update a channel by ID",
+                "tags": [
+                    "Channel"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "TN"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino."
+                                    },
+                                    "thumbUrl": {
+                                        "type": "string",
+                                        "example": "https://url.com/img/tn.png"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "example": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1"
+                                    },
+                                    "number": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "idType": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "idCategory": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "idSource": {
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idChannel",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the channel to update",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "UPDATE_CHANNEL_SUCCESSFULLY",
+                                            "message": "A channel was successfully updated.",
+                                            "data": {
+                                                "id": 18,
+                                                "name": "TN2",
+                                                "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
+                                                "thumbUrl": "https://television-libre.net/img/tn.png",
+                                                "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
+                                                "number": 33,
+                                                "type": {
+                                                    "id": 1,
+                                                    "code": "public",
+                                                    "description": "Canales de Televisión Públicos"
+                                                },
+                                                "category": {
+                                                    "id": 1,
+                                                    "code": "news",
+                                                    "description": "Canales de Televisión de Noticias"
+                                                },
+                                                "source": {
+                                                    "id": 1,
+                                                    "code": "youtube",
+                                                    "description": "Canales de Televisión de YouTube"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS",
+                                            "message": "You must enter valid params."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Errors not found.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found channel": {
+                                        "summary": "Not found channel.",
+                                        "value": {
+                                            "code": "NOT_FOUND_CHANNEL",
+                                            "message": "The requested channel was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/channel/v1/channels/delete/{idChannel}": {
+            "delete": {
+                "summary": "Delete a channel by ID",
+                "tags": [
+                    "Channel"
+                ],
+                "parameters": [
+                    {
+                        "name": "idChannel",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the channel to delete",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "DELETE_CHANNEL_SUCCESSFULLY",
+                                            "message": "A channel was successfully deleted.",
+                                            "data": {
+                                                "id": 18,
+                                                "name": "TN2",
+                                                "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
+                                                "thumbUrl": "https://television-libre.net/img/tn.png",
+                                                "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
+                                                "number": 33,
+                                                "type": {
+                                                    "id": 1,
+                                                    "code": "public",
+                                                    "description": "Canales de Televisión Públicos"
+                                                },
+                                                "category": {
+                                                    "id": 1,
+                                                    "code": "news",
+                                                    "description": "Canales de Televisión de Noticias"
+                                                },
+                                                "source": {
+                                                    "id": 1,
+                                                    "code": "youtube",
+                                                    "description": "Canales de Televisión de YouTube"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS",
+                                            "message": "You must enter valid params."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Errors not found.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found channel": {
+                                        "summary": "Not found channel.",
+                                        "value": {
+                                            "code": "NOT_FOUND_CHANNEL",
+                                            "message": "The requested channel was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Introduction",
+            "description": "This application allows you to create, edit, delete and obtain channels for rendering in an application. Each channel obtained has a link to preview it in the front end of the application. It should be noted that this APP does not store the source content of the channels. It only stores in the database a URL of external servers, these external servers do not belong to this APP."
+        },
+        {
+            "name": "App",
+            "description": "These are the general endpoints of the APP. Here you can find endpoints without any category."
+        },
+        {
+            "name": "Docs",
+            "description": "These are the endpoints of the documentation. This documentation is the one that is being previewed right now, it should be noted that the returns of the answers are not specified in this category or section."
+        },
+        {
+            "name": "Category",
+            "description": "These are the endpoints of the categories. It should be noted that the categories are how the APP channels are grouped."
+        },
+        {
+            "name": "Type",
+            "description": "These are the endpoints of the types. It is worth mentioning that a type represents the main characteristic of the channel. For example if it is public or private."
+        },
+        {
+            "name": "Source",
+            "description": "These are the endpoints of the APP sources. It should be noted that each channel has a source from which its link is taken. For example youtube or twitch."
+        },
+        {
+            "name": "Channmel",
+            "description": "These are the APP Channels endpoints. These channels are the ones that will be used to render in the FrontEnd."
+        }
+    ],
+    "x-tagGroups": [
+        {
+            "name": "Overview",
+            "tags": [
+                "Introduction"
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "tags": [
+                "App",
+                "Docs",
+                "Category",
+                "Type",
+                "Source",
+                "Channel"
+            ]
+        }
+    ]
 }

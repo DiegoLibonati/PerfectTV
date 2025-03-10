@@ -22,6 +22,7 @@ class CategoryController {
     );
 
     if (!reload && !invalidUrlChannelExists) {
+      console.log("Devuelo los canales de una.");
       res.status(200).json({
         code: responseSuccess.getChannels.code,
         message: responseSuccess.getChannels.message,
@@ -29,6 +30,8 @@ class CategoryController {
       });
       return;
     }
+
+    console.log("RELOAD FORCE Canales.");
 
     // TODO: Si el param: reload. Se busca de nuevo URLS
 
@@ -70,7 +73,7 @@ class CategoryController {
     }
 
     const channelExists = await prisma.channel.findUnique({
-      where: { name: name, number: number },
+      where: { name: name, number: number, url: url },
     });
 
     if (channelExists) {

@@ -8,6 +8,7 @@ services:
       - ./api/.env
     volumes:
       - ./api/app:/home/app/app
+      - ./api/swagger.json:/home/app/swagger.json
     ports:
       - 5000:5000
     depends_on:
