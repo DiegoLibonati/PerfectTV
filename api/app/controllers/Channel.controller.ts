@@ -42,7 +42,7 @@ class CategoryController {
 
     const ftvChannelExists = sourceCodeChecker(channels, CODE_FTV);
 
-    if (ftvChannelExists) {
+    if (ftvChannelExists && !config.TEST_ENVIRONMENT) {
       const srcUrl = await getSrcByIframe(config.FTV_URL!);
 
       const baseUrl = srcUrl.split("?")[0];

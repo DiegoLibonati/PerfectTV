@@ -4,6 +4,7 @@ import path from "path";
 module.exports = async () => {
   process.env.DATABASE_URL =
     "postgresql://root:admin@host.docker.internal:5432/perfecttvdb?schema=public";
+  process.env.TEST_ENVIRONMENT = "true";
 
   console.log("Starting db container...");
   try {
