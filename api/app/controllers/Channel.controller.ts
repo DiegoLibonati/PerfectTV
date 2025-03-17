@@ -1,25 +1,34 @@
 import { Request, Response } from "express";
 
+import { Channel } from "@app/entities/models";
+
 import {
   responseSuccess,
   responseNotFound,
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import { config } from "@app/config/env.conf";
+import { CODE_FTV } from "@app/constants/Sources.constants";
+import { invalidUrlChecker } from "@app/utils/invalidUrlChecker.util";
+import { sourceCodeChecker } from "@app/utils/sourceCodeChecker.util";
+import { getSrcByIframe } from "@app/utils/getSrcByIframe.util";
+import { setChannelUrlBySourceCode } from "@app/utils/setChannelUrlBySourceCode.util";
+import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
+import typeRepository from "@app/models/dataAccess/TypeRepository.model";
+import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
+import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 class CategoryController {
   async getChannels(req: Request, res: Response) {
+    let channels: Channel[];
+
     const reload = req.query.reload;
 
-    const channels = await prisma.channel.findMany({
-      include: { type: true, category: true, source: true },
-      omit: { idCategory: true, idType: true, idSource: true },
-    });
+    channels = await channelRepository.getChannels();
 
-    const invalidUrlChannelExists = channels.some(
-      (channel) => !channel.url.includes("https")
-    );
+    // TODO: Esto iniciarlo con la APP ?????
+    const invalidUrlChannelExists = invalidUrlChecker(channels);
 
     if (!reload && !invalidUrlChannelExists) {
       console.log("Devuelo los canales de una.");
@@ -31,9 +40,15 @@ class CategoryController {
       return;
     }
 
-    console.log("RELOAD FORCE Canales.");
+    const ftvChannelExists = sourceCodeChecker(channels, CODE_FTV);
 
-    // TODO: Si el param: reload. Se busca de nuevo URLS
+    if (ftvChannelExists) {
+      const srcUrl = await getSrcByIframe(config.FTV_URL!);
+
+      const baseUrl = srcUrl.split("?")[0];
+
+      channels = await setChannelUrlBySourceCode(channels, CODE_FTV, baseUrl);
+    }
 
     res.status(200).json({
       code: responseSuccess.getChannels.code,
@@ -72,9 +87,11 @@ class CategoryController {
       return;
     }
 
-    const channelExists = await prisma.channel.findUnique({
-      where: { name: name, number: number, url: url },
-    });
+    const channelExists = await channelRepository.getChannelByNameNumberUrl(
+      name,
+      number,
+      url
+    );
 
     if (channelExists) {
       res.status(400).json({
@@ -84,9 +101,7 @@ class CategoryController {
       return;
     }
 
-    const typeExists = await prisma.type.findUnique({
-      where: { id: Number(idType) },
-    });
+    const typeExists = await typeRepository.getTypeById(Number(idType));
 
     if (!typeExists) {
       res.status(404).json({
@@ -96,9 +111,9 @@ class CategoryController {
       return;
     }
 
-    const categoryExists = await prisma.category.findUnique({
-      where: { id: Number(idCategory) },
-    });
+    const categoryExists = await categoryRepository.getCategoryById(
+      Number(idCategory)
+    );
 
     if (!categoryExists) {
       res.status(404).json({
@@ -108,9 +123,7 @@ class CategoryController {
       return;
     }
 
-    const sourceExists = await prisma.source.findUnique({
-      where: { id: Number(idSource) },
-    });
+    const sourceExists = await sourceRepository.getSourceById(Number(idSource));
 
     if (!sourceExists) {
       res.status(404).json({
@@ -120,20 +133,16 @@ class CategoryController {
       return;
     }
 
-    const channel = await prisma.channel.create({
-      data: {
-        name: name,
-        description: description,
-        thumbUrl: thumbUrl,
-        url: url,
-        number: number,
-        idType: idType,
-        idCategory: idCategory,
-        idSource: idSource,
-      },
-      include: { type: true, category: true, source: true },
-      omit: { idCategory: true, idType: true, idSource: true },
-    });
+    const channel = await channelRepository.createChannel(
+      name,
+      description,
+      thumbUrl,
+      url,
+      number,
+      idType,
+      idCategory,
+      idSource
+    );
 
     res.status(201).json({
       code: responseSuccess.addChannel.code,
@@ -155,9 +164,9 @@ class CategoryController {
       return;
     }
 
-    const channelExists = await prisma.channel.findUnique({
-      where: { id: Number(idChannel) },
-    });
+    const channelExists = await channelRepository.getChannelById(
+      Number(idChannel)
+    );
 
     if (!channelExists) {
       res.status(404).json({
@@ -187,12 +196,10 @@ class CategoryController {
       ...(idSource !== undefined && { idSource: idSource }),
     };
 
-    const channelUpdated = await prisma.channel.update({
-      where: { id: Number(idChannel) },
-      data: data,
-      include: { type: true, category: true, source: true },
-      omit: { idCategory: true, idType: true, idSource: true },
-    });
+    const channelUpdated = await channelRepository.updateChannel(
+      Number(idChannel),
+      data
+    );
 
     res.status(200).json({
       code: responseSuccess.updateChannel.code,
@@ -213,9 +220,9 @@ class CategoryController {
       return;
     }
 
-    const channelExists = await prisma.channel.findUnique({
-      where: { id: Number(idChannel) },
-    });
+    const channelExists = await channelRepository.getChannelById(
+      Number(idChannel)
+    );
 
     if (!channelExists) {
       res.status(404).json({
@@ -225,11 +232,9 @@ class CategoryController {
       return;
     }
 
-    const channelDeleted = await prisma.channel.delete({
-      where: { id: Number(idChannel) },
-      include: { type: true, category: true, source: true },
-      omit: { idCategory: true, idType: true, idSource: true },
-    });
+    const channelDeleted = await channelRepository.deleteChannel(
+      Number(idChannel)
+    );
 
     res.status(200).json({
       code: responseSuccess.deleteChannel.code,

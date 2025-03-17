@@ -6,11 +6,11 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 class SourceController {
   async getSources(req: Request, res: Response) {
-    const sources = await prisma.source.findMany();
+    const sources = await sourceRepository.getSources();
 
     res.status(200).json({
       code: responseSuccess.getSources.code,
@@ -34,9 +34,7 @@ class SourceController {
       return;
     }
 
-    const sourceExists = await prisma.source.findUnique({
-      where: { code: code },
-    });
+    const sourceExists = await sourceRepository.getSourceByCode(code);
 
     if (sourceExists) {
       res.status(400).json({
@@ -46,9 +44,7 @@ class SourceController {
       return;
     }
 
-    const source = await prisma.source.create({
-      data: { code: code, description: description },
-    });
+    const source = await sourceRepository.createSource(code, description);
 
     res.status(201).json({
       code: responseSuccess.addSource.code,
@@ -69,9 +65,7 @@ class SourceController {
       return;
     }
 
-    const sourceExists = await prisma.source.findUnique({
-      where: { id: Number(idSource) },
-    });
+    const sourceExists = await sourceRepository.getSourceById(Number(idSource));
 
     if (!sourceExists) {
       res.status(404).json({
@@ -81,9 +75,7 @@ class SourceController {
       return;
     }
 
-    const sourceDeleted = await prisma.source.delete({
-      where: { id: Number(idSource) },
-    });
+    const sourceDeleted = await sourceRepository.deleteSource(Number(idSource));
 
     res.status(200).json({
       code: responseSuccess.deleteSource.code,

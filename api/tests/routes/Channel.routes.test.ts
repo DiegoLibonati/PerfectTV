@@ -9,7 +9,10 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
+import typeRepository from "@app/models/dataAccess/TypeRepository.model";
+import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
+import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Channel.routes.ts", () => {
   let types: Pick<Type, "id" | "code" | "description">[];
@@ -23,7 +26,7 @@ describe("Channel.routes.ts", () => {
   const description = "test description";
   const thumbUrl = "https://pepe.png";
   const url = "https://www.youtube.com.ar";
-  const number = 1000;
+  const number = 999992;
 
   const prefix = "/channel/v1/channels";
 
@@ -34,9 +37,9 @@ describe("Channel.routes.ts", () => {
   const newUrl = "https://youtube.com.ar/test.liveStream";
 
   beforeAll(async () => {
-    types = await prisma.type.findMany();
-    categories = await prisma.category.findMany();
-    sources = await prisma.source.findMany();
+    types = await typeRepository.getTypes();
+    categories = await categoryRepository.getCategories();
+    sources = await sourceRepository.getSources();
 
     if (!types.length || !categories.length || !sources.length)
       throw "Add types and categories firts.";
@@ -253,7 +256,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It must make an update of a channel with the properties entered.", async () => {
-      const channels = await prisma.channel.findMany();
+      const channels = await channelRepository.getChannels();
       const channelTest = channels.find((category) => category.name === name);
 
       const res = await request(app)
@@ -313,7 +316,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It must delete the channel entered by test.", async () => {
-      const channels = await prisma.channel.findMany();
+      const channels = await channelRepository.getChannels();
       const channelTest = channels.find((category) => category.name === name);
 
       const res = await request(app).delete(

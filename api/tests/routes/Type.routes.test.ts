@@ -7,7 +7,7 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 
 describe("Type.routes.ts", () => {
   const code = "test";
@@ -109,7 +109,7 @@ describe("Type.routes.ts", () => {
     });
 
     test("It must delete the type entered by test.", async () => {
-      const types = await prisma.type.findMany();
+      const types = await typeRepository.getTypes();
       const typeTest = types.find((type) => type.code === code);
 
       const res = await request(app).delete(`${prefix}/delete/${typeTest?.id}`);

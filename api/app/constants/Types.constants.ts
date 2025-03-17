@@ -1,9 +1,14 @@
 import { Type } from "@app/entities/models";
 
-export const typesConstants: Pick<Type, "code" | "description">[] = [
+export const CODE_PUBLIC = "public";
+export const CODE_PRIVATE = "private";
+
+const typesConstants: Pick<Type, "code" | "description">[] = [
   {
-    code: "public",
+    code: CODE_PUBLIC,
     description: "Canales de Televisión Públicos",
   },
-  { code: "private", description: "Canales de Televisión Privados" },
+  { code: CODE_PRIVATE, description: "Canales de Televisión Privados" },
 ];
+
+export default typesConstants;

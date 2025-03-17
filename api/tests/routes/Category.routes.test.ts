@@ -7,7 +7,7 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 
 describe("Category.routes.ts", () => {
   const code = "test";
@@ -109,7 +109,7 @@ describe("Category.routes.ts", () => {
     });
 
     test("It must delete the category entered by test.", async () => {
-      const categories = await prisma.category.findMany();
+      const categories = await categoryRepository.getCategories();
       const categoryTest = categories.find(
         (category) => category.code === code
       );

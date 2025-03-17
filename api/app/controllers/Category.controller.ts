@@ -6,11 +6,11 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 
 class CategoryController {
   async getCategories(req: Request, res: Response) {
-    const categories = await prisma.category.findMany();
+    const categories = await categoryRepository.getCategories();
 
     res.status(200).json({
       code: responseSuccess.getCategories.code,
@@ -34,9 +34,7 @@ class CategoryController {
       return;
     }
 
-    const categoryExists = await prisma.category.findUnique({
-      where: { code: code },
-    });
+    const categoryExists = await categoryRepository.getCategoryByCode(code);
 
     if (categoryExists) {
       res.status(400).json({
@@ -46,9 +44,7 @@ class CategoryController {
       return;
     }
 
-    const category = await prisma.category.create({
-      data: { code: code, description: description },
-    });
+    const category = await categoryRepository.createCategory(code, description);
 
     res.status(201).json({
       code: responseSuccess.addCategory.code,
@@ -69,9 +65,9 @@ class CategoryController {
       return;
     }
 
-    const categoryExists = await prisma.category.findUnique({
-      where: { id: Number(idCategory) },
-    });
+    const categoryExists = await categoryRepository.getCategoryById(
+      Number(idCategory)
+    );
 
     if (!categoryExists) {
       res.status(404).json({
@@ -81,9 +77,9 @@ class CategoryController {
       return;
     }
 
-    const categoryDeleted = await prisma.category.delete({
-      where: { id: Number(idCategory) },
-    });
+    const categoryDeleted = await categoryRepository.deleteCategory(
+      Number(idCategory)
+    );
 
     res.status(200).json({
       code: responseSuccess.deleteCategory.code,

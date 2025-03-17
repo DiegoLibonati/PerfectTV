@@ -1,10 +1,16 @@
 import { Source } from "@app/entities/models";
 
-export const sourcesConstants: Pick<Source, "code" | "description">[] = [
+export const CODE_YOUTUBE = "youtube";
+export const CODE_TWITCH = "twitch";
+export const CODE_FTV = "ftv";
+
+const sourcesConstants: Pick<Source, "code" | "description">[] = [
   {
-    code: "youtube",
+    code: CODE_YOUTUBE,
     description: "Canales de Televisión de YouTube",
   },
-  { code: "twitch", description: "Canales de Televisión de Twitch" },
-  { code: "ftv", description: "Canales de Televisión de FTV" },
+  { code: CODE_TWITCH, description: "Canales de Televisión de Twitch" },
+  { code: CODE_FTV, description: "Canales de Televisión de FTV" },
 ];
+
+export default sourcesConstants;

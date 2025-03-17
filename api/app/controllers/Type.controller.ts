@@ -6,11 +6,11 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 
 class TypeController {
   async getTypes(req: Request, res: Response) {
-    const types = await prisma.type.findMany();
+    const types = await typeRepository.getTypes();
 
     res.status(200).json({
       code: responseSuccess.getTypes.code,
@@ -34,9 +34,7 @@ class TypeController {
       return;
     }
 
-    const typeExists = await prisma.type.findUnique({
-      where: { code: code },
-    });
+    const typeExists = await typeRepository.getTypeByCode(code);
 
     if (typeExists) {
       res.status(400).json({
@@ -46,9 +44,7 @@ class TypeController {
       return;
     }
 
-    const type = await prisma.type.create({
-      data: { code: code, description: description },
-    });
+    const type = await typeRepository.createType(code, description);
 
     res.status(201).json({
       code: responseSuccess.addType.code,
@@ -69,9 +65,7 @@ class TypeController {
       return;
     }
 
-    const typeExists = await prisma.type.findUnique({
-      where: { id: Number(idType) },
-    });
+    const typeExists = await typeRepository.getTypeById(Number(idType));
 
     if (!typeExists) {
       res.status(404).json({
@@ -81,9 +75,7 @@ class TypeController {
       return;
     }
 
-    const typeDeleted = await prisma.type.delete({
-      where: { id: Number(idType) },
-    });
+    const typeDeleted = await typeRepository.deleteType(Number(idType));
 
     res.status(200).json({
       code: responseSuccess.deleteType.code,

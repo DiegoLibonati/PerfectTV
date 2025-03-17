@@ -7,7 +7,7 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import prisma from "@app/database/Prisma.database";
+import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Source.routes.ts", () => {
   const code = "test";
@@ -109,10 +109,12 @@ describe("Source.routes.ts", () => {
     });
 
     test("It must delete the source entered by test.", async () => {
-      const sources = await prisma.source.findMany();
+      const sources = await sourceRepository.getSources();
       const sourceTest = sources.find((source) => source.code === code);
 
-      const res = await request(app).delete(`${prefix}/delete/${sourceTest?.id}`);
+      const res = await request(app).delete(
+        `${prefix}/delete/${sourceTest?.id}`
+      );
 
       const data = res.body;
       const statusCode = res.statusCode;
