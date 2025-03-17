@@ -65,6 +65,7 @@ class CategoryController {
     const description = body.description ? body.description.trim() : null;
     const thumbUrl = body.thumbUrl ? body.thumbUrl.trim() : null;
     const url = body.url ? body.url.trim() : null;
+    const urlRest = body.urlRest ? body.urlRest.trim() : null;
     const number = body.number;
     const idType = body.idType;
     const idCategory = body.idCategory;
@@ -138,6 +139,7 @@ class CategoryController {
       description,
       thumbUrl,
       url,
+      urlRest,
       number,
       idType,
       idCategory,
@@ -180,6 +182,7 @@ class CategoryController {
     const description = body.description ? body.description.trim() : null;
     const thumbUrl = body.thumbUrl ? body.thumbUrl.trim() : null;
     const url = body.url ? body.url.trim() : null;
+    const urlRest = body.urlRest ? body.urlRest.trim() : null;
     const number = body.number;
     const idType = body.idType;
     const idCategory = body.idCategory;
@@ -190,6 +193,7 @@ class CategoryController {
       ...(description && { description: description }),
       ...(thumbUrl && { thumbUrl: thumbUrl }),
       ...(url && { url: url }),
+      ...(urlRest && { urlRest: urlRest }),
       ...(number !== undefined && { number: number }),
       ...(idType !== undefined && { idType: idType }),
       ...(idCategory !== undefined && { idCategory: idCategory }),

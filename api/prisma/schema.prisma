@@ -14,6 +14,7 @@ model Channel {
   description String
   thumbUrl    String
   url         String   @unique
+  urlRest     String?
   number      Int      @unique
   idType      Int
   idCategory  Int

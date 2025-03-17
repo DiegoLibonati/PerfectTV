@@ -6,6 +6,7 @@ class Channel {
   description: string;
   thumbUrl: string;
   url: string;
+  urlRest?: string;
   number: number;
   type: Type;
   category: Category;
@@ -17,6 +18,7 @@ class Channel {
     description: string,
     thumbUrl: string,
     url: string,
+    urlRest: string,
     number: number,
     type: Type,
     category: Category,
@@ -27,6 +29,7 @@ class Channel {
     this.description = description;
     this.thumbUrl = thumbUrl;
     this.url = url;
+    this.urlRest = urlRest;
     this.number = number;
     this.type = type;
     this.category = category;

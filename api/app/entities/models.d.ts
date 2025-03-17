@@ -4,6 +4,7 @@ export type Channel = {
   description: string;
   thumbUrl: string;
   url: string;
+  urlRest?: string | null;
   number: number;
   type: Type;
   category: Category;

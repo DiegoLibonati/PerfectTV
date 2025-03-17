@@ -27,6 +27,7 @@ describe("Channel.routes.ts", () => {
   const description = "test description";
   const thumbUrl = "https://pepe.png";
   const url = "https://www.youtube.com.ar";
+  const urlRest = null;
   const number = 999992;
 
   const prefix = "/channel/v1/channels";
@@ -155,6 +156,7 @@ describe("Channel.routes.ts", () => {
           description: description,
           thumbUrl: thumbUrl,
           url: url,
+          urlRest: urlRest,
           number: number,
           type: {
             id: expect.any(Number),
@@ -216,6 +218,7 @@ describe("Channel.routes.ts", () => {
             description: expect.any(String),
             thumbUrl: expect.any(String),
             url: expect.any(String),
+            urlRest: expect.any(String) || null,
             number: expect.any(Number),
             type: {
               id: expect.any(Number),
@@ -277,6 +280,7 @@ describe("Channel.routes.ts", () => {
           description: description,
           thumbUrl: thumbUrl,
           url: newUrl,
+          urlRest: null,
           number: number,
           type: {
             id: expect.any(Number),
@@ -327,6 +331,8 @@ describe("Channel.routes.ts", () => {
       const data = res.body;
       const statusCode = res.statusCode;
 
+      console.log(typeof data);
+
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteChannel.code,
@@ -337,6 +343,7 @@ describe("Channel.routes.ts", () => {
           description: description,
           thumbUrl: thumbUrl,
           url: newUrl,
+          urlRest: null,
           number: number,
           type: {
             id: expect.any(Number),

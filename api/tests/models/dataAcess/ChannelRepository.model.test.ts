@@ -19,6 +19,7 @@ describe("ChannelRepository.model.ts", () => {
     description: "channelTest description",
     thumbUrl: "https://logo23.com/pepe.png",
     url: "https://PROBANDO.test/channel",
+    urlRest: "",
     number: 9999991,
   };
 
@@ -42,6 +43,7 @@ describe("ChannelRepository.model.ts", () => {
         channelTest.description,
         channelTest.thumbUrl,
         channelTest.url,
+        channelTest.urlRest!,
         channelTest.number,
         channelType,
         channelCategory,
@@ -53,6 +55,7 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel.description).toEqual(channelTest.description);
       expect(channel.thumbUrl).toEqual(channelTest.thumbUrl);
       expect(channel.url).toEqual(channelTest.url);
+      expect(channel.urlRest).toEqual(channelTest.urlRest);
       expect(channel.number).toEqual(channelTest.number);
       expect(channel.type.id).toEqual(channelType);
       expect(channel.category.id).toEqual(channelCategory);
@@ -85,6 +88,7 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel!.description).toEqual(channelTest.description);
       expect(channel!.thumbUrl).toEqual(channelTest.thumbUrl);
       expect(channel!.url).toEqual(channelTest.url);
+      expect(channel!.urlRest).toEqual(channelTest.urlRest);
       expect(channel!.number).toEqual(channelTest.number);
       expect(channel!.type.id).toEqual(channelType);
       expect(channel!.category.id).toEqual(channelCategory);
@@ -107,6 +111,7 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel!.description).toEqual(channelTest.description);
       expect(channel!.thumbUrl).toEqual(channelTest.thumbUrl);
       expect(channel!.url).toEqual(channelTest.url);
+      expect(channel!.urlRest).toEqual(channelTest.urlRest);
       expect(channel!.number).toEqual(channelTest.number);
       expect(channel!.type.id).toEqual(channelType);
       expect(channel!.category.id).toEqual(channelCategory);
@@ -132,6 +137,7 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel!.description).toEqual(channelTest.description);
       expect(channel!.thumbUrl).toEqual(channelTest.thumbUrl);
       expect(channel!.url).toEqual(newUrl);
+      expect(channel!.urlRest).toEqual(channelTest.urlRest);
       expect(channel!.number).toEqual(channelTest.number);
       expect(channel!.type.id).toEqual(channelType);
       expect(channel!.category.id).toEqual(channelCategory);
@@ -155,6 +161,7 @@ describe("ChannelRepository.model.ts", () => {
       expect(channelDeleted!.description).toEqual(channelTest.description);
       expect(channelDeleted!.thumbUrl).toEqual(channelTest.thumbUrl);
       expect(channelDeleted!.url).toEqual(newUrl);
+      expect(channelDeleted!.urlRest).toEqual(channelTest.urlRest);
       expect(channelDeleted!.number).toEqual(channelTest.number);
       expect(channelDeleted!.type.id).toEqual(channelType);
       expect(channelDeleted!.category.id).toEqual(channelCategory);

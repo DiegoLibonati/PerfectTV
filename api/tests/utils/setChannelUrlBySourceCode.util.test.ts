@@ -18,6 +18,7 @@ describe("setChannelUrlBySourceCode.util.ts", () => {
     description: "description",
     thumbUrl: "https://logo.com/pepe.png",
     url: "url",
+    urlRest: "32",
     number: 233,
     idType: 1,
     idCategory: 1,
@@ -33,6 +34,7 @@ describe("setChannelUrlBySourceCode.util.ts", () => {
       channelTest.description as string,
       channelTest.thumbUrl as string,
       channelTest.url as string,
+      channelTest.urlRest as string,
       channelTest.number as number,
       channelTest.idType as number,
       channelTest.idCategory as number,
@@ -65,7 +67,7 @@ describe("setChannelUrlBySourceCode.util.ts", () => {
         (channel) => channel.id === idChannelTest
       )!;
 
-      expect(newChannelTest.url).toBe(`${baseUrl}${channelTest.url}`);
+      expect(newChannelTest.url).toBe(`${baseUrl}${channelTest.urlRest}`);
     });
   });
 

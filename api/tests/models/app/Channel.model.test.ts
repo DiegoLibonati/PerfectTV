@@ -9,6 +9,7 @@ describe("Channel.model.ts", () => {
     description: "description",
     thumbUrl: "https://logo.com/pepe.png",
     url: "urlcito",
+    urlRest: "",
     number: 23,
     type: {
       id: 1,
@@ -35,6 +36,7 @@ describe("Channel.model.ts", () => {
         channelTest.description,
         channelTest.thumbUrl,
         channelTest.url,
+        channelTest.urlRest!,
         channelTest.number,
         channelTest.type,
         channelTest.category,
@@ -46,6 +48,7 @@ describe("Channel.model.ts", () => {
       expect(channelTest.description).toEqual(channel.description);
       expect(channelTest.thumbUrl).toEqual(channel.thumbUrl);
       expect(channelTest.url).toEqual(channel.url);
+      expect(channelTest.urlRest).toEqual(channel.urlRest);
       expect(channelTest.number).toEqual(channel.number);
       expect(channelTest.type).toEqual(channel.type);
       expect(channelTest.category).toEqual(channel.category);

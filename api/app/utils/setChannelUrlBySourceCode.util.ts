@@ -10,7 +10,7 @@ export const setChannelUrlBySourceCode = async (
   const newChannels = await Promise.all(
     channels.map(async (channel) => {
       if (channel.source.code === code) {
-        const url = `${baseUrl}${channel?.url}`;
+        const url = `${baseUrl}${channel?.urlRest}`;
 
         const data = { url: url };
 
