@@ -1,4 +1,5 @@
 import app from "@app/index";
+
 import { config } from "@app/config/env.conf";
 import prisma from "@app/database/Prisma.database";
 import typesConstants from "@app/constants/Types.constants";
@@ -7,6 +8,7 @@ import sourcesConstants from "@app/constants/Sources.constants";
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
+
 import "@app/routes/init";
 
 const { PORT, HOT_RELOAD, PUPPETEER_EXECUTABLE_PATH } = config;

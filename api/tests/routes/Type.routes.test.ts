@@ -7,6 +7,7 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
+
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 
 describe("Type.routes.ts", () => {

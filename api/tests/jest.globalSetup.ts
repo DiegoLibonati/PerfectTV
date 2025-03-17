@@ -1,5 +1,5 @@
-import { execSync } from "child_process";
 import path from "path";
+import { execSync } from "child_process";
 
 module.exports = async () => {
   process.env.DATABASE_URL =

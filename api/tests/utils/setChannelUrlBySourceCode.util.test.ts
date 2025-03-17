@@ -1,7 +1,8 @@
-import { setChannelUrlBySourceCode } from "@app/utils/setChannelUrlBySourceCode.util";
 import { Channel, Source } from "@app/entities/models";
+
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
+import { setChannelUrlBySourceCode } from "@app/utils/setChannelUrlBySourceCode.util";
 
 describe("setChannelUrlBySourceCode.util.ts", () => {
   let source: Source;

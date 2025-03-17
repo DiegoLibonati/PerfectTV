@@ -2,22 +2,22 @@ import { Request, Response } from "express";
 
 import { Channel } from "@app/entities/models";
 
+import { config } from "@app/config/env.conf";
 import {
   responseSuccess,
   responseNotFound,
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import { config } from "@app/config/env.conf";
 import { CODE_FTV } from "@app/constants/Sources.constants";
-import { invalidUrlChecker } from "@app/utils/invalidUrlChecker.util";
-import { sourceCodeChecker } from "@app/utils/sourceCodeChecker.util";
-import { getSrcByIframe } from "@app/utils/getSrcByIframe.util";
-import { setChannelUrlBySourceCode } from "@app/utils/setChannelUrlBySourceCode.util";
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
+import { invalidUrlChecker } from "@app/utils/invalidUrlChecker.util";
+import { sourceCodeChecker } from "@app/utils/sourceCodeChecker.util";
+import { getSrcByIframe } from "@app/utils/getSrcByIframe.util";
+import { setChannelUrlBySourceCode } from "@app/utils/setChannelUrlBySourceCode.util";
 
 class CategoryController {
   async getChannels(req: Request, res: Response) {

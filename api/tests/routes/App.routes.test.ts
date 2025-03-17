@@ -1,7 +1,11 @@
 import request from "supertest";
 
 import app from "@app/index";
-import { responseSuccess, responseNotFound } from "@app/constants/Response.constants";
+
+import {
+  responseSuccess,
+  responseNotFound,
+} from "@app/constants/Response.constants";
 
 describe("* ROUTES", () => {
   const prefix = "/123412412/v1";
