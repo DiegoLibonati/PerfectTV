@@ -88,10 +88,9 @@ class CategoryController {
       return;
     }
 
-    const channelExists = await channelRepository.getChannelByNameNumberUrl(
+    const channelExists = await channelRepository.getChannelByNameNumber(
       name,
-      number,
-      url
+      number
     );
 
     if (channelExists) {

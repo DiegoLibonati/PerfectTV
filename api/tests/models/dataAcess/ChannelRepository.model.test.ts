@@ -76,11 +76,10 @@ describe("ChannelRepository.model.ts", () => {
       ).toBeTruthy();
     });
 
-    test("It must get one channel by name, number and url.", async () => {
-      const channel = await channelRepository.getChannelByNameNumberUrl(
+    test("It must get one channel by name and number.", async () => {
+      const channel = await channelRepository.getChannelByNameNumber(
         channelTest.name,
-        channelTest.number,
-        channelTest.url
+        channelTest.number
       );
 
       expect(channel!.id).toBeTruthy();
@@ -97,10 +96,9 @@ describe("ChannelRepository.model.ts", () => {
 
     test("It must get one channel by id.", async () => {
       const channelByNameNumberUrl =
-        await channelRepository.getChannelByNameNumberUrl(
+        await channelRepository.getChannelByNameNumber(
           channelTest.name,
-          channelTest.number,
-          channelTest.url
+          channelTest.number
         );
       const channel = await channelRepository.getChannelById(
         channelByNameNumberUrl!.id
@@ -120,10 +118,9 @@ describe("ChannelRepository.model.ts", () => {
 
     test("It must update a specific field of the channel.", async () => {
       const channelByNameNumberUrl =
-        await channelRepository.getChannelByNameNumberUrl(
+        await channelRepository.getChannelByNameNumber(
           channelTest.name,
-          channelTest.number,
-          channelTest.url
+          channelTest.number
         );
       const data = { url: newUrl };
 
@@ -146,10 +143,9 @@ describe("ChannelRepository.model.ts", () => {
 
     test("It must delete all test channel created.", async () => {
       const channelByNameNumberUrl =
-        await channelRepository.getChannelByNameNumberUrl(
+        await channelRepository.getChannelByNameNumber(
           channelTest.name,
-          channelTest.number,
-          newUrl
+          channelTest.number
         );
 
       const channelDeleted = await channelRepository.deleteChannel(
