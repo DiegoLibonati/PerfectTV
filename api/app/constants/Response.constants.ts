@@ -57,6 +57,22 @@ export const responseSuccess: ResponseConstants = {
     code: "DELETE_SOURCE_SUCCESSFULLY",
     message: "A source was successfully deleted.",
   },
+  getBases: {
+    code: "GET_BASES_SUCCESSFULLY",
+    message: "The bases were successfully obtained.",
+  },
+  addBase: {
+    code: "POST_ADD_BASE_SUCCESSFULLY",
+    message: "A new base was successfully added.",
+  },
+  updateBase: {
+    code: "UPDATE_BASE_SUCCESSFULLY",
+    message: "A base was successfully updated.",
+  },
+  deleteBase: {
+    code: "DELETE_BASE_SUCCESSFULLY",
+    message: "A base was successfully deleted.",
+  },
 };
 
 export const responseNotFound: ResponseConstants = {
@@ -80,6 +96,10 @@ export const responseNotFound: ResponseConstants = {
     code: "NOT_FOUND_SOURCE",
     message: "The requested source was not found.",
   },
+  base: {
+    code: "NOT_FOUND_BASE",
+    message: "The requested base was not found.",
+  },
 };
 
 export const responseAlreadyExists: ResponseConstants = {
@@ -98,6 +118,10 @@ export const responseAlreadyExists: ResponseConstants = {
   source: {
     code: "ALREADY_EXISTS_SOURCE",
     message: "This source already exists.",
+  },
+  base: {
+    code: "ALREADY_EXISTS_BASE",
+    message: "This base already exists.",
   },
 };
 

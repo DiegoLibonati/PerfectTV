@@ -57,9 +57,9 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel.url).toEqual(channelTest.url);
       expect(channel.urlRest).toEqual(channelTest.urlRest);
       expect(channel.number).toEqual(channelTest.number);
-      expect(channel.type.id).toEqual(channelType);
-      expect(channel.category.id).toEqual(channelCategory);
-      expect(channel.source.id).toEqual(channelSource);
+      expect(channel.type?.id).toEqual(channelType);
+      expect(channel.category?.id).toEqual(channelCategory);
+      expect(channel.source?.id).toEqual(channelSource);
     });
 
     test("It must obtain all channels.", async () => {
@@ -89,9 +89,9 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel!.url).toEqual(channelTest.url);
       expect(channel!.urlRest).toEqual(channelTest.urlRest);
       expect(channel!.number).toEqual(channelTest.number);
-      expect(channel!.type.id).toEqual(channelType);
-      expect(channel!.category.id).toEqual(channelCategory);
-      expect(channel!.source.id).toEqual(channelSource);
+      expect(channel!.type?.id).toEqual(channelType);
+      expect(channel!.category?.id).toEqual(channelCategory);
+      expect(channel!.source?.id).toEqual(channelSource);
     });
 
     test("It must get one channel by id.", async () => {
@@ -111,9 +111,9 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel!.url).toEqual(channelTest.url);
       expect(channel!.urlRest).toEqual(channelTest.urlRest);
       expect(channel!.number).toEqual(channelTest.number);
-      expect(channel!.type.id).toEqual(channelType);
-      expect(channel!.category.id).toEqual(channelCategory);
-      expect(channel!.source.id).toEqual(channelSource);
+      expect(channel!.type?.id).toEqual(channelType);
+      expect(channel!.category?.id).toEqual(channelCategory);
+      expect(channel!.source?.id).toEqual(channelSource);
     });
 
     test("It must update a specific field of the channel.", async () => {
@@ -136,9 +136,9 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel!.url).toEqual(newUrl);
       expect(channel!.urlRest).toEqual(channelTest.urlRest);
       expect(channel!.number).toEqual(channelTest.number);
-      expect(channel!.type.id).toEqual(channelType);
-      expect(channel!.category.id).toEqual(channelCategory);
-      expect(channel!.source.id).toEqual(channelSource);
+      expect(channel!.type?.id).toEqual(channelType);
+      expect(channel!.category?.id).toEqual(channelCategory);
+      expect(channel!.source?.id).toEqual(channelSource);
     });
 
     test("It must delete all test channel created.", async () => {
@@ -159,9 +159,9 @@ describe("ChannelRepository.model.ts", () => {
       expect(channelDeleted!.url).toEqual(newUrl);
       expect(channelDeleted!.urlRest).toEqual(channelTest.urlRest);
       expect(channelDeleted!.number).toEqual(channelTest.number);
-      expect(channelDeleted!.type.id).toEqual(channelType);
-      expect(channelDeleted!.category.id).toEqual(channelCategory);
-      expect(channelDeleted!.source.id).toEqual(channelSource);
+      expect(channelDeleted!.type?.id).toEqual(channelType);
+      expect(channelDeleted!.category?.id).toEqual(channelCategory);
+      expect(channelDeleted!.source?.id).toEqual(channelSource);
     });
   });
 });

@@ -1099,6 +1099,301 @@
                     }
                 }
             }
+        },
+        "/base/v1/bases/": {
+            "get": {
+                "summary": "Obtains the totality of the bases urls.",
+                "tags": [
+                    "Base"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_BASES_SUCCESSFULLY",
+                                            "message": "The bases were successfully obtained.",
+                                            "data": [
+                                                {
+                                                    "id": 8,
+                                                    "baseUrl": "https://www.youtube.com/embed/live_stream",
+                                                    "source": {
+                                                        "id": 1,
+                                                        "code": "youtube",
+                                                        "description": "Canales de Televisión de YouTube"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/base/v1/bases/add": {
+            "post": {
+                "summary": "Add a new base.",
+                "tags": [
+                    "Base"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "baseUrl": {
+                                        "type": "string",
+                                        "example": "https://www.youtube.com/embed/live_stream"
+                                    },
+                                    "idSource": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "required": [
+                                    "baseUrl",
+                                    "idSource"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "code": "POST_ADD_BASE_SUCCESSFULLY",
+                                        "message": "A new base was successfully added.",
+                                        "data": {
+                                            "id": 8,
+                                            "baseUrl": "https://www.youtube.com/embed/live_stream",
+                                            "source": {
+                                                "id": 1,
+                                                "code": "youtube",
+                                                "description": "Canales de Televisión de YouTube"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Fields": {
+                                        "summary": "Invalid Fields",
+                                        "value": {
+                                            "code": "NOT_VALID_FIELDS",
+                                            "message": "You must enter valid fields."
+                                        }
+                                    },
+                                    "Base Exists": {
+                                        "summary": "Base Exists",
+                                        "value": {
+                                            "code": "ALREADY_EXISTS_BASE",
+                                            "message": "This base already exists."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/base/v1/bases/update/{idBase}": {
+            "patch": {
+                "summary": "Update a base by ID",
+                "tags": [
+                    "Base"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "baseUrl": {
+                                        "type": "string",
+                                        "example": "https://www.youtube.com/embed/live_stream"
+                                    },
+                                    "idSource": {
+                                        "type": "integer",
+                                        "example": 3
+                                    }
+                                },
+                                "required": []
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "idBase",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the base to update",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "UPDATE_BASE_SUCCESSFULLY",
+                                            "message": "A base was successfully updated.",
+                                            "data": {
+                                                "id": 8,
+                                                "baseUrl": "https://www.youtube.com/embed/live_stream",
+                                                "source": {
+                                                    "id": 1,
+                                                    "code": "youtube",
+                                                    "description": "Canales de Televisión de YouTube"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS",
+                                            "message": "You must enter valid params."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Errors not found.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found base": {
+                                        "summary": "Not found base.",
+                                        "value": {
+                                            "code": "NOT_FOUND_BASE",
+                                            "message": "The requested base was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/base/v1/bases/delete/{idBase}": {
+            "delete": {
+                "summary": "Delete a base by ID",
+                "tags": [
+                    "Base"
+                ],
+                "parameters": [
+                    {
+                        "name": "idBase",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the base to delete",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "DELETE_BASE_SUCCESSFULLY",
+                                            "message": "A base was successfully deleted.",
+                                            "data": {
+                                                "id": 8,
+                                                "baseUrl": "https://www.youtube.com/embed/live_stream",
+                                                "source": {
+                                                    "id": 1,
+                                                    "code": "youtube",
+                                                    "description": "Canales de Televisión de YouTube"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS",
+                                            "message": "You must enter valid params."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Errors not found.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found base": {
+                                        "summary": "Not found Base.",
+                                        "value": {
+                                            "code": "NOT_FOUND_BASE",
+                                            "message": "The requested base was not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -1129,6 +1424,10 @@
         {
             "name": "Channmel",
             "description": "These are the APP Channels endpoints. These channels are the ones that will be used to render in the FrontEnd."
+        },
+        {
+            "name": "Base",
+            "description": "These are the endpoints of the BasesUrls of the APP. Each source has a baseUrl and a baseUrl belongs to a single source."
         }
     ],
     "x-tagGroups": [
@@ -1146,7 +1445,8 @@
                 "Category",
                 "Type",
                 "Source",
-                "Channel"
+                "Channel",
+                "Base"
             ]
         }
     ]

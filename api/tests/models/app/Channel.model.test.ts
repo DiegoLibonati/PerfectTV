@@ -38,9 +38,9 @@ describe("Channel.model.ts", () => {
         channelTest.url,
         channelTest.urlRest!,
         channelTest.number,
-        channelTest.type,
-        channelTest.category,
-        channelTest.source
+        channelTest.type!,
+        channelTest.category!,
+        channelTest.source!
       );
 
       expect(channelTest.id).toEqual(channel.id);

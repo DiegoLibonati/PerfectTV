@@ -6,9 +6,12 @@ export type Channel = {
   url: string;
   urlRest?: string | null;
   number: number;
-  type: Type;
-  category: Category;
-  source: Source;
+  idType?: number;
+  idCategory?: number;
+  idSource?: number;
+  type?: Type;
+  category?: Category;
+  source?: Source;
 };
 
 export type Type = {
@@ -30,4 +33,12 @@ export type Source = {
   code: string;
   description: string;
   channels?: Channel[];
+  base?: Base;
+};
+
+export type Base = {
+  id: number;
+  baseUrl: string;
+  idSource?: number;
+  source?: Source;
 };

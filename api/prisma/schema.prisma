@@ -43,4 +43,12 @@ model Source {
   code        String    @unique
   description String    
   channels    Channel[]
+  base        Base?
+}
+
+model Base {
+  id          Int       @id @default(autoincrement())
+  baseUrl     String    @unique
+  idSource    Int       @unique
+  source      Source    @relation(fields: [idSource], references: [id])
 }

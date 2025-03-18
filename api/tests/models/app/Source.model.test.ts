@@ -32,6 +32,7 @@ describe("Source.model.ts", () => {
         },
       },
     ],
+    base: { id: 2345, baseUrl: "https://hola.com" },
   };
 
   describe("General Tests.", () => {
@@ -40,13 +41,15 @@ describe("Source.model.ts", () => {
         sourceTest.id,
         sourceTest.code,
         sourceTest.description,
-        sourceTest.channels
+        sourceTest.channels,
+        sourceTest.base
       );
 
       expect(sourceTest.id).toEqual(source.id);
       expect(sourceTest.code).toEqual(source.code);
       expect(sourceTest.description).toEqual(source.description);
       expect(sourceTest.channels).toEqual(source.channels);
+      expect(sourceTest.base).toEqual(source.base);
     });
   });
 });
