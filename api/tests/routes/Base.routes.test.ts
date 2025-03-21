@@ -16,17 +16,20 @@ import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 describe("Base.routes.ts", () => {
   let source: Source;
 
-  const baseUrl: string = "https://hola3.com";
-  const newBaseUrl: string = "https://hola32.com";
+  const sourceTest: Pick<Source, "code" | "description"> = {
+    code: "sourci1234test",
+    description: "dsaq"
+  }
+  const baseUrl: string = "https://hodasdasdasdasla3.com";
+  const newBaseUrl: string = "https://hodasdsdsla32.com";
   const prefix = "/base/v1/bases";
 
   beforeAll(async () => {
-    const sources = await sourceRepository.getSources();
+    source = await sourceRepository.createSource(sourceTest.code, sourceTest.description);
 
-    if (!sources.length) throw "Add sources firts.";
-
-    source = sources[0];
   });
+
+
 
   describe("POST Add Base", () => {
     test("It should return that no valid fields were entered.", async () => {
@@ -179,6 +182,7 @@ describe("Base.routes.ts", () => {
       const base = await baseRepository.getBaseByIdSource(source.id);
 
       const res = await request(app).delete(`${prefix}/delete/${base?.id}`);
+      await sourceRepository.deleteSource(source.id)
 
       const data = res.body;
       const statusCode = res.statusCode;

@@ -27,7 +27,6 @@ class CategoryController {
 
     channels = await channelRepository.getChannels();
 
-    // TODO: Esto iniciarlo con la APP ?????
     const invalidUrlChannelExists = invalidUrlChecker(channels);
 
     if (!reload && !invalidUrlChannelExists) {

@@ -4,28 +4,43 @@ import baseRepository from "@app/models/dataAccess/BaseRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("BaseRepository.model.ts", () => {
-  let source: Source;
+  let source: Source | null;
+  let source2: Source | null;
+  let baseTest: Pick<Base, "baseUrl"> & { idSource: number };
 
-  const baseTest: Pick<Base, "baseUrl"> = {
-    baseUrl: "https://hola.com",
-  };
-  const newBaseUrl: string = "https://hola2.com"
+  const sources: Pick<Source, "code" | "description">[] = [
+    { code: "sourcitotest1", description: "paa" },
+    { code: "sourcitotest2", description: "paa2" },
+  ];
+  const basesTest: (Pick<Base, "baseUrl"> & { idSource: number })[] = [];
+  const newBaseUrl: string = "https://hola2.com";
 
   beforeAll(async () => {
-    const sources = await sourceRepository.getSources();
+    await sourceRepository.createSources(sources);
 
-    if (!sources.length) throw "Add sources firts.";
+    source = await sourceRepository.getSourceByCode(sources[0].code);
+    source2 = await sourceRepository.getSourceByCode(sources[1].code);
 
-    source = sources[0];
+    baseTest = {
+      baseUrl: "https://holasdasdaasdasd.com",
+      idSource: source!.id,
+    };
+    basesTest.push({
+      baseUrl: "https://hoasdasdasdasdla23.com",
+      idSource: source2!.id,
+    });
   });
 
   describe("General Tests.", () => {
     test("It must create a new base.", async () => {
-      const base = await baseRepository.createBase(baseTest.baseUrl, source.id);
+      const base = await baseRepository.createBase(
+        baseTest.baseUrl,
+        baseTest.idSource
+      );
 
       expect(base.id).toBeTruthy();
       expect(base.baseUrl).toEqual(baseTest.baseUrl);
-      expect(base.source).toEqual(source);
+      expect(base.source!.id).toEqual(baseTest.idSource);
     });
 
     test("It must obtain all bases.", async () => {
@@ -36,7 +51,7 @@ describe("BaseRepository.model.ts", () => {
     });
 
     test("It must get one source by idSource.", async () => {
-      const base = await baseRepository.getBaseByIdSource(source.id);
+      const base = await baseRepository.getBaseByIdSource(baseTest.idSource);
 
       expect(base!.id).toBeTruthy();
       expect(base!.baseUrl).toEqual(baseTest.baseUrl);
@@ -44,7 +59,9 @@ describe("BaseRepository.model.ts", () => {
     });
 
     test("It must get one base by id.", async () => {
-      const baseByIdSource = await baseRepository.getBaseByIdSource(source!.id);
+      const baseByIdSource = await baseRepository.getBaseByIdSource(
+        baseTest.idSource
+      );
       const base = await baseRepository.getBaseById(baseByIdSource!.id);
 
       expect(base!.id).toBeTruthy();
@@ -53,26 +70,44 @@ describe("BaseRepository.model.ts", () => {
     });
 
     test("It must update a specific field of the base.", async () => {
-      const baseByIdSource = await baseRepository.getBaseByIdSource(source!.id);
+      const baseByIdSource = await baseRepository.getBaseByIdSource(
+        baseTest.idSource
+      );
       const data = { baseUrl: newBaseUrl };
 
-      const base = await baseRepository.updateBase(
-        baseByIdSource!.id,
-        data
-      );
+      const base = await baseRepository.updateBase(baseByIdSource!.id, data);
 
       expect(base!.id).toBeTruthy();
       expect(base!.baseUrl).toEqual(newBaseUrl);
       expect(base!.source).toEqual(source);
     });
 
-    test("It must delete all test bases created.", async () => {
-      const baseByIdSource = await baseRepository.getBaseByIdSource(source!.id);
-      const baseDeleted = await baseRepository.deleteBase(baseByIdSource!.id);
+    test("It must add multiple bases through an array.", async () => {
+      const bases = await baseRepository.createBases(basesTest);
 
-      expect(baseDeleted!.id).toBeTruthy();
-      expect(baseDeleted!.baseUrl).toEqual(newBaseUrl);
-      expect(baseDeleted!.source).toEqual(source);
+      expect(bases.count).toEqual(1);
+    });
+
+    test("It must delete all test bases created.", async () => {
+      basesTest.push(baseTest);
+
+      basesTest.forEach(async (b) => {
+        const baseByIdSource = await baseRepository.getBaseByIdSource(
+          b.idSource
+        );
+
+        const baseDeleted = await baseRepository.deleteBase(baseByIdSource!.id);
+        await sourceRepository.deleteSource(b.idSource);
+
+        if (baseDeleted.baseUrl !== newBaseUrl) {
+          expect(baseDeleted!.baseUrl).toEqual(b.baseUrl);
+        } else {
+          expect(baseDeleted!.baseUrl).toEqual(newBaseUrl);
+        }
+
+        expect(baseDeleted!.id).toBeTruthy();
+        expect(baseDeleted!.source!.id).toEqual(b.idSource);
+      });
     });
   });
 });

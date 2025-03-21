@@ -27,7 +27,7 @@ describe("Channel.routes.ts", () => {
   const description = "test description";
   const thumbUrl = "https://pepe.png";
   const url = "https://www.youtube.com.ar";
-  const urlRest = null;
+  const urlRest = "a";
   const number = 999992;
 
   const prefix = "/channel/v1/channels";
@@ -137,6 +137,7 @@ describe("Channel.routes.ts", () => {
         description: description,
         thumbUrl: thumbUrl,
         url: url,
+        urlRest: urlRest,
         number: number,
         idType: channelType,
         idCategory: channelCategory,
@@ -218,7 +219,7 @@ describe("Channel.routes.ts", () => {
             description: expect.any(String),
             thumbUrl: expect.any(String),
             url: expect.any(String),
-            urlRest: expect.any(String) || null,
+            urlRest: expect.any(String),
             number: expect.any(Number),
             type: {
               id: expect.any(Number),
@@ -280,7 +281,7 @@ describe("Channel.routes.ts", () => {
           description: description,
           thumbUrl: thumbUrl,
           url: newUrl,
-          urlRest: null,
+          urlRest: urlRest,
           number: number,
           type: {
             id: expect.any(Number),
@@ -343,7 +344,7 @@ describe("Channel.routes.ts", () => {
           description: description,
           thumbUrl: thumbUrl,
           url: newUrl,
-          urlRest: null,
+          urlRest: urlRest,
           number: number,
           type: {
             id: expect.any(Number),

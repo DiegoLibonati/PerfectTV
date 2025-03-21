@@ -45,6 +45,12 @@ class BaseRepository {
     });
   }
 
+  async createBases(
+    data: (Pick<Base, "baseUrl"> & { idSource: number })[]
+  ): Promise<Prisma.BatchPayload> {
+    return await this.prisma.base.createMany({ data: data });
+  }
+
   async updateBase(
     id: number,
     data: Record<string, string | number>
