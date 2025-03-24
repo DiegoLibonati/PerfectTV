@@ -33,7 +33,7 @@ export type Source = {
   code: string;
   description: string;
   channels?: Channel[];
-  base?: Base;
+  base?: Base | null;
 };
 
 export type Base = {

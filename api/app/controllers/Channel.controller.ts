@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { Channel } from "@app/entities/models";
+import { Channel, Source } from "@app/entities/models";
 
 import { config } from "@app/config/env.conf";
 import {
@@ -9,11 +9,16 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import { CODE_FTV } from "@app/constants/Sources.constants";
+import {
+  CODE_FTV,
+  CODE_TWITCH,
+  CODE_YOUTUBE,
+} from "@app/constants/Sources.constants";
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
+import baseRepository from "@app/models/dataAccess/BaseRepository.model";
 import { invalidUrlChecker } from "@app/utils/invalidUrlChecker.util";
 import { sourceCodeChecker } from "@app/utils/sourceCodeChecker.util";
 import { getSrcByIframe } from "@app/utils/getSrcByIframe.util";
@@ -39,14 +44,59 @@ class CategoryController {
       return;
     }
 
+    const sourceFtv = await sourceRepository.getSourceByCode(CODE_FTV);
+    const sourceYoutube = await sourceRepository.getSourceByCode(CODE_YOUTUBE);
+    const sourceTwitch = await sourceRepository.getSourceByCode(CODE_TWITCH);
+
     const ftvChannelExists = sourceCodeChecker(channels, CODE_FTV);
+    const youtubeChannelExists = sourceCodeChecker(channels, CODE_YOUTUBE);
+    const twitchChannelExists = sourceCodeChecker(channels, CODE_TWITCH);
 
     if (ftvChannelExists && !config.TEST_ENVIRONMENT) {
       const srcUrl = await getSrcByIframe(config.FTV_URL!);
-
       const baseUrl = srcUrl.split("?")[0];
 
-      channels = await setChannelUrlBySourceCode(channels, CODE_FTV, baseUrl);
+      const baseExists = await baseRepository.getBaseByIdSource(sourceFtv!.id);
+
+      if (!baseExists) {
+        await baseRepository.createBase(baseUrl, sourceFtv!.id);
+      } else {
+        await baseRepository.updateBase(baseExists.id, { baseUrl: baseUrl });
+      }
+    }
+
+    const sourceChannelsToUpdate: { sourceCode: string; baseUrl: string }[] = [
+      ftvChannelExists
+        ? {
+            sourceCode: sourceFtv!.code,
+            baseUrl: sourceFtv!.base?.baseUrl ?? "",
+          }
+        : null,
+      youtubeChannelExists
+        ? {
+            sourceCode: sourceYoutube!.code,
+            baseUrl: sourceYoutube!.base?.baseUrl ?? "",
+          }
+        : null,
+      twitchChannelExists
+        ? {
+            sourceCode: sourceTwitch!.code,
+            baseUrl: sourceTwitch!.base?.baseUrl ?? "",
+          }
+        : null,
+    ].filter(
+      (channel): channel is { sourceCode: string; baseUrl: string } =>
+        channel !== null
+    );
+
+    if (sourceChannelsToUpdate.length > 0 && !config.TEST_ENVIRONMENT) {
+      for (const sctu of sourceChannelsToUpdate) {
+        channels = await setChannelUrlBySourceCode(
+          channels,
+          sctu.sourceCode,
+          sctu.baseUrl
+        );
+      }
     }
 
     res.status(200).json({
@@ -197,6 +247,8 @@ class CategoryController {
       ...(idCategory !== undefined && { idCategory: idCategory }),
       ...(idSource !== undefined && { idSource: idSource }),
     };
+
+    console.log(data);
 
     const channelUpdated = await channelRepository.updateChannel(
       Number(idChannel),

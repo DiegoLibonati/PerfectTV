@@ -7,6 +7,8 @@ export const setChannelUrlBySourceCode = async (
   code: string,
   baseUrl: string
 ): Promise<Channel[]> => {
+  console.log(code, baseUrl);
+
   const newChannels = await Promise.all(
     channels.map(async (channel) => {
       if (channel.source?.code === code) {
@@ -14,7 +16,12 @@ export const setChannelUrlBySourceCode = async (
 
         const data = { url: url };
 
-        return await channelRepository.updateChannel(channel.id, data);
+        const channelUpdated = await channelRepository.updateChannel(
+          channel.id,
+          data
+        );
+
+        return channelUpdated!;
       }
 
       return channel;
