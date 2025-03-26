@@ -8,3 +8,4 @@ data
 .env
 package-lock.json
 todos.ts
+yarn.lock

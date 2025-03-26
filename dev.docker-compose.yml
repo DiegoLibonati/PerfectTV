@@ -36,6 +36,28 @@ services:
     networks:
       - perfect-tv-net
 
+  perfect-tv-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.development
+    restart: always
+    env_file:
+      - ./client/.env
+    volumes:
+      - ./client:/home/app
+      - /home/app/node_modules
+    ports:
+      - 5173:5173
+    depends_on:
+      perfect-tv-db:
+        condition: service_healthy
+      perfect-tv-api:
+        condition: service_started
+      perfect-tv-graphql:
+        condition: service_started
+    networks:
+      - perfect-tv-net
+
   perfect-tv-db:
     image: postgres
     restart: always
