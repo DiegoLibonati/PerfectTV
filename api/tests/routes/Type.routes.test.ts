@@ -27,7 +27,6 @@ describe("Type.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
     });
 
@@ -43,7 +42,6 @@ describe("Type.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addType.code,
-        message: responseSuccess.addType.message,
         data: {
           id: expect.any(Number),
           code: code,
@@ -64,7 +62,6 @@ describe("Type.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseAlreadyExists.type.code,
-        message: responseAlreadyExists.type.message,
       });
     });
   });
@@ -79,7 +76,6 @@ describe("Type.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getTypes.code,
-        message: responseSuccess.getTypes.message,
         data: expect.arrayContaining([
           {
             id: expect.any(Number),
@@ -105,7 +101,6 @@ describe("Type.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.type.code,
-        message: responseNotFound.type.message,
       });
     });
 
@@ -121,7 +116,6 @@ describe("Type.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteType.code,
-        message: responseSuccess.deleteType.message,
         data: {
           id: expect.any(Number),
           code: code,

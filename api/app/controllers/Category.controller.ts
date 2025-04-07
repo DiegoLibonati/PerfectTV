@@ -14,7 +14,6 @@ class CategoryController {
 
     res.status(200).json({
       code: responseSuccess.getCategories.code,
-      message: responseSuccess.getCategories.message,
       data: categories,
     });
     return;
@@ -29,7 +28,6 @@ class CategoryController {
     if (!code || !description) {
       res.status(400).json({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -39,7 +37,6 @@ class CategoryController {
     if (categoryExists) {
       res.status(400).json({
         code: responseAlreadyExists.category.code,
-        message: responseAlreadyExists.category.message,
       });
       return;
     }
@@ -48,7 +45,6 @@ class CategoryController {
 
     res.status(201).json({
       code: responseSuccess.addCategory.code,
-      message: responseSuccess.addCategory.message,
       data: category,
     });
     return;
@@ -60,7 +56,6 @@ class CategoryController {
     if (!idCategory) {
       res.status(400).json({
         code: responseNotValid.params.code,
-        message: responseNotValid.params.message,
       });
       return;
     }
@@ -72,7 +67,6 @@ class CategoryController {
     if (!categoryExists) {
       res.status(404).json({
         code: responseNotFound.category.code,
-        message: responseNotFound.category.message,
       });
       return;
     }
@@ -83,7 +77,6 @@ class CategoryController {
 
     res.status(200).json({
       code: responseSuccess.deleteCategory.code,
-      message: responseSuccess.deleteCategory.message,
       data: categoryDeleted,
     });
     return;

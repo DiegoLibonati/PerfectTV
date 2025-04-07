@@ -1,6 +1,6 @@
 import request from "supertest";
 
-import { Category, Source, Type } from "@app/entities/models";
+import { Category, Channel, Source, Type } from "@app/entities/models";
 
 import app from "@app/index";
 
@@ -16,6 +16,7 @@ import categoryRepository from "@app/models/dataAccess/CategoryRepository.model"
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Channel.routes.ts", () => {
+  let testChannel: Channel;
   let types: Pick<Type, "id" | "code" | "description">[];
   let categories: Pick<Category, "id" | "code" | "description">[];
   let sources: Pick<Source, "id" | "code" | "description">[];
@@ -35,6 +36,7 @@ describe("Channel.routes.ts", () => {
   const notExistsChannelType = 123123;
   const notExistsChannelCategory = 1233232;
   const notExistsChannelSource = 1233232;
+  const notExistsChannelNumber = 2321312;
 
   const newUrl = "https://youtube.com.ar/test.liveStream";
 
@@ -61,7 +63,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
     });
 
@@ -83,7 +84,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.type.code,
-        message: responseNotFound.type.message,
       });
     });
 
@@ -105,7 +105,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.category.code,
-        message: responseNotFound.category.message,
       });
     });
 
@@ -127,7 +126,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.source.code,
-        message: responseNotFound.source.message,
       });
     });
 
@@ -150,7 +148,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addChannel.code,
-        message: responseSuccess.addChannel.message,
         data: {
           id: expect.any(Number),
           name: name,
@@ -196,7 +193,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseAlreadyExists.channel.code,
-        message: responseAlreadyExists.channel.message,
       });
     });
   });
@@ -208,10 +204,11 @@ describe("Channel.routes.ts", () => {
       const data = res.body;
       const statusCode = res.statusCode;
 
+      testChannel = data.data.find((c: Channel) => c.name === name);
+
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getChannels.code,
-        message: responseSuccess.getChannels.message,
         data: expect.arrayContaining([
           {
             id: expect.any(Number),
@@ -242,6 +239,58 @@ describe("Channel.routes.ts", () => {
     });
   });
 
+  describe("GET Channel By Number", () => {
+    test("It should return that the channel entered through the number was not found.", async () => {
+      const res = await request(app).get(
+        `${prefix}/number/${notExistsChannelNumber}`
+      );
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(404);
+      expect(data).toEqual({
+        code: responseNotFound.channel.code,
+      });
+    });
+
+    test("It should return the channel added by test through the channel number.", async () => {
+      const res = await request(app).get(`${prefix}/number/${number}`);
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(200);
+      expect(data).toEqual({
+        code: responseSuccess.getChannel.code,
+        data: {
+          id: expect.any(Number),
+          name: expect.any(String),
+          description: expect.any(String),
+          thumbUrl: expect.any(String),
+          url: expect.any(String),
+          urlRest: expect.any(String),
+          number: expect.any(Number),
+          type: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          category: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+          source: {
+            id: expect.any(Number),
+            code: expect.any(String),
+            description: expect.any(String),
+          },
+        },
+      });
+    });
+  });
+
   describe("PATCH Update Channel", () => {
     const channelNotExistsId = "100";
 
@@ -256,7 +305,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.channel.code,
-        message: responseNotFound.channel.message,
       });
     });
 
@@ -274,7 +322,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.updateChannel.code,
-        message: responseSuccess.updateChannel.message,
         data: {
           id: expect.any(Number),
           name: name,
@@ -317,7 +364,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.channel.code,
-        message: responseNotFound.channel.message,
       });
     });
 
@@ -337,7 +383,6 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteChannel.code,
-        message: responseSuccess.deleteChannel.message,
         data: {
           id: expect.any(Number),
           name: name,

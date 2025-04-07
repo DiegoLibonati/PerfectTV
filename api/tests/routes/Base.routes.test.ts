@@ -18,18 +18,18 @@ describe("Base.routes.ts", () => {
 
   const sourceTest: Pick<Source, "code" | "description"> = {
     code: "sourci1234test",
-    description: "dsaq"
-  }
+    description: "dsaq",
+  };
   const baseUrl: string = "https://hodasdasdasdasla3.com";
   const newBaseUrl: string = "https://hodasdsdsla32.com";
   const prefix = "/base/v1/bases";
 
   beforeAll(async () => {
-    source = await sourceRepository.createSource(sourceTest.code, sourceTest.description);
-
+    source = await sourceRepository.createSource(
+      sourceTest.code,
+      sourceTest.description
+    );
   });
-
-
 
   describe("POST Add Base", () => {
     test("It should return that no valid fields were entered.", async () => {
@@ -43,7 +43,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
     });
 
@@ -59,7 +58,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addBase.code,
-        message: responseSuccess.addBase.message,
         data: {
           id: expect.any(Number),
           baseUrl: baseUrl,
@@ -84,7 +82,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseAlreadyExists.base.code,
-        message: responseAlreadyExists.base.message,
       });
     });
   });
@@ -99,7 +96,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getBases.code,
-        message: responseSuccess.getBases.message,
         data: expect.arrayContaining([
           {
             id: expect.any(Number),
@@ -129,7 +125,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.base.code,
-        message: responseNotFound.base.message,
       });
     });
 
@@ -146,7 +141,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.updateBase.code,
-        message: responseSuccess.updateBase.message,
         data: {
           id: expect.any(Number),
           baseUrl: newBaseUrl,
@@ -174,7 +168,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.base.code,
-        message: responseNotFound.base.message,
       });
     });
 
@@ -182,7 +175,7 @@ describe("Base.routes.ts", () => {
       const base = await baseRepository.getBaseByIdSource(source.id);
 
       const res = await request(app).delete(`${prefix}/delete/${base?.id}`);
-      await sourceRepository.deleteSource(source.id)
+      await sourceRepository.deleteSource(source.id);
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -190,7 +183,6 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteBase.code,
-        message: responseSuccess.deleteBase.message,
         data: {
           id: expect.any(Number),
           baseUrl: newBaseUrl,

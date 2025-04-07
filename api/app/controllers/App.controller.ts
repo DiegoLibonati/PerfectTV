@@ -6,7 +6,6 @@ class AppController {
   alive(req: Request, res: Response) {
     res.status(200).json({
       code: responseSuccess.alive.code,
-      message: responseSuccess.alive.message,
       author: "Diego Martin Libonati",
       version: "1.0.0",
     });

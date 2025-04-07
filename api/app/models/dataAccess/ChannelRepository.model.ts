@@ -29,6 +29,14 @@ class ChannelRepository {
     });
   }
 
+  async getChannelByNumber(number: number): Promise<Channel | null> {
+    return await this.prisma.channel.findUnique({
+      where: { number: number },
+      include: { type: true, category: true, source: true },
+      omit: { idCategory: true, idType: true, idSource: true },
+    });
+  }
+
   async getChannelByNameNumber(
     name: string,
     number: number

@@ -27,7 +27,6 @@ describe("Category.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
     });
 
@@ -43,7 +42,6 @@ describe("Category.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addCategory.code,
-        message: responseSuccess.addCategory.message,
         data: {
           id: expect.any(Number),
           code: code,
@@ -64,7 +62,6 @@ describe("Category.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseAlreadyExists.category.code,
-        message: responseAlreadyExists.category.message,
       });
     });
   });
@@ -79,7 +76,6 @@ describe("Category.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getCategories.code,
-        message: responseSuccess.getCategories.message,
         data: expect.arrayContaining([
           {
             id: expect.any(Number),
@@ -105,7 +101,6 @@ describe("Category.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.category.code,
-        message: responseNotFound.category.message,
       });
     });
 
@@ -125,7 +120,6 @@ describe("Category.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteCategory.code,
-        message: responseSuccess.deleteCategory.message,
         data: {
           id: expect.any(Number),
           code: code,

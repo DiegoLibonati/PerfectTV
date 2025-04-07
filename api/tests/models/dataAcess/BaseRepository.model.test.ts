@@ -50,12 +50,12 @@ describe("BaseRepository.model.ts", () => {
       expect(bases.find((b) => b.baseUrl === baseTest.baseUrl)).toBeTruthy();
     });
 
-    test("It must get one source by idSource.", async () => {
+    test("It must get one base by idSource.", async () => {
       const base = await baseRepository.getBaseByIdSource(baseTest.idSource);
 
       expect(base!.id).toBeTruthy();
       expect(base!.baseUrl).toEqual(baseTest.baseUrl);
-      expect(base!.source).toEqual(source);
+      expect({ ...base!.source, base: null }).toEqual(source);
     });
 
     test("It must get one base by id.", async () => {
@@ -66,7 +66,7 @@ describe("BaseRepository.model.ts", () => {
 
       expect(base!.id).toBeTruthy();
       expect(base!.baseUrl).toEqual(baseTest.baseUrl);
-      expect(base!.source).toEqual(source);
+      expect({ ...base!.source, base: null }).toEqual(source);
     });
 
     test("It must update a specific field of the base.", async () => {
@@ -79,7 +79,7 @@ describe("BaseRepository.model.ts", () => {
 
       expect(base!.id).toBeTruthy();
       expect(base!.baseUrl).toEqual(newBaseUrl);
-      expect(base!.source).toEqual(source);
+      expect({ ...base!.source, base: null }).toEqual(source);
     });
 
     test("It must add multiple bases through an array.", async () => {

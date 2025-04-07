@@ -28,7 +28,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "GET_ALIVE_SUJCCESSFULLY",
-                                            "message": "API Working.",
                                             "author": "Diego Martin Libonati",
                                             "version": "1.0.0"
                                         }
@@ -102,7 +101,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "GET_CATEGORIES_SUCCESSFULLY",
-                                            "message": "The categories were successfully obtained.",
                                             "data": [
                                                 {
                                                     "id": 1,
@@ -159,7 +157,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "POST_ADD_CATEGORY_SUCCESSFULLY",
-                                            "message": "A new category was successfully added.",
                                             "data": {
                                                 "id": 22,
                                                 "code": "Noticias2",
@@ -179,15 +176,13 @@
                                     "Invalid Fields": {
                                         "summary": "Invalid Fields",
                                         "value": {
-                                            "code": "NOT_VALID_FIELDS",
-                                            "message": "You must enter valid fields."
+                                            "code": "NOT_VALID_FIELDS"
                                         }
                                     },
                                     "Category Exists": {
                                         "summary": "Category Exists",
                                         "value": {
-                                            "code": "ALREADY_EXISTS_CATEGORY",
-                                            "message": "This category already exists."
+                                            "code": "ALREADY_EXISTS_CATEGORY"
                                         }
                                     }
                                 }
@@ -225,7 +220,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "DELETE_CATEGORY_SUCCESSFULLY",
-                                            "message": "A category was successfully deleted.",
                                             "data": {
                                                 "id": 22,
                                                 "code": "Noticias2",
@@ -245,8 +239,7 @@
                                     "Invalid Params": {
                                         "summary": "Invalid Params",
                                         "value": {
-                                            "code": "NOT_VALID_PARAMS",
-                                            "message": "You must enter valid params."
+                                            "code": "NOT_VALID_PARAMS"
                                         }
                                     }
                                 }
@@ -261,8 +254,7 @@
                                     "Not found category": {
                                         "summary": "Not found category.",
                                         "value": {
-                                            "code": "NOT_FOUND_CATEGORY",
-                                            "message": "The requested category was not found."
+                                            "code": "NOT_FOUND_CATEGORY"
                                         }
                                     }
                                 }
@@ -288,7 +280,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "GET_TYPES_SUCCESSFULLY",
-                                            "message": "The types were successfully obtained.",
                                             "data": [
                                                 {
                                                     "id": 1,
@@ -345,7 +336,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "POST_ADD_TYPE_SUCCESSFULLY",
-                                            "message": "A new type was successfully added.",
                                             "data": {
                                                 "id": 1,
                                                 "code": "public",
@@ -365,15 +355,13 @@
                                     "Invalid Fields": {
                                         "summary": "Invalid Fields",
                                         "value": {
-                                            "code": "NOT_VALID_FIELDS",
-                                            "message": "You must enter valid fields."
+                                            "code": "NOT_VALID_FIELDS"
                                         }
                                     },
                                     "Type Exists": {
                                         "summary": "Type Exists",
                                         "value": {
-                                            "code": "ALREADY_EXISTS_TYPE",
-                                            "message": "This type already exists."
+                                            "code": "ALREADY_EXISTS_TYPE"
                                         }
                                     }
                                 }
@@ -411,7 +399,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "DELETE_TYPE_SUCCESSFULLY",
-                                            "message": "A type was successfully deleted.",
                                             "data": {
                                                 "id": 1,
                                                 "code": "public",
@@ -431,8 +418,7 @@
                                     "Invalid Params": {
                                         "summary": "Invalid Params",
                                         "value": {
-                                            "code": "NOT_VALID_PARAMS",
-                                            "message": "You must enter valid params."
+                                            "code": "NOT_VALID_PARAMS"
                                         }
                                     }
                                 }
@@ -447,8 +433,7 @@
                                     "Not found type": {
                                         "summary": "Not found type.",
                                         "value": {
-                                            "code": "NOT_FOUND_TYPE",
-                                            "message": "The requested type was not found."
+                                            "code": "NOT_FOUND_TYPE"
                                         }
                                     }
                                 }
@@ -474,7 +459,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "GET_SOURCES_SUCCESSFULLY",
-                                            "message": "The sources were successfully obtained.",
                                             "data": [
                                                 {
                                                     "id": 1,
@@ -539,7 +523,6 @@
                                 "examples": {
                                     "Simple Response": {
                                         "code": "POST_ADD_SOURCE_SUCCESSFULLY",
-                                        "message": "A new source was successfully added.",
                                         "data": {
                                             "id": 5,
                                             "code": "youtube2",
@@ -558,15 +541,13 @@
                                     "Invalid Fields": {
                                         "summary": "Invalid Fields",
                                         "value": {
-                                            "code": "NOT_VALID_FIELDS",
-                                            "message": "You must enter valid fields."
+                                            "code": "NOT_VALID_FIELDS"
                                         }
                                     },
                                     "Source Exists": {
                                         "summary": "Source Exists",
                                         "value": {
-                                            "code": "ALREADY_EXISTS_SOURCE",
-                                            "message": "This source already exists."
+                                            "code": "ALREADY_EXISTS_SOURCE"
                                         }
                                     }
                                 }
@@ -604,7 +585,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "DELETE_SOURCE_SUCCESSFULLY",
-                                            "message": "A source was successfully deleted.",
                                             "data": {
                                                 "id": 5,
                                                 "code": "youtube2",
@@ -624,8 +604,7 @@
                                     "Invalid Params": {
                                         "summary": "Invalid Params",
                                         "value": {
-                                            "code": "NOT_VALID_PARAMS",
-                                            "message": "You must enter valid params."
+                                            "code": "NOT_VALID_PARAMS"
                                         }
                                     }
                                 }
@@ -640,8 +619,7 @@
                                     "Not found source": {
                                         "summary": "Not found Source.",
                                         "value": {
-                                            "code": "NOT_FOUND_SOURCE",
-                                            "message": "The requested source was not found."
+                                            "code": "NOT_FOUND_SOURCE"
                                         }
                                     }
                                 }
@@ -678,7 +656,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "GET_CHANNELS_SUCCESSFULLY",
-                                            "message": "The channels were successfully obtained.",
                                             "data": [
                                                 {
                                                     "id": 2,
@@ -686,6 +663,7 @@
                                                     "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
                                                     "thumbUrl": "https://url.com/img/tn.png",
                                                     "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
+                                                    "urlRest": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
                                                     "number": 3,
                                                     "type": {
                                                         "id": 1,
@@ -702,6 +680,136 @@
                                                         "code": "youtube",
                                                         "description": "Canales de Televisión de YouTube"
                                                     }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/channel/v1/channels/number/{numberChannel}": {
+            "get": {
+                "summary": "Get a specific channel through the channel number.",
+                "tags": [
+                    "Channel"
+                ],
+                "parameters": [
+                    {
+                        "name": "numberChannel",
+                        "in": "path",
+                        "required": true,
+                        "description": "Number of the channel to find.",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_CHANNEL_SUCCESSFULLY",
+                                            "data": {
+                                                "id": 2,
+                                                "name": "TN",
+                                                "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
+                                                "thumbUrl": "https://url.com/img/tn.png",
+                                                "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
+                                                "urlRest": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
+                                                "number": 3,
+                                                "type": {
+                                                    "id": 1,
+                                                    "code": "public",
+                                                    "description": "Canales de Televisión Públicos"
+                                                },
+                                                "category": {
+                                                    "id": 1,
+                                                    "code": "news",
+                                                    "description": "Canales de Televisión de Noticias"
+                                                },
+                                                "source": {
+                                                    "id": 1,
+                                                    "code": "youtube",
+                                                    "description": "Canales de Televisión de YouTube"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found channel": {
+                                        "summary": "Not found channel",
+                                        "value": {
+                                            "code": "NOT_FOUND_CHANNEL"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/channel/v1/channels/numbers": {
+            "get": {
+                "summary": "Gets the total number of channels currently occupied.",
+                "tags": [
+                    "Channel"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_NUMBERS_SUCCESSFULLY",
+                                            "data": [
+                                                {
+                                                    "id": 8,
+                                                    "number": 1
+                                                },
+                                                {
+                                                    "id": 7,
+                                                    "number": 3
+                                                },
+                                                {
+                                                    "id": 9,
+                                                    "number": 10000
                                                 }
                                             ]
                                         }
@@ -741,6 +849,10 @@
                                     "url": {
                                         "type": "string",
                                         "example": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1"
+                                    },
+                                    "urlRest": {
+                                        "type": "string",
+                                        "example": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1"
                                     },
                                     "number": {
                                         "type": "integer",
@@ -783,13 +895,13 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "POST_ADD_CHANNEL_SUCCESSFULLY",
-                                            "message": "A new channel was successfully added.",
                                             "data": {
                                                 "id": 18,
                                                 "name": "TN2",
                                                 "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
                                                 "thumbUrl": "https://television-libre.net/img/tn.png",
                                                 "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
+                                                "urlRest": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
                                                 "number": 33,
                                                 "type": {
                                                     "id": 1,
@@ -821,15 +933,13 @@
                                     "Invalid Fields": {
                                         "summary": "Invalid Fields",
                                         "value": {
-                                            "code": "NOT_VALID_FIELDS",
-                                            "message": "You must enter valid fields."
+                                            "code": "NOT_VALID_FIELDS"
                                         }
                                     },
                                     "Channel Exists": {
                                         "summary": "Channel Exists",
                                         "value": {
-                                            "code": "ALREADY_EXISTS_CHANNEL",
-                                            "message": "This channel already exists."
+                                            "code": "ALREADY_EXISTS_CHANNEL"
                                         }
                                     }
                                 }
@@ -844,22 +954,19 @@
                                     "Not found type": {
                                         "summary": "Not found type",
                                         "value": {
-                                            "code": "NOT_FOUND_TYPE",
-                                            "message": "The requested type was not found."
+                                            "code": "NOT_FOUND_TYPE"
                                         }
                                     },
                                     "Not found category": {
                                         "summary": "Not found category",
                                         "value": {
-                                            "code": "NOT_FOUND_CATEGORY",
-                                            "message": "The requested category was not found."
+                                            "code": "NOT_FOUND_CATEGORY"
                                         }
                                     },
                                     "Not found source": {
                                         "summary": "Not found source",
                                         "value": {
-                                            "code": "NOT_FOUND_SOURCE",
-                                            "message": "The requested source was not found."
+                                            "code": "NOT_FOUND_SOURCE"
                                         }
                                     }
                                 }
@@ -897,6 +1004,10 @@
                                     "url": {
                                         "type": "string",
                                         "example": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1"
+                                    },
+                                    "urlRest": {
+                                        "type": "string",
+                                        "example": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1"
                                     },
                                     "number": {
                                         "type": "integer",
@@ -942,13 +1053,13 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "UPDATE_CHANNEL_SUCCESSFULLY",
-                                            "message": "A channel was successfully updated.",
                                             "data": {
                                                 "id": 18,
                                                 "name": "TN2",
                                                 "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
                                                 "thumbUrl": "https://television-libre.net/img/tn.png",
                                                 "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
+                                                "urlRest": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
                                                 "number": 33,
                                                 "type": {
                                                     "id": 1,
@@ -980,8 +1091,7 @@
                                     "Invalid Params": {
                                         "summary": "Invalid Params",
                                         "value": {
-                                            "code": "NOT_VALID_PARAMS",
-                                            "message": "You must enter valid params."
+                                            "code": "NOT_VALID_PARAMS"
                                         }
                                     }
                                 }
@@ -996,8 +1106,7 @@
                                     "Not found channel": {
                                         "summary": "Not found channel.",
                                         "value": {
-                                            "code": "NOT_FOUND_CHANNEL",
-                                            "message": "The requested channel was not found."
+                                            "code": "NOT_FOUND_CHANNEL"
                                         }
                                     }
                                 }
@@ -1035,13 +1144,13 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "DELETE_CHANNEL_SUCCESSFULLY",
-                                            "message": "A channel was successfully deleted.",
                                             "data": {
                                                 "id": 18,
                                                 "name": "TN2",
                                                 "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
                                                 "thumbUrl": "https://television-libre.net/img/tn.png",
                                                 "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
+                                                "urlRest": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11",
                                                 "number": 33,
                                                 "type": {
                                                     "id": 1,
@@ -1073,8 +1182,7 @@
                                     "Invalid Params": {
                                         "summary": "Invalid Params",
                                         "value": {
-                                            "code": "NOT_VALID_PARAMS",
-                                            "message": "You must enter valid params."
+                                            "code": "NOT_VALID_PARAMS"
                                         }
                                     }
                                 }
@@ -1089,8 +1197,7 @@
                                     "Not found channel": {
                                         "summary": "Not found channel.",
                                         "value": {
-                                            "code": "NOT_FOUND_CHANNEL",
-                                            "message": "The requested channel was not found."
+                                            "code": "NOT_FOUND_CHANNEL"
                                         }
                                     }
                                 }
@@ -1116,7 +1223,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "GET_BASES_SUCCESSFULLY",
-                                            "message": "The bases were successfully obtained.",
                                             "data": [
                                                 {
                                                     "id": 8,
@@ -1175,7 +1281,6 @@
                                 "examples": {
                                     "Simple Response": {
                                         "code": "POST_ADD_BASE_SUCCESSFULLY",
-                                        "message": "A new base was successfully added.",
                                         "data": {
                                             "id": 8,
                                             "baseUrl": "https://www.youtube.com/embed/live_stream",
@@ -1198,15 +1303,13 @@
                                     "Invalid Fields": {
                                         "summary": "Invalid Fields",
                                         "value": {
-                                            "code": "NOT_VALID_FIELDS",
-                                            "message": "You must enter valid fields."
+                                            "code": "NOT_VALID_FIELDS"
                                         }
                                     },
                                     "Base Exists": {
                                         "summary": "Base Exists",
                                         "value": {
-                                            "code": "ALREADY_EXISTS_BASE",
-                                            "message": "This base already exists."
+                                            "code": "ALREADY_EXISTS_BASE"
                                         }
                                     }
                                 }
@@ -1265,7 +1368,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "UPDATE_BASE_SUCCESSFULLY",
-                                            "message": "A base was successfully updated.",
                                             "data": {
                                                 "id": 8,
                                                 "baseUrl": "https://www.youtube.com/embed/live_stream",
@@ -1289,8 +1391,7 @@
                                     "Invalid Params": {
                                         "summary": "Invalid Params",
                                         "value": {
-                                            "code": "NOT_VALID_PARAMS",
-                                            "message": "You must enter valid params."
+                                            "code": "NOT_VALID_PARAMS"
                                         }
                                     }
                                 }
@@ -1305,8 +1406,7 @@
                                     "Not found base": {
                                         "summary": "Not found base.",
                                         "value": {
-                                            "code": "NOT_FOUND_BASE",
-                                            "message": "The requested base was not found."
+                                            "code": "NOT_FOUND_BASE"
                                         }
                                     }
                                 }
@@ -1344,7 +1444,6 @@
                                         "summary": "Standard response",
                                         "value": {
                                             "code": "DELETE_BASE_SUCCESSFULLY",
-                                            "message": "A base was successfully deleted.",
                                             "data": {
                                                 "id": 8,
                                                 "baseUrl": "https://www.youtube.com/embed/live_stream",
@@ -1368,8 +1467,7 @@
                                     "Invalid Params": {
                                         "summary": "Invalid Params",
                                         "value": {
-                                            "code": "NOT_VALID_PARAMS",
-                                            "message": "You must enter valid params."
+                                            "code": "NOT_VALID_PARAMS"
                                         }
                                     }
                                 }
@@ -1384,8 +1482,7 @@
                                     "Not found base": {
                                         "summary": "Not found Base.",
                                         "value": {
-                                            "code": "NOT_FOUND_BASE",
-                                            "message": "The requested base was not found."
+                                            "code": "NOT_FOUND_BASE"
                                         }
                                     }
                                 }

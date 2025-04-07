@@ -21,7 +21,7 @@ app.use("*", (req, res) => {
   const baseUrl = req.baseUrl;
 
   res.status(404).json({
-    message: `${responseNotFound.route.message} Path: ${baseUrl}`,
+    message: `Path: ${baseUrl}`,
     code: responseNotFound.route.code,
   });
 });

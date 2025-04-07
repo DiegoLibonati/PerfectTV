@@ -27,7 +27,6 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
     });
 
@@ -43,11 +42,11 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addSource.code,
-        message: responseSuccess.addSource.message,
         data: {
           id: expect.any(Number),
           code: code,
           description: description,
+          base: null,
         },
       });
     });
@@ -64,7 +63,6 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(400);
       expect(data).toEqual({
         code: responseAlreadyExists.source.code,
-        message: responseAlreadyExists.source.message,
       });
     });
   });
@@ -79,12 +77,16 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getSources.code,
-        message: responseSuccess.getSources.message,
         data: expect.arrayContaining([
           {
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
+            base: {
+              id: expect.any(Number),
+              idSource: expect.any(Number),
+              baseUrl: expect.any(String),
+            },
           },
         ]),
       });
@@ -105,7 +107,6 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(404);
       expect(data).toEqual({
         code: responseNotFound.source.code,
-        message: responseNotFound.source.message,
       });
     });
 
@@ -123,11 +124,11 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteSource.code,
-        message: responseSuccess.deleteSource.message,
         data: {
           id: expect.any(Number),
           code: code,
           description: description,
+          base: null,
         },
       });
     });

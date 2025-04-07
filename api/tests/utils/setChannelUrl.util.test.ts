@@ -2,15 +2,15 @@ import { Channel, Source } from "@app/entities/models";
 
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
-import { setChannelUrlBySourceCode } from "@app/utils/setChannelUrlBySourceCode.util";
+import { setChannelUrl } from "@app/utils/setChannelUrl.util";
 
-describe("setChannelUrlBySourceCode.util.ts", () => {
+describe("setChannelUrl.util.ts", () => {
   let source: Source;
   let idChannelTest: number;
 
   const sourceTest: Pick<Source, "code" | "description"> = {
-    code: "sourceTestsetChannelUrlBySourceCode",
-    description: "source test setChannelUrlBySourceCode",
+    code: "sourceTestsetChannelUrl",
+    description: "source test setChannelUrl",
   };
 
   const channelTest: Record<string, string | number> = {
@@ -54,18 +54,9 @@ describe("setChannelUrlBySourceCode.util.ts", () => {
       const channelTest = channels.find(
         (channel) => channel.id === idChannelTest
       )!;
-      const sourceById = await sourceRepository.getSourceById(source.id);
       const baseUrl = "https://hola.com/";
 
-      const newChannels = await setChannelUrlBySourceCode(
-        channels,
-        sourceById!.code,
-        baseUrl
-      );
-
-      const newChannelTest = newChannels.find(
-        (channel) => channel.id === idChannelTest
-      )!;
+      const newChannelTest = await setChannelUrl(channelTest, baseUrl);
 
       expect(newChannelTest.url).toBe(`${baseUrl}${channelTest.urlRest}`);
     });
@@ -77,18 +68,9 @@ describe("setChannelUrlBySourceCode.util.ts", () => {
       const channelTest = channels.find(
         (channel) => channel.id === idChannelTest
       )!;
-      const code = "code not exists";
       const baseUrl = "https://hola.com/";
 
-      const newChannels = await setChannelUrlBySourceCode(
-        channels,
-        code,
-        baseUrl
-      );
-
-      const newChannelTest = newChannels.find(
-        (channel) => channel.id === idChannelTest
-      )!;
+      const newChannelTest = await setChannelUrl(channelTest, baseUrl);
 
       expect(newChannelTest.url).toBe(channelTest.url);
     });

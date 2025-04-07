@@ -116,6 +116,23 @@ describe("ChannelRepository.model.ts", () => {
       expect(channel!.source?.id).toEqual(channelSource);
     });
 
+    test("It must get one channel by number.", async () => {
+      const channel = await channelRepository.getChannelByNumber(
+        channelTest.number
+      );
+
+      expect(channel!.id).toBeTruthy();
+      expect(channel!.name).toEqual(channelTest.name);
+      expect(channel!.description).toEqual(channelTest.description);
+      expect(channel!.thumbUrl).toEqual(channelTest.thumbUrl);
+      expect(channel!.url).toEqual(channelTest.url);
+      expect(channel!.urlRest).toEqual(channelTest.urlRest);
+      expect(channel!.number).toEqual(channelTest.number);
+      expect(channel!.type?.id).toEqual(channelType);
+      expect(channel!.category?.id).toEqual(channelCategory);
+      expect(channel!.source?.id).toEqual(channelSource);
+    });
+
     test("It must update a specific field of the channel.", async () => {
       const channelByNameNumberUrl =
         await channelRepository.getChannelByNameNumber(

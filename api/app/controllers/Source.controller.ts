@@ -14,7 +14,6 @@ class SourceController {
 
     res.status(200).json({
       code: responseSuccess.getSources.code,
-      message: responseSuccess.getSources.message,
       data: sources,
     });
     return;
@@ -29,7 +28,6 @@ class SourceController {
     if (!code || !description) {
       res.status(400).json({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -39,7 +37,6 @@ class SourceController {
     if (sourceExists) {
       res.status(400).json({
         code: responseAlreadyExists.source.code,
-        message: responseAlreadyExists.source.message,
       });
       return;
     }
@@ -48,7 +45,6 @@ class SourceController {
 
     res.status(201).json({
       code: responseSuccess.addSource.code,
-      message: responseSuccess.addSource.message,
       data: source,
     });
     return;
@@ -60,7 +56,6 @@ class SourceController {
     if (!idSource) {
       res.status(400).json({
         code: responseNotValid.params.code,
-        message: responseNotValid.params.message,
       });
       return;
     }
@@ -70,7 +65,6 @@ class SourceController {
     if (!sourceExists) {
       res.status(404).json({
         code: responseNotFound.source.code,
-        message: responseNotFound.source.message,
       });
       return;
     }
@@ -79,7 +73,6 @@ class SourceController {
 
     res.status(200).json({
       code: responseSuccess.deleteSource.code,
-      message: responseSuccess.deleteSource.message,
       data: sourceDeleted,
     });
     return;

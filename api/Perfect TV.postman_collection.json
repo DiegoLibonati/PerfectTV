@@ -185,13 +185,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_SOURCES}}/delete/49",
+							"raw": "{{API_URL_SOURCES}}/delete/14",
 							"host": [
 								"{{API_URL_SOURCES}}"
 							],
 							"path": [
 								"delete",
-								"49"
+								"14"
 							]
 						}
 					},
@@ -226,7 +226,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"baseUrl\": \"youtube2\",\r\n    \"idSource\": 1\r\n}",
+							"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\",\r\n    \"idSource\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -251,13 +251,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_BASE}}/delete/49",
+							"raw": "{{API_URL_BASE}}/delete/5",
 							"host": [
 								"{{API_URL_BASE}}"
 							],
 							"path": [
 								"delete",
-								"49"
+								"5"
 							]
 						}
 					},
@@ -270,7 +270,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"baseUrl\": \"\"\r\n}",
+							"raw": "{\r\n    \"baseUrl\": \"https://www.youtube.com/embed/live_stream\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -278,13 +278,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_BASE}}/update/1",
+							"raw": "{{API_URL_BASE}}/update/8",
 							"host": [
 								"{{API_URL_BASE}}"
 							],
 							"path": [
 								"update",
-								"1"
+								"8"
 							]
 						}
 					},
@@ -319,7 +319,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"Noticias2\",\r\n    \"description\": \"News\"\r\n}",
+							"raw": "{\r\n    \"code\": \"gameplays\",\r\n    \"description\": \"Canales de Televisión de Juegos\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -362,12 +362,12 @@
 			"name": "Channel Routes",
 			"item": [
 				{
-					"name": "GET Channel",
+					"name": "GET Channels",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_CHANNEL}}/",
+							"raw": "{{API_URL_CHANNEL}}/?reload=true",
 							"host": [
 								"{{API_URL_CHANNEL}}"
 							],
@@ -377,9 +377,26 @@
 							"query": [
 								{
 									"key": "reload",
-									"value": "true",
-									"disabled": true
+									"value": "true"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Channel By Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_CHANNEL}}/number/1",
+							"host": [
+								"{{API_URL_CHANNEL}}"
+							],
+							"path": [
+								"number",
+								"1"
 							]
 						}
 					},
@@ -392,7 +409,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"TN2\",\r\n    \"description\": \"Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.\",\r\n    \"thumbUrl\": \"https://television-libre.net/img/tn.png\",\r\n    \"url\": \"https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=11\",\r\n    \"number\": 33,\r\n    \"idType\": 1,\r\n    \"idCategory\": 1,\r\n    \"idSource\": 3\r\n}",
+							"raw": "{\r\n    \"name\": \"Axelelcapo Stream\",\r\n    \"description\": \"Alejandro Fernández Miret, mejor conocido como Alexelcapo (Alex, Alejandro, EvilAFM), es un youtuber de Mallorca que sube vídeos relacionados con el mundo de los videojuegos, realizando gameplays comentados de los mismos. Cuenta actualmente con 1.500.000 suscriptores en su canal de YouTube y con más de 4.900 vídeos. Su contenido abarca gameplays comentados de toda la variedad de juegos, sobre todo famosos, aunque sea más identificado por subir contenido del juego Minecraft.\",\r\n    \"thumbUrl\": \"https://static.wikia.nocookie.net/youtubepedia/images/4/47/Alexelcapo_1.PNG/revision/latest?cb=20200214201549&path-prefix=es\",\r\n    \"url\": \"alexelcapo\",\r\n    \"urlRest\": \"alexelcapo\",\r\n    \"number\": 10000,\r\n    \"idType\": 1,\r\n    \"idCategory\": 40,\r\n    \"idSource\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -418,7 +435,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"urlRest\": \"?get=TGFfTmFjaW9u&lang=1&start=true\"\r\n}",
+							"raw": "{\r\n    \"url\": \"?get=TGFfTmFjaW9u&lang=1&start=true\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -426,13 +443,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_CHANNEL}}/update/1",
+							"raw": "{{API_URL_CHANNEL}}/update/8",
 							"host": [
 								"{{API_URL_CHANNEL}}"
 							],
 							"path": [
 								"update",
-								"1"
+								"8"
 							]
 						}
 					},

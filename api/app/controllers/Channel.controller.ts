@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { Channel, Source } from "@app/entities/models";
+import { Channel } from "@app/entities/models";
 
 import { config } from "@app/config/env.conf";
 import {
@@ -9,20 +9,15 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import {
-  CODE_FTV,
-  CODE_TWITCH,
-  CODE_YOUTUBE,
-} from "@app/constants/Sources.constants";
+import { CODE_FTV } from "@app/constants/Sources.constants";
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 import baseRepository from "@app/models/dataAccess/BaseRepository.model";
 import { invalidUrlChecker } from "@app/utils/invalidUrlChecker.util";
-import { sourceCodeChecker } from "@app/utils/sourceCodeChecker.util";
-import { getSrcByIframe } from "@app/utils/getSrcByIframe.util";
-import { setChannelUrlBySourceCode } from "@app/utils/setChannelUrlBySourceCode.util";
+import { setChannelUrl } from "@app/utils/setChannelUrl.util";
+import { manageBaseUrlByIframe } from "@app/utils/manageBaseUrlByIframe.util";
 
 class CategoryController {
   async getChannels(req: Request, res: Response) {
@@ -38,71 +33,68 @@ class CategoryController {
       console.log("Devuelo los canales de una.");
       res.status(200).json({
         code: responseSuccess.getChannels.code,
-        message: responseSuccess.getChannels.message,
         data: channels,
       });
       return;
     }
 
-    const sourceFtv = await sourceRepository.getSourceByCode(CODE_FTV);
-    const sourceYoutube = await sourceRepository.getSourceByCode(CODE_YOUTUBE);
-    const sourceTwitch = await sourceRepository.getSourceByCode(CODE_TWITCH);
+    channels = await Promise.all(
+      channels.map(async (channel) => {
+        const sourceIdChannel = channel.source?.id;
+        const sourceCodeChannel = channel.source?.code;
 
-    const ftvChannelExists = sourceCodeChecker(channels, CODE_FTV);
-    const youtubeChannelExists = sourceCodeChecker(channels, CODE_YOUTUBE);
-    const twitchChannelExists = sourceCodeChecker(channels, CODE_TWITCH);
+        if (sourceCodeChannel === CODE_FTV && !config.TEST_ENVIRONMENT) {
+          await manageBaseUrlByIframe(config.FTV_URL!, sourceIdChannel!);
+        }
 
-    if (ftvChannelExists && !config.TEST_ENVIRONMENT) {
-      const srcUrl = await getSrcByIframe(config.FTV_URL!);
-      const baseUrl = srcUrl.split("?")[0];
+        const base = await baseRepository.getBaseByIdSource(sourceIdChannel!);
+        const channelUpdated = await setChannelUrl(channel, base?.baseUrl!);
 
-      const baseExists = await baseRepository.getBaseByIdSource(sourceFtv!.id);
-
-      if (!baseExists) {
-        await baseRepository.createBase(baseUrl, sourceFtv!.id);
-      } else {
-        await baseRepository.updateBase(baseExists.id, { baseUrl: baseUrl });
-      }
-    }
-
-    const sourceChannelsToUpdate: { sourceCode: string; baseUrl: string }[] = [
-      ftvChannelExists
-        ? {
-            sourceCode: sourceFtv!.code,
-            baseUrl: sourceFtv!.base?.baseUrl ?? "",
-          }
-        : null,
-      youtubeChannelExists
-        ? {
-            sourceCode: sourceYoutube!.code,
-            baseUrl: sourceYoutube!.base?.baseUrl ?? "",
-          }
-        : null,
-      twitchChannelExists
-        ? {
-            sourceCode: sourceTwitch!.code,
-            baseUrl: sourceTwitch!.base?.baseUrl ?? "",
-          }
-        : null,
-    ].filter(
-      (channel): channel is { sourceCode: string; baseUrl: string } =>
-        channel !== null
+        return channelUpdated;
+      })
     );
-
-    if (sourceChannelsToUpdate.length > 0 && !config.TEST_ENVIRONMENT) {
-      for (const sctu of sourceChannelsToUpdate) {
-        channels = await setChannelUrlBySourceCode(
-          channels,
-          sctu.sourceCode,
-          sctu.baseUrl
-        );
-      }
-    }
 
     res.status(200).json({
       code: responseSuccess.getChannels.code,
-      message: responseSuccess.getChannels.message,
       data: channels,
+    });
+    return;
+  }
+
+  async getChannelByNumber(req: Request, res: Response) {
+    let channel: Channel | null;
+
+    const numberChannel = req.params.numberChannel;
+
+    if (!numberChannel) {
+      res.status(400).json({
+        code: responseNotValid.params.code,
+      });
+      return;
+    }
+
+    channel = await channelRepository.getChannelByNumber(Number(numberChannel));
+
+    if (!channel) {
+      res.status(404).json({
+        code: responseNotFound.channel.code,
+      });
+      return;
+    }
+
+    const sourceIdChannel = channel.source?.id;
+    const sourceCodeChannel = channel.source?.code;
+
+    if (sourceCodeChannel === CODE_FTV && !config.TEST_ENVIRONMENT) {
+      await manageBaseUrlByIframe(config.FTV_URL!, sourceIdChannel!);
+    }
+
+    const base = await baseRepository.getBaseByIdSource(sourceIdChannel!);
+    channel = await setChannelUrl(channel, base?.baseUrl!);
+
+    res.status(200).json({
+      code: responseSuccess.getChannel.code,
+      data: channel,
     });
     return;
   }
@@ -132,7 +124,6 @@ class CategoryController {
     ) {
       res.status(400).json({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -145,7 +136,6 @@ class CategoryController {
     if (channelExists) {
       res.status(400).json({
         code: responseAlreadyExists.channel.code,
-        message: responseAlreadyExists.channel.message,
       });
       return;
     }
@@ -155,7 +145,6 @@ class CategoryController {
     if (!typeExists) {
       res.status(404).json({
         code: responseNotFound.type.code,
-        message: responseNotFound.type.message,
       });
       return;
     }
@@ -167,7 +156,6 @@ class CategoryController {
     if (!categoryExists) {
       res.status(404).json({
         code: responseNotFound.category.code,
-        message: responseNotFound.category.message,
       });
       return;
     }
@@ -177,7 +165,6 @@ class CategoryController {
     if (!sourceExists) {
       res.status(404).json({
         code: responseNotFound.source.code,
-        message: responseNotFound.source.message,
       });
       return;
     }
@@ -196,7 +183,6 @@ class CategoryController {
 
     res.status(201).json({
       code: responseSuccess.addChannel.code,
-      message: responseSuccess.addChannel.message,
       data: channel,
     });
     return;
@@ -209,7 +195,6 @@ class CategoryController {
     if (!idChannel) {
       res.status(400).json({
         code: responseNotValid.params.code,
-        message: responseNotValid.params.message,
       });
       return;
     }
@@ -221,7 +206,6 @@ class CategoryController {
     if (!channelExists) {
       res.status(404).json({
         code: responseNotFound.channel.code,
-        message: responseNotFound.channel.message,
       });
       return;
     }
@@ -257,7 +241,6 @@ class CategoryController {
 
     res.status(200).json({
       code: responseSuccess.updateChannel.code,
-      message: responseSuccess.updateChannel.message,
       data: channelUpdated,
     });
     return;
@@ -269,7 +252,6 @@ class CategoryController {
     if (!idChannel) {
       res.status(400).json({
         code: responseNotValid.params.code,
-        message: responseNotValid.params.message,
       });
       return;
     }
@@ -281,7 +263,6 @@ class CategoryController {
     if (!channelExists) {
       res.status(404).json({
         code: responseNotFound.channel.code,
-        message: responseNotFound.channel.message,
       });
       return;
     }
@@ -292,7 +273,6 @@ class CategoryController {
 
     res.status(200).json({
       code: responseSuccess.deleteChannel.code,
-      message: responseSuccess.deleteChannel.message,
       data: channelDeleted,
     });
     return;

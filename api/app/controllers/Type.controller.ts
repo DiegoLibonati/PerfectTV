@@ -14,7 +14,6 @@ class TypeController {
 
     res.status(200).json({
       code: responseSuccess.getTypes.code,
-      message: responseSuccess.getTypes.message,
       data: types,
     });
     return;
@@ -29,7 +28,6 @@ class TypeController {
     if (!code || !description) {
       res.status(400).json({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -39,7 +37,6 @@ class TypeController {
     if (typeExists) {
       res.status(400).json({
         code: responseAlreadyExists.type.code,
-        message: responseAlreadyExists.type.message,
       });
       return;
     }
@@ -48,7 +45,6 @@ class TypeController {
 
     res.status(201).json({
       code: responseSuccess.addType.code,
-      message: responseSuccess.addType.message,
       data: type,
     });
     return;
@@ -60,7 +56,6 @@ class TypeController {
     if (!idType) {
       res.status(400).json({
         code: responseNotValid.params.code,
-        message: responseNotValid.params.message,
       });
       return;
     }
@@ -70,7 +65,6 @@ class TypeController {
     if (!typeExists) {
       res.status(404).json({
         code: responseNotFound.type.code,
-        message: responseNotFound.type.message,
       });
       return;
     }
@@ -79,7 +73,6 @@ class TypeController {
 
     res.status(200).json({
       code: responseSuccess.deleteType.code,
-      message: responseSuccess.deleteType.message,
       data: typeDeleted,
     });
     return;

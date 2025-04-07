@@ -6,7 +6,7 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import  baseRepository from "@app/models/dataAccess/BaseRepository.model";
+import baseRepository from "@app/models/dataAccess/BaseRepository.model";
 
 class BaseController {
   async getBases(req: Request, res: Response) {
@@ -14,7 +14,6 @@ class BaseController {
 
     res.status(200).json({
       code: responseSuccess.getBases.code,
-      message: responseSuccess.getBases.message,
       data: bases,
     });
     return;
@@ -29,7 +28,6 @@ class BaseController {
     if (!baseUrl || !idSource) {
       res.status(400).json({
         code: responseNotValid.fields.code,
-        message: responseNotValid.fields.message,
       });
       return;
     }
@@ -39,7 +37,6 @@ class BaseController {
     if (baseExists) {
       res.status(400).json({
         code: responseAlreadyExists.base.code,
-        message: responseAlreadyExists.base.message,
       });
       return;
     }
@@ -48,7 +45,6 @@ class BaseController {
 
     res.status(201).json({
       code: responseSuccess.addBase.code,
-      message: responseSuccess.addBase.message,
       data: base,
     });
     return;
@@ -61,19 +57,15 @@ class BaseController {
     if (!idBase) {
       res.status(400).json({
         code: responseNotValid.params.code,
-        message: responseNotValid.params.message,
       });
       return;
     }
 
-    const baseExists = await baseRepository.getBaseById(
-      Number(idBase)
-    );
+    const baseExists = await baseRepository.getBaseById(Number(idBase));
 
     if (!baseExists) {
       res.status(404).json({
         code: responseNotFound.base.code,
-        message: responseNotFound.base.message,
       });
       return;
     }
@@ -86,14 +78,10 @@ class BaseController {
       ...(idSource !== undefined && { idSource: idSource }),
     };
 
-    const baseUpdated = await baseRepository.updateBase(
-      Number(idBase),
-      data
-    );
+    const baseUpdated = await baseRepository.updateBase(Number(idBase), data);
 
     res.status(200).json({
       code: responseSuccess.updateBase.code,
-      message: responseSuccess.updateBase.message,
       data: baseUpdated,
     });
     return;
@@ -105,7 +93,6 @@ class BaseController {
     if (!idBase) {
       res.status(400).json({
         code: responseNotValid.params.code,
-        message: responseNotValid.params.message,
       });
       return;
     }
@@ -115,7 +102,6 @@ class BaseController {
     if (!baseExists) {
       res.status(404).json({
         code: responseNotFound.base.code,
-        message: responseNotFound.base.message,
       });
       return;
     }
@@ -124,7 +110,6 @@ class BaseController {
 
     res.status(200).json({
       code: responseSuccess.deleteBase.code,
-      message: responseSuccess.deleteBase.message,
       data: baseDeleted,
     });
     return;

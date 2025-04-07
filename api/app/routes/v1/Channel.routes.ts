@@ -7,6 +7,9 @@ const channelController = new ChannelController();
 
 channelRoutes
   .get("/", (req, res) => channelController.getChannels(req, res))
+  .get("/number/:numberChannel", (req, res) =>
+    channelController.getChannelByNumber(req, res)
+  )
   .post("/add", (req, res) => channelController.addChannel(req, res))
   .patch("/update/:idChannel", (req, res) =>
     channelController.updateChannel(req, res)
