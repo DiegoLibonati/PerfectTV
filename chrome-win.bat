@@ -1,0 +1,1 @@
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --autoplay-policy=no-user-gesture-required --disable-site-isolation-trials --disable-web-security --user-data-dir="C:\Users\Die\AppData\Local\Google\Chrome\UserData" http://localhost:5173/

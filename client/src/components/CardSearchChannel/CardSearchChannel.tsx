@@ -1,17 +1,18 @@
 import { CardSearchChannelProps } from "@/src/entities/props";
 
 import { CardRoot } from "@/src/components/CardRoot/CardRoot";
+import { Paragraph } from "@/src/components/Paragraph/Paragraph";
 
 import { useTheme } from "@/src/hooks/useTheme";
 
 export const CardSearchChannel = ({ search }: CardSearchChannelProps) => {
-  const { color } = useTheme();
+  const { color, bg } = useTheme();
 
   return (
     <CardRoot
       className={`flex flex-row [&&]:p-4 transition-all ${
         search ? "opacity-100" : "opacity-0"
-      }`}
+      } ${bg}`}
     >
       {/* <div className="flex items-center justify-center w-[30%] h-full">
         <img
@@ -24,7 +25,9 @@ export const CardSearchChannel = ({ search }: CardSearchChannelProps) => {
       </div> */}
 
       <div className="flex items-center justify-center w-full h-full">
-        <p className={`text-5xl text-center font-bold ${color}`}>{search}</p>
+        <Paragraph className={`[&&]:text-5xl text-center font-bold ${color}`}>
+          {search}
+        </Paragraph>
       </div>
     </CardRoot>
   );

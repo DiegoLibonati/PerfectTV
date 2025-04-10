@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: "#D72638",
         white: "#FFFFFF",
         black: "#000000",
       },

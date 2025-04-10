@@ -1,6 +1,7 @@
 import { ErrorChannelSectionProps } from "@/src/entities/props";
 
 import { ServerErrorSvg } from "@/src/components/Svgs/ServerErrorSvg/ServerErrorSvg";
+import { Heading2 } from "@/src/components/Heading2/Heading2";
 
 import { languageTexts } from "@/src/constants/languageTexts";
 
@@ -17,9 +18,9 @@ export const ErrorChannelSection = ({
   return (
     <section className="flex flex-col items-center justify-center gap-2">
       <ServerErrorSvg className="h-64 w-64"></ServerErrorSvg>
-      <h2 className={`text-xl text-center font-semibold lg:text-2xl ${color}`}>
+      <Heading2 className={`text-center ${color}`}>
         {languageTexts[language].channel.error.obtaining} - {errorMessage}
-      </h2>
+      </Heading2>
     </section>
   );
 };

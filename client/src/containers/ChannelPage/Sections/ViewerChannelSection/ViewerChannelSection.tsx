@@ -13,7 +13,9 @@ export const ViewerChannelSection = () => {
       className={`flex items-center justify-center h-full w-full select-none pointer-events-none ${bg}`}
     >
       <ChannelViewer
-        channel={activeChannel!}
+        name={activeChannel!.name}
+        url={activeChannel!.url}
+        sourceCode={activeChannel!.source.code}
         sizes={{
           height: window.innerHeight,
           width: window.innerWidth,

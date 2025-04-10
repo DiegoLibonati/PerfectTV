@@ -8,6 +8,7 @@ export const languageTexts: Record<Language, TranslationKeys> = {
       error: {
         obtaining: "An error occurred when obtaining channels.",
       },
+      notChannels: "There are no channels to display.",
     },
     channel: {
       loading: "Loading channel.",
@@ -36,6 +37,7 @@ export const languageTexts: Record<Language, TranslationKeys> = {
       error: {
         obtaining: "Ocurrió un error a la hora de obtener canales.",
       },
+      notChannels: "No hay canales para mostrar.",
     },
     channel: {
       loading: "Cargando canal.",

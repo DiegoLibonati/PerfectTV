@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { HashRouter, Navigate, Route, Routes } from "react-router";
 
 import { ChannelPage } from "@/src/pages/ChannelPage/ChannelPage";
+import { ChannelsPage } from "@/src/pages/ChannelsPage/ChannelsPage";
 
 import { ChannelProvider } from "@/src/contexts/Channel/ChannelProvider";
 
@@ -25,16 +26,19 @@ export const Router = () => {
     <HashRouter>
       <Routes>
         <Route
-          path="/tv/:number"
+          path="/channel/:number"
           element={
             <ChannelProvider>
               <ChannelPage></ChannelPage>
             </ChannelProvider>
           }
         ></Route>
+
+        <Route path="/channels" element={<ChannelsPage></ChannelsPage>}></Route>
+
         <Route
           path="/*"
-          element={<Navigate to={`/tv/${number}`}></Navigate>}
+          element={<Navigate to={`/channel/${number}`}></Navigate>}
         ></Route>
       </Routes>
     </HashRouter>

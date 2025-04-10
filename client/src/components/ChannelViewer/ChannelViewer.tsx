@@ -8,18 +8,18 @@ import { ReactPlayer } from "@/src/components/ReactPlayer/ReactPlayer";
 import { whichPlayerToUseBySourceCode } from "@/src/helpers/whichPlayerToUseBySourceCode";
 
 export const ChannelViewer = ({
-  channel,
+  name,
+  url,
+  sourceCode,
   sizes,
   controls,
   playing,
 }: ChannelViewerProps) => {
-  const { name, url, source } = channel;
-
   const renderNativeIframe = useMemo(() => {
-    return whichPlayerToUseBySourceCode(source.code);
-  }, [source.code]);
+    return whichPlayerToUseBySourceCode(sourceCode);
+  }, [sourceCode]);
 
-  if (renderNativeIframe) {
+  if (renderNativeIframe === "iframe") {
     return (
       <Iframe
         url={url}

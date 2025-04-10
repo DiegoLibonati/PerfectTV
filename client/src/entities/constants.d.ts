@@ -4,6 +4,7 @@ export type TranslationKeys = {
     error: {
       obtaining: string;
     };
+    notChannels: string;
   };
   channel: {
     loading: string;
@@ -26,3 +27,5 @@ export type TranslationKeys = {
     };
   };
 };
+
+export type CategoryCode = "news" | "gameplays";

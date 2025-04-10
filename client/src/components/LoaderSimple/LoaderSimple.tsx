@@ -1,9 +1,7 @@
-import { useTheme } from "@/src/hooks/useTheme";
+import { LoaderSimpleProps } from "@/src/entities/props";
 
 import "@/src/components/LoaderSimple/LoaderSimple.css";
 
-export const LoaderSimple = () => {
-  const { borderTop } = useTheme();
-
-  return <span className={`loader ${borderTop}`}></span>;
+export const LoaderSimple = ({ className }: LoaderSimpleProps) => {
+  return <span className={`loader ${className}`}></span>;
 };

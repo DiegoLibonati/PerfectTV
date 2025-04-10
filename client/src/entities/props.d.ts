@@ -4,7 +4,9 @@ import { Language, Sizes, Theme } from "@/src/entities/client";
 import { Channel } from "@/src/entities/api";
 
 export interface ChannelViewerProps {
-  channel: Channel;
+  name: string;
+  url: string;
+  sourceCode: string;
   sizes: Sizes;
   controls: boolean;
   playing: boolean;
@@ -32,8 +34,21 @@ export interface ErrorChannelSectionProps {
   errorMessage: string;
 }
 
+export interface CategoryWithChannelsSectionProps {
+  name: string;
+  channels: Channel[];
+}
+
 export interface CardSearchChannelProps extends GeneralComponentProps {
   search: string;
+}
+
+export interface CardChannelProps extends GeneralComponentProps {
+  name: string;
+  thumbUrl: string;
+  number: number;
+  description: string;
+  active: boolean;
 }
 
 export interface IframeProps extends GeneralComponentProps {
@@ -53,6 +68,8 @@ export interface ReactPlayerProps extends GeneralComponentProps {
 export interface CardRootProps extends GeneralComponentProps {}
 
 export interface MainLayoutCenterProps extends GeneralComponentProps {}
+
+export interface MainLayoutStartProps extends GeneralComponentProps {}
 
 export interface SideBarProps extends GeneralComponentProps {
   isOpen: boolean;
@@ -77,6 +94,10 @@ export interface Heading3Props extends GeneralComponentProps {}
 export interface ParagraphProps extends GeneralComponentProps {}
 
 export interface SeparatorTextProps extends GeneralComponentProps {}
+
+export interface LoaderSimpleProps extends GeneralComponentProps {}
+
+export interface FloatOptionsProps extends GeneralComponentProps {}
 
 export interface ButtonFilledProps extends GeneralComponentProps {
   ariaLabel: string;

@@ -15,24 +15,27 @@ class CategoryRepository {
   }
 
   async getCategories(): Promise<Category[]> {
-    return await this.prisma.category.findMany();
+    return await this.prisma.category.findMany({ include: { channels: true } });
   }
 
   async getCategoryById(id: number): Promise<Category | null> {
     return await this.prisma.category.findUnique({
       where: { id: id },
+      include: { channels: true },
     });
   }
 
   async getCategoryByCode(code: string): Promise<Category | null> {
     return await this.prisma.category.findUnique({
       where: { code: code },
+      include: { channels: true },
     });
   }
 
   async createCategory(code: string, description: string): Promise<Category> {
     return await this.prisma.category.create({
       data: { code: code, description: description },
+      include: { channels: true },
     });
   }
 
@@ -43,7 +46,10 @@ class CategoryRepository {
   }
 
   async deleteCategory(id: number): Promise<Category> {
-    return await this.prisma.category.delete({ where: { id: id } });
+    return await this.prisma.category.delete({
+      where: { id: id },
+      include: { channels: true },
+    });
   }
 }
 

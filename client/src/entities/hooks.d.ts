@@ -2,13 +2,20 @@ import { Params } from "react-router";
 
 export type UseTheme = {
   bg: string;
+  bgPrimary: string;
   bgOut: string;
   color: string;
+  colorPrimary: string;
   colorOut: string;
   border: string;
+  borderPrimary: string;
   borderOut: string;
   borderTop: string;
+  borderTopPrimary: string;
   borderTopOut: string;
+  outline: string;
+  outlinePrimary: string;
+  outlineOut: string;
 };
 
 export type UseLocalStorage = {
@@ -27,6 +34,7 @@ export type UseRouter = {
 export type UseWindow = {
   hash: string;
   handleChangeUrl: (route: string) => void;
+  handleReloadWindow: () => void;
 };
 
 export type UseForm<T> = {

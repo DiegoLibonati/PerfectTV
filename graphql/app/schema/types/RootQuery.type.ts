@@ -9,6 +9,7 @@ import axios from "axios";
 
 import { config } from "@app/config/env.conf";
 import ChannelType from "@app/schema/types/Channel.type";
+import CategoryType from "@app/schema/types/Category.type";
 
 const { API_URL } = config;
 
@@ -17,6 +18,14 @@ const ChannelsResponseType = new GraphQLObjectType({
   fields: {
     code: { type: GraphQLString },
     data: { type: new GraphQLList(ChannelType) },
+  },
+});
+
+const CategoriesResponseType = new GraphQLObjectType({
+  name: "CategoriesResponse",
+  fields: {
+    code: { type: GraphQLString },
+    data: { type: new GraphQLList(CategoryType) },
   },
 });
 
@@ -41,6 +50,20 @@ const RootQueryType = new GraphQLObjectType({
           .get(`${API_URL}/channel/v1/channels`, {
             params: { reload: reload },
           })
+          .then((response) => {
+            return {
+              code: response.data.code,
+              data: response.data.data,
+            };
+          });
+      },
+    },
+    categories: {
+      type: CategoriesResponseType,
+      args: {},
+      resolve(parentValue, args) {
+        return axios
+          .get(`${API_URL}/category/v1/categories`)
           .then((response) => {
             return {
               code: response.data.code,

@@ -1,22 +1,30 @@
 import { useEffect } from "react";
 import { useKeyBoard } from "usekeyboard-react";
 import { useQuery } from "@apollo/client";
+import { CiGrid41 } from "react-icons/ci";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import { SideBarSettings } from "@/src/components/SideBarSettings/SideBarSettings";
 import { FloatOptions } from "@/src/components/FloatOptions/FloatOptions";
+import { ButtonFilled } from "@/src/components/ButtonFilled/ButtonFilled";
 
 import { useChannelContext } from "@/src/contexts/Channel/ChannelProvider";
 
-import { LoadingChannelSection } from "@/src/containers/TvPage/Sections/LoadingChannelSection/LoadingChannelSection";
-import { ErrorChannelSection } from "@/src/containers/TvPage/Sections/ErrorChannelSection/ErrorChannelSection";
-import { NotActiveChannelSection } from "@/src/containers/TvPage/Sections/NotActiveChannelSection/NotActiveChannelSection";
-import { SearchChannelSection } from "@/src/containers/TvPage/Sections/SearchChannelSection/SearchChannelSection";
-import { ActiveChannelSection } from "@/src/containers/TvPage/Sections/ActiveChannelSection/ActiveChannelSection";
-import { ViewerChannelSection } from "@/src/containers/TvPage/Sections/ViewerChannelSection/ViewerChannelSection";
+import { LoadingChannelSection } from "@/src/containers/ChannelPage/Sections/LoadingChannelSection/LoadingChannelSection";
+import { ErrorChannelSection } from "@/src/containers/ChannelPage/Sections/ErrorChannelSection/ErrorChannelSection";
+import { NotActiveChannelSection } from "@/src/containers/ChannelPage/Sections/NotActiveChannelSection/NotActiveChannelSection";
+import { SearchChannelSection } from "@/src/containers/ChannelPage/Sections/SearchChannelSection/SearchChannelSection";
+import { ActiveChannelSection } from "@/src/containers/ChannelPage/Sections/ActiveChannelSection/ActiveChannelSection";
+import { ViewerChannelSection } from "@/src/containers/ChannelPage/Sections/ViewerChannelSection/ViewerChannelSection";
+
+import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@/src/constants/general";
 
 import { useRouter } from "@/src/hooks/useRouter";
+import { useLocalStorage } from "@/src/hooks/useLocalStorage";
+import { useTheme } from "@/src/hooks/useTheme";
 
 import { getNumbersChannels } from "@/src/helpers/getNumbersChannels";
+import { getChannelNumberByArrow } from "@/src/helpers/getChannelNumberByArrow";
 import { isNumberChannelValid } from "@/src/helpers/isNumberChannelValid";
 
 import getChannelAndNumbersUsed from "@/src/graphql/queries/getChannelAndNumbersUsed";
@@ -24,6 +32,8 @@ import getChannelAndNumbersUsed from "@/src/graphql/queries/getChannelAndNumbers
 import { MainLayoutCenter } from "@/src/layouts/MainLayoutCenter/MainLayoutCenter";
 
 export const ChannelPage = () => {
+  const { set } = useLocalStorage();
+  const { bg, color } = useTheme();
   const { params, handleNavigateTo } = useRouter();
   const { number } = params;
 
@@ -46,13 +56,23 @@ export const ChannelPage = () => {
     config: {
       keys: [
         { key: "r", fn: refetchChannel },
-        { key: "ArrowLeft|ArrowRight", fn: (e) => changeChannelWithArrows(e) },
-        { key: "0|1|2|3|4|5|6|7|8|9", fn: (e) => searchChannelWithNumbers(e) },
+        {
+          key: "ArrowLeft|ArrowRight",
+          fn: (e) => changeChannelWithArrows(e.key),
+        },
+        {
+          key: "0|1|2|3|4|5|6|7|8|9",
+          fn: (e) => searchChannelWithNumbers(e.key),
+        },
       ],
       debug: false,
       dependencies: [activeChannel?.number, data?.numbers?.data?.length],
     },
   });
+
+  function handleOpenGridChannels() {
+    handleNavigateTo("/channels");
+  }
 
   function refetchChannel() {
     handleClearActiveChannel();
@@ -61,34 +81,20 @@ export const ChannelPage = () => {
     refetch({ variables: { numberChannel: Number(number) } });
   }
 
-  function changeChannelWithArrows(e: KeyboardEvent) {
-    const key = e.key;
-    const activeChannelNumber = Number(activeChannel?.number);
+  function changeChannelWithArrows(key: string) {
     const numbers = data.numbers.data;
     const numbersUsed: number[] = getNumbersChannels(numbers);
 
-    const indexOfActiveChannelNumber = numbersUsed.findIndex(
-      (numberUsed) => numberUsed === activeChannelNumber
+    const newIndex = getChannelNumberByArrow(
+      key,
+      Number(activeChannel?.number),
+      numbersUsed
     );
 
-    console.log(numbersUsed, indexOfActiveChannelNumber);
-
-    const newIndex =
-      key === "ArrowRight" &&
-      indexOfActiveChannelNumber + 1 <= numbersUsed.length - 1
-        ? indexOfActiveChannelNumber + 1
-        : key === "ArrowRight" &&
-          indexOfActiveChannelNumber + 1 > numbersUsed.length - 1
-        ? 0
-        : key === "ArrowLeft" && indexOfActiveChannelNumber - 1 < 0
-        ? numbersUsed.length - 1
-        : indexOfActiveChannelNumber - 1;
-
-    handleNavigateTo(`/tv/${numbersUsed[newIndex]}`);
+    handleNavigateTo(`/channel/${numbersUsed[newIndex]}`);
   }
 
-  function searchChannelWithNumbers(e: KeyboardEvent) {
-    const key = e.key;
+  function searchChannelWithNumbers(key: string) {
     const number = Number(key);
 
     handleSetSearchNumber(number);
@@ -100,6 +106,7 @@ export const ChannelPage = () => {
     if (!currentChannel) return;
 
     handleSetActiveChannel(currentChannel);
+    set(LS_KEY_NAME_LAST_NUMBER_CHANNEL, currentChannel.number);
   }, [data?.channel]);
 
   useEffect(() => {
@@ -119,7 +126,7 @@ export const ChannelPage = () => {
       }
 
       handleClearActiveChannel();
-      handleNavigateTo(`/tv/${number}`);
+      handleNavigateTo(`/channel/${number}`);
       handleClearSearchNumber();
     }, 2000);
 
@@ -146,12 +153,40 @@ export const ChannelPage = () => {
       )}
       {activeChannel && !error && <ViewerChannelSection></ViewerChannelSection>}
 
-      <ActiveChannelSection></ActiveChannelSection>
+      {activeChannel && <ActiveChannelSection></ActiveChannelSection>}
+      
       <SearchChannelSection></SearchChannelSection>
 
       <SideBarSettings></SideBarSettings>
 
-      <FloatOptions></FloatOptions>
+      <FloatOptions>
+        <ButtonFilled
+          type="button"
+          ariaLabel="open grid channels"
+          className={`flex flex-items-center justify-center w-full p-2 cursor-pointer rounded-lg ${bg} ${color}`}
+          onClick={handleOpenGridChannels}
+        >
+          <CiGrid41 className={`text-xl`}></CiGrid41>
+        </ButtonFilled>
+
+        <ButtonFilled
+          type="button"
+          ariaLabel="change channel to left"
+          className={`flex flex-items-center justify-center w-full p-2 cursor-pointer rounded-lg ${bg} ${color}`}
+          onClick={() => changeChannelWithArrows("ArrowLeft")}
+        >
+          <BsArrowLeft className={`text-xl`}></BsArrowLeft>
+        </ButtonFilled>
+
+        <ButtonFilled
+          type="button"
+          ariaLabel="change channel to right"
+          className={`flex flex-items-center justify-center w-full p-2 cursor-pointer rounded-lg ${bg} ${color}`}
+          onClick={() => changeChannelWithArrows("ArrowRight")}
+        >
+          <BsArrowRight className={`text-xl`}></BsArrowRight>
+        </ButtonFilled>
+      </FloatOptions>
     </MainLayoutCenter>
   );
 };

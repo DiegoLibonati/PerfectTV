@@ -29,5 +29,10 @@ export default defineConfig(({ mode }) => {
     define: {
       "import.meta.env.VITE_GRAPHQL_URL": JSON.stringify(env.VITE_GRAPHQL_URL),
     },
+    test: {
+      environment: "jsdom",
+      globals: true,
+      setupFiles: "./tests/setup.ts",
+    },
   };
 });

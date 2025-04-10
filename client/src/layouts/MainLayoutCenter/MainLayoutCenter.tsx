@@ -10,7 +10,7 @@ export const MainLayoutCenter = ({
 
   return (
     <main
-      className={`flex items-center justify-center w-screen h-screen ${bg} ${className}`}
+      className={`flex items-center justify-center w-full h-screen ${bg} ${className}`}
     >
       {children}
     </main>
