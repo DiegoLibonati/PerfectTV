@@ -153,7 +153,7 @@ The client allows:
 
 ## Video
 
-COMING SOON...
+https://github.com/user-attachments/assets/6a4d56dd-d3be-4c57-94c7-587d0fc38788
 
 ## Testing
 
