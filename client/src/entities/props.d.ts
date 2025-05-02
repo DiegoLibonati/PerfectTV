@@ -105,6 +105,11 @@ export interface ButtonFilledProps extends GeneralComponentProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
+export interface FloatOptionProps extends GeneralComponentProps {
+  ariaLabel: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}
+
 export interface UseFormProps<T> {
   initialValueForm: T;
 }

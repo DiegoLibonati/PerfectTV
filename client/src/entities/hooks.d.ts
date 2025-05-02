@@ -29,6 +29,8 @@ export type UseRouter = {
   params: Readonly<Params<string>>;
   pathname: string;
   handleNavigateTo: (route: string, options?: NavigateOptions) => void;
+  handleNavigateToGridChannels: () => void;
+  handleNavigateToChannel: (number: number) => void;
 };
 
 export type UseWindow = {
@@ -47,4 +49,10 @@ export type UseForm<T> = {
   ) => void;
   onResetForm: () => void;
   onResetSpecificKeys: (keys: Array<keyof T>) => void;
+};
+
+export type UseKeyBoardFns = {
+  refetchChannelAndNumbersUsed: () => void;
+  changeChannelWithArrows: (key: string) => void;
+  searchChannelWithNumbers: (key: string) => void;
 };

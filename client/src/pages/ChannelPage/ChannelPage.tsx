@@ -1,12 +1,10 @@
-import { useEffect } from "react";
 import { useKeyBoard } from "usekeyboard-react";
-import { useQuery } from "@apollo/client";
 import { CiGrid41 } from "react-icons/ci";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import { SideBarSettings } from "@/src/components/SideBarSettings/SideBarSettings";
 import { FloatOptions } from "@/src/components/FloatOptions/FloatOptions";
-import { ButtonFilled } from "@/src/components/ButtonFilled/ButtonFilled";
+import { FloatOption } from "@/src/components/FloatOption/FloatOption";
 
 import { useChannelContext } from "@/src/contexts/Channel/ChannelProvider";
 
@@ -17,45 +15,29 @@ import { SearchChannelSection } from "@/src/containers/ChannelPage/Sections/Sear
 import { ActiveChannelSection } from "@/src/containers/ChannelPage/Sections/ActiveChannelSection/ActiveChannelSection";
 import { ViewerChannelSection } from "@/src/containers/ChannelPage/Sections/ViewerChannelSection/ViewerChannelSection";
 
-import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@/src/constants/general";
-
 import { useRouter } from "@/src/hooks/useRouter";
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
-import { useTheme } from "@/src/hooks/useTheme";
-
-import { getNumbersChannels } from "@/src/helpers/getNumbersChannels";
-import { getChannelNumberByArrow } from "@/src/helpers/getChannelNumberByArrow";
-import { isNumberChannelValid } from "@/src/helpers/isNumberChannelValid";
-
-import getChannelAndNumbersUsed from "@/src/graphql/queries/getChannelAndNumbersUsed";
+import { useKeyBoardFns } from "@/src/hooks/useKeyBoardFns";
 
 import { MainLayoutCenter } from "@/src/layouts/MainLayoutCenter/MainLayoutCenter";
 
 export const ChannelPage = () => {
-  const { set } = useLocalStorage();
-  const { bg, color } = useTheme();
-  const { params, handleNavigateTo } = useRouter();
-  const { number } = params;
-
-  const { loading, data, error, refetch } = useQuery(getChannelAndNumbersUsed, {
-    variables: { numberChannel: Number(number) },
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: "no-cache",
-  });
-
+  const { handleNavigateToGridChannels } = useRouter();
   const {
-    activeChannel,
-    searchNumber,
-    handleSetActiveChannel,
-    handleClearActiveChannel,
-    handleSetSearchNumber,
-    handleClearSearchNumber,
-  } = useChannelContext();
+    changeChannelWithArrows,
+    refetchChannelAndNumbersUsed,
+    searchChannelWithNumbers,
+  } = useKeyBoardFns();
+
+  const { graphQL } = useChannelContext();
+
+  const { data, status } = graphQL;
+  const { activeChannel, numbersUsed } = data;
+  const { error, loading } = status;
 
   useKeyBoard({
     config: {
       keys: [
-        { key: "r", fn: refetchChannel },
+        { key: "r", fn: refetchChannelAndNumbersUsed },
         {
           key: "ArrowLeft|ArrowRight",
           fn: (e) => changeChannelWithArrows(e.key),
@@ -66,74 +48,9 @@ export const ChannelPage = () => {
         },
       ],
       debug: false,
-      dependencies: [activeChannel?.number, data?.numbers?.data?.length],
+      dependencies: [activeChannel?.number, numbersUsed.length],
     },
   });
-
-  function handleOpenGridChannels() {
-    handleNavigateTo("/channels");
-  }
-
-  function refetchChannel() {
-    handleClearActiveChannel();
-    handleClearSearchNumber();
-
-    refetch({ variables: { numberChannel: Number(number) } });
-  }
-
-  function changeChannelWithArrows(key: string) {
-    const numbers = data.numbers.data;
-    const numbersUsed: number[] = getNumbersChannels(numbers);
-
-    const newIndex = getChannelNumberByArrow(
-      key,
-      Number(activeChannel?.number),
-      numbersUsed
-    );
-
-    handleNavigateTo(`/channel/${numbersUsed[newIndex]}`);
-  }
-
-  function searchChannelWithNumbers(key: string) {
-    const number = Number(key);
-
-    handleSetSearchNumber(number);
-  }
-
-  useEffect(() => {
-    const currentChannel = data?.channel?.data;
-
-    if (!currentChannel) return;
-
-    handleSetActiveChannel(currentChannel);
-    set(LS_KEY_NAME_LAST_NUMBER_CHANNEL, currentChannel.number);
-  }, [data?.channel]);
-
-  useEffect(() => {
-    if (!searchNumber) return;
-
-    const number = Number(searchNumber);
-    const numbers = data.numbers.data;
-    const numbersUsed: number[] = getNumbersChannels(numbers);
-
-    const timeout = setTimeout(() => {
-      if (
-        (activeChannel && number === activeChannel.number) ||
-        !isNumberChannelValid(numbersUsed, number)
-      ) {
-        handleClearSearchNumber();
-        return;
-      }
-
-      handleClearActiveChannel();
-      handleNavigateTo(`/channel/${number}`);
-      handleClearSearchNumber();
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [searchNumber]);
 
   if (loading) {
     return (
@@ -154,38 +71,32 @@ export const ChannelPage = () => {
       {activeChannel && !error && <ViewerChannelSection></ViewerChannelSection>}
 
       {activeChannel && <ActiveChannelSection></ActiveChannelSection>}
-      
+
       <SearchChannelSection></SearchChannelSection>
 
       <SideBarSettings></SideBarSettings>
 
       <FloatOptions>
-        <ButtonFilled
-          type="button"
-          ariaLabel="open grid channels"
-          className={`flex flex-items-center justify-center w-full p-2 cursor-pointer rounded-lg ${bg} ${color}`}
-          onClick={handleOpenGridChannels}
+        <FloatOption
+          onClick={handleNavigateToGridChannels}
+          ariaLabel="go to grid channels page"
         >
           <CiGrid41 className={`text-xl`}></CiGrid41>
-        </ButtonFilled>
+        </FloatOption>
 
-        <ButtonFilled
-          type="button"
-          ariaLabel="change channel to left"
-          className={`flex flex-items-center justify-center w-full p-2 cursor-pointer rounded-lg ${bg} ${color}`}
+        <FloatOption
           onClick={() => changeChannelWithArrows("ArrowLeft")}
+          ariaLabel="go to previous channel"
         >
           <BsArrowLeft className={`text-xl`}></BsArrowLeft>
-        </ButtonFilled>
+        </FloatOption>
 
-        <ButtonFilled
-          type="button"
-          ariaLabel="change channel to right"
-          className={`flex flex-items-center justify-center w-full p-2 cursor-pointer rounded-lg ${bg} ${color}`}
+        <FloatOption
           onClick={() => changeChannelWithArrows("ArrowRight")}
+          ariaLabel="go to next channel"
         >
           <BsArrowRight className={`text-xl`}></BsArrowRight>
-        </ButtonFilled>
+        </FloatOption>
       </FloatOptions>
     </MainLayoutCenter>
   );

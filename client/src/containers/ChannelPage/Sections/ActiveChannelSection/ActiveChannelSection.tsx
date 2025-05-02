@@ -3,7 +3,10 @@ import { CardActiveChannel } from "@/src/components/CardActiveChannel/CardActive
 import { useChannelContext } from "@/src/contexts/Channel/ChannelProvider";
 
 export const ActiveChannelSection = () => {
-  const { activeChannel, channelChange } = useChannelContext();
+  const { graphQL, channelChange } = useChannelContext();
+
+  const { data } = graphQL;
+  const { activeChannel } = data;
 
   return (
     <section className="absolute top-2 left-2 w-[80%] h-12 md:h-24 lg:w-[46rem] lg:h-48 lg:top-4 lg:left-4">

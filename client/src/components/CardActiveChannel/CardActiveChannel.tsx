@@ -25,15 +25,17 @@ export const CardActiveChannel = ({
         <img
           src={thumbUrl}
           alt={name}
-          className="w-full h-auto object-cover"
+          className="w-full h-full object-cover"
         ></img>
       </div>
 
       <div className="flex flex-col justify-center w-[70%] h-full lg:justify-start">
-        <Heading2 className={`text-center lg:text-start ${color}`}>
+        <Heading2
+          className={`text-center text-xs md:text-sm lg:text-start ${color}`}
+        >
           {name} - {number}
         </Heading2>
-        <Paragraph className={`opacity-0 line-clamp-3 lg:opacity-100 ${color}`}>
+        <Paragraph className={`hidden line-clamp-3 lg:block ${color}`}>
           {description}
         </Paragraph>
       </div>

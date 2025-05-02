@@ -5,8 +5,11 @@ import { useChannelContext } from "@/src/contexts/Channel/ChannelProvider";
 import { useTheme } from "@/src/hooks/useTheme";
 
 export const ViewerChannelSection = () => {
-  const { activeChannel } = useChannelContext();
+  const { graphQL } = useChannelContext();
   const { bg } = useTheme();
+
+  const { data } = graphQL;
+  const { activeChannel } = data;
 
   return (
     <section
