@@ -1,9 +1,9 @@
-import { CardSearchChannelProps } from "@/src/entities/props";
+import { CardSearchChannelProps } from "@src/entities/props";
 
-import { CardRoot } from "@/src/components/CardRoot/CardRoot";
-import { Paragraph } from "@/src/components/Paragraph/Paragraph";
+import { CardRoot } from "@src/components/CardRoot/CardRoot";
+import { Paragraph } from "@src/components/Paragraph/Paragraph";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const CardSearchChannel = ({ search }: CardSearchChannelProps) => {
   const { color, bg } = useTheme();

@@ -1,12 +1,12 @@
-import { SideBar } from "@/src/components/SideBar/SideBar";
-import { FormSettings } from "@/src/components/FormSettings/FormSettings";
-import { ButtonFilled } from "@/src/components/ButtonFilled/ButtonFilled";
+import { SideBar } from "@src/components/SideBar/SideBar";
+import { FormSettings } from "@src/components/FormSettings/FormSettings";
+import { ButtonFilled } from "@src/components/ButtonFilled/ButtonFilled";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { languageTexts } from "@/src/constants/languageTexts";
+import { languageTexts } from "@src/constants/languageTexts";
 
 export const SideBarSettings = () => {
   const { bg, bgOut, colorOut } = useTheme();

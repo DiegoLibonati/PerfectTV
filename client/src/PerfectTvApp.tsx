@@ -1,12 +1,12 @@
-import { Router } from "@/src/router/Router";
+import { Router } from "@src/router/Router";
 
-import { Language, Theme } from "@/src/entities/client";
+import { Language, Theme } from "@src/entities/client";
 
-import { ClientProvider } from "@/src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/Client/ClientProvider";
 
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
+import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
-import { LS_KEY_NAME_LANG, LS_KEY_NAME_THEME } from "@/src/constants/general";
+import { LS_KEY_NAME_LANG, LS_KEY_NAME_THEME } from "@src/constants/general";
 
 function PerfectTvApp() {
   const { get } = useLocalStorage();

@@ -1,13 +1,13 @@
-import { ErrorChannelSectionProps } from "@/src/entities/props";
+import { ErrorChannelSectionProps } from "@src/entities/props";
 
-import { ServerErrorSvg } from "@/src/components/Svgs/ServerErrorSvg/ServerErrorSvg";
-import { Heading2 } from "@/src/components/Heading2/Heading2";
+import { ServerErrorSvg } from "@src/components/Svgs/ServerErrorSvg/ServerErrorSvg";
+import { Heading2 } from "@src/components/Heading2/Heading2";
 
-import { languageTexts } from "@/src/constants/languageTexts";
+import { languageTexts } from "@src/constants/languageTexts";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const ErrorChannelSection = ({
   errorMessage,

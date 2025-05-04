@@ -1,8 +1,8 @@
-import { FloatOptionProps } from "@/src/entities/props";
+import { FloatOptionProps } from "@src/entities/props";
 
-import { ButtonFilled } from "@/src/components/ButtonFilled/ButtonFilled";
+import { ButtonFilled } from "@src/components/ButtonFilled/ButtonFilled";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const FloatOption = ({
   ariaLabel,

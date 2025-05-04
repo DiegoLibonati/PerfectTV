@@ -1,4 +1,4 @@
-import { Language, Theme } from "@/src/entities/client";
+import { Language, Theme } from "@src/entities/client";
 
 export type FormSettings = {
   language: Language;

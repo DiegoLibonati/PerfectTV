@@ -1,18 +1,18 @@
 import { useMemo } from "react";
 import { HashRouter, Navigate, Route, Routes } from "react-router";
 
-import { ChannelPage } from "@/src/pages/ChannelPage/ChannelPage";
-import { ChannelsPage } from "@/src/pages/ChannelsPage/ChannelsPage";
+import { ChannelPage } from "@src/pages/ChannelPage/ChannelPage";
+import { ChannelsPage } from "@src/pages/ChannelsPage/ChannelsPage";
 
-import { ChannelPageProvider } from "@/src/contexts/ChannelPage/ChannelPageProvider";
-import { ChannelsPageProvider } from "@/src/contexts/ChannelsPage/ChannelsPageProvider";
+import { ChannelPageProvider } from "@src/contexts/ChannelPage/ChannelPageProvider";
+import { ChannelsPageProvider } from "@src/contexts/ChannelsPage/ChannelsPageProvider";
 
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
+import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
 import {
   DEFAULT_CHANNEL_NUMBER,
   LS_KEY_NAME_LAST_NUMBER_CHANNEL,
-} from "@/src/constants/general";
+} from "@src/constants/general";
 
 export const Router = () => {
   const { get } = useLocalStorage();

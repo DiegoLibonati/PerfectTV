@@ -1,10 +1,10 @@
-import { CardActiveChannelProps } from "@/src/entities/props";
+import { CardActiveChannelProps } from "@src/entities/props";
 
-import { CardRoot } from "@/src/components/CardRoot/CardRoot";
-import { Heading2 } from "@/src/components/Heading2/Heading2";
-import { Paragraph } from "@/src/components/Paragraph/Paragraph";
+import { CardRoot } from "@src/components/CardRoot/CardRoot";
+import { Heading2 } from "@src/components/Heading2/Heading2";
+import { Paragraph } from "@src/components/Paragraph/Paragraph";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const CardActiveChannel = ({
   active,

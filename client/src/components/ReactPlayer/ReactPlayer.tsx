@@ -1,6 +1,6 @@
 import RP from "react-player";
 
-import { ReactPlayerProps } from "@/src/entities/props";
+import { ReactPlayerProps } from "@src/entities/props";
 
 export const ReactPlayer = ({
   url,

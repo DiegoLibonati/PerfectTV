@@ -1,13 +1,13 @@
 import { describe, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { SideBarSettings } from "@/src/components/SideBarSettings/SideBarSettings";
+import { SideBarSettings } from "@src/components/SideBarSettings/SideBarSettings";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { languageTexts } from "@/src/constants/languageTexts";
+import { languageTexts } from "@src/constants/languageTexts";
 
-vi.mock("@/src/contexts/Client/ClientProvider");
+vi.mock("@src/contexts/Client/ClientProvider");
 
 describe("SideBarSettings", () => {
   describe("General Tests.", () => {

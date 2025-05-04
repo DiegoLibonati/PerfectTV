@@ -1,6 +1,6 @@
-import { CardSearchChannel } from "@/src/components/CardSearchChannel/CardSearchChannel";
+import { CardSearchChannel } from "@src/components/CardSearchChannel/CardSearchChannel";
 
-import { useChannelPageContext } from "@/src/contexts/ChannelPage/ChannelPageProvider";
+import { useChannelPageContext } from "@src/contexts/ChannelPage/ChannelPageProvider";
 
 export const SearchChannelSection = () => {
   const { searchNumber } = useChannelPageContext();

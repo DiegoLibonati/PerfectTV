@@ -1,4 +1,4 @@
-import { ButtonFilledProps } from "@/src/entities/props";
+import { ButtonFilledProps } from "@src/entities/props";
 
 export const ButtonFilled = ({
   ariaLabel,

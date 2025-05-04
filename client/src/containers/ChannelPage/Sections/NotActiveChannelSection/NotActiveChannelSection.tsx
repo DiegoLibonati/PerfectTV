@@ -1,11 +1,11 @@
-import { Heading2 } from "@/src/components/Heading2/Heading2";
-import { CatSvg } from "@/src/components/Svgs/CatSvg/CatSvg";
+import { Heading2 } from "@src/components/Heading2/Heading2";
+import { CatSvg } from "@src/components/Svgs/CatSvg/CatSvg";
 
-import { languageTexts } from "@/src/constants/languageTexts";
+import { languageTexts } from "@src/constants/languageTexts";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const NotActiveChannelSection = () => {
   const { language } = useClientContext();

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render } from "@testing-library/react";
 
-import { Iframe } from "@/src/components/Iframe/Iframe";
+import { Iframe } from "@src/components/Iframe/Iframe";
 
 describe("Iframe", () => {
   describe("General Tests.", () => {

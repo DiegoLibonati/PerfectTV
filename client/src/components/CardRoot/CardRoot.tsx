@@ -1,4 +1,4 @@
-import { CardRootProps } from "@/src/entities/props";
+import { CardRootProps } from "@src/entities/props";
 
 export const CardRoot = ({ className, children }: CardRootProps) => {
   return (

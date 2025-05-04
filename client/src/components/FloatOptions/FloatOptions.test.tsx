@@ -2,14 +2,14 @@ import { describe, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-import { FloatOptions } from "@/src/components/FloatOptions/FloatOptions";
+import { FloatOptions } from "@src/components/FloatOptions/FloatOptions";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { useWindow } from "@/src/hooks/useWindow";
+import { useWindow } from "@src/hooks/useWindow";
 
-vi.mock("@/src/hooks/useWindow");
-vi.mock("@/src/contexts/Client/ClientProvider");
+vi.mock("@src/hooks/useWindow");
+vi.mock("@src/contexts/Client/ClientProvider");
 
 describe("FloatOptions", () => {
   describe("General Tests.", () => {

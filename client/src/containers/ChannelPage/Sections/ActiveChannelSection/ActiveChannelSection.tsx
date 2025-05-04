@@ -1,6 +1,6 @@
-import { CardActiveChannel } from "@/src/components/CardActiveChannel/CardActiveChannel";
+import { CardActiveChannel } from "@src/components/CardActiveChannel/CardActiveChannel";
 
-import { useChannelPageContext } from "@/src/contexts/ChannelPage/ChannelPageProvider";
+import { useChannelPageContext } from "@src/contexts/ChannelPage/ChannelPageProvider";
 
 export const ActiveChannelSection = () => {
   const { graphQL, channelChange } = useChannelPageContext();

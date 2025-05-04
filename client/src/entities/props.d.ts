@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
-import { Language, Sizes, Theme } from "@/src/entities/client";
-import { Channel } from "@/src/entities/api";
+import { Language, Sizes, Theme } from "@src/entities/client";
+import { Channel } from "@src/entities/api";
 
 export interface ChannelViewerProps {
   name: string;

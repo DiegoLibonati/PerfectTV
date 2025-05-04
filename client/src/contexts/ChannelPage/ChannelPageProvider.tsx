@@ -1,22 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import { ChannelPageContext as ChannelPageContextT } from "@/src/entities/contexts";
-import { ChannelPageProviderProps } from "@/src/entities/props";
-import { Channel } from "@/src/entities/api";
+import { ChannelPageContext as ChannelPageContextT } from "@src/entities/contexts";
+import { ChannelPageProviderProps } from "@src/entities/props";
+import { Channel } from "@src/entities/api";
 
-import { ChannelPageContext } from "@/src/contexts/ChannelPage/ChannelPageContext";
+import { ChannelPageContext } from "@src/contexts/ChannelPage/ChannelPageContext";
 
-import getChannelAndNumbersUsed from "@/src/graphql/queries/getChannelAndNumbersUsed";
+import getChannelAndNumbersUsed from "@src/graphql/queries/getChannelAndNumbersUsed";
 
-import { useRouter } from "@/src/hooks/useRouter";
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
+import { useRouter } from "@src/hooks/useRouter";
+import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
-import { getNumbersChannels } from "@/src/helpers/getNumbersChannels";
-import { isNumberChannelValid } from "@/src/helpers/isNumberChannelValid";
-import { getChannelIndexByArrows } from "@/src/helpers/getChannelIndexByArrows";
+import { getNumbersChannels } from "@src/helpers/getNumbersChannels";
+import { isNumberChannelValid } from "@src/helpers/isNumberChannelValid";
+import { getChannelIndexByArrows } from "@src/helpers/getChannelIndexByArrows";
 
-import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@/src/constants/general";
+import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@src/constants/general";
 
 export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   const [activeChannel, setActiveChannel] = useState<Channel | null>(null);

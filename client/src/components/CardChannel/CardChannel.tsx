@@ -1,10 +1,10 @@
-import { CardChannelProps } from "@/src/entities/props";
+import { CardChannelProps } from "@src/entities/props";
 
-import { Heading3 } from "@/src/components/Heading3/Heading3";
-import { Paragraph } from "@/src/components/Paragraph/Paragraph";
+import { Heading3 } from "@src/components/Heading3/Heading3";
+import { Paragraph } from "@src/components/Paragraph/Paragraph";
 
-import { useRouter } from "@/src/hooks/useRouter";
-import { useTheme } from "@/src/hooks/useTheme";
+import { useRouter } from "@src/hooks/useRouter";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const CardChannel = ({
   id,

@@ -1,22 +1,22 @@
 import { useKeyBoard } from "usekeyboard-react";
 
-import { CategoryCode } from "@/src/entities/constants";
+import { CategoryCode } from "@src/entities/constants";
 
-import { CategoryWithChannelsSection } from "@/src/containers/ChannelsPage/Sections/CategoryWithChannelsSection/CategoryWithChannelsSection";
-import { LoadingChannelsSection } from "@/src/containers/ChannelsPage/Sections/LoadingChannelsSection/LoadingChannelsSection";
-import { ErrorChannelsSection } from "@/src/containers/ChannelsPage/Sections/ErrorChannelsSection/ErrorChannelsSection";
-import { NotChannelsSection } from "@/src/containers/ChannelsPage/Sections/NotChannelsSection/NotChannelsSection";
+import { CategoryWithChannelsSection } from "@src/containers/ChannelsPage/Sections/CategoryWithChannelsSection/CategoryWithChannelsSection";
+import { LoadingChannelsSection } from "@src/containers/ChannelsPage/Sections/LoadingChannelsSection/LoadingChannelsSection";
+import { ErrorChannelsSection } from "@src/containers/ChannelsPage/Sections/ErrorChannelsSection/ErrorChannelsSection";
+import { NotChannelsSection } from "@src/containers/ChannelsPage/Sections/NotChannelsSection/NotChannelsSection";
 
-import { FloatOptions } from "@/src/components/FloatOptions/FloatOptions";
-import { SideBarSettings } from "@/src/components/SideBarSettings/SideBarSettings";
+import { FloatOptions } from "@src/components/FloatOptions/FloatOptions";
+import { SideBarSettings } from "@src/components/SideBarSettings/SideBarSettings";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
-import { useChannelsPageContext } from "@/src/contexts/ChannelsPage/ChannelsPageProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
+import { useChannelsPageContext } from "@src/contexts/ChannelsPage/ChannelsPageProvider";
 
-import { getCategoryNameParsed } from "@/src/helpers/getCategoryNameParsed";
+import { getCategoryNameParsed } from "@src/helpers/getCategoryNameParsed";
 
-import { MainLayoutStart } from "@/src/layouts/MainLayoutStart/MainLayoutStart";
-import { MainLayoutCenter } from "@/src/layouts/MainLayoutCenter/MainLayoutCenter";
+import { MainLayoutStart } from "@src/layouts/MainLayoutStart/MainLayoutStart";
+import { MainLayoutCenter } from "@src/layouts/MainLayoutCenter/MainLayoutCenter";
 
 export const ChannelsPage = () => {
   const {

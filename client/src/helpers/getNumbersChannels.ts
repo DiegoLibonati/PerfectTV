@@ -1,4 +1,4 @@
-import { Channel } from "@/src/entities/api";
+import { Channel } from "@src/entities/api";
 
 export const getNumbersChannels = (
   numberChannels: Pick<Channel, "id" | "number">[]

@@ -1,4 +1,4 @@
-import { UseLocalStorage } from "@/src/entities/hooks";
+import { UseLocalStorage } from "@src/entities/hooks";
 
 export const useLocalStorage = (): UseLocalStorage => {
   const get = (key: string): string | null => {

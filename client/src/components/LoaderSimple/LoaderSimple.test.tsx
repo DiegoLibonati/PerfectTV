@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render } from "@testing-library/react";
 
-import { LoaderSimple } from "@/src/components/LoaderSimple/LoaderSimple";
+import { LoaderSimple } from "@src/components/LoaderSimple/LoaderSimple";
 
 describe("LoaderSimple", () => {
   describe("General Tests.", () => {

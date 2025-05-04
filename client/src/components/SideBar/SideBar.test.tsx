@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { SideBar } from "@/src/components/SideBar/SideBar";
+import { SideBar } from "@src/components/SideBar/SideBar";
 
-import { ClientProvider } from "@/src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/Client/ClientProvider";
 
 describe("SideBar", () => {
   describe("General Tests.", () => {

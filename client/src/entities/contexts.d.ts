@@ -1,5 +1,5 @@
-import { Channel } from "@/src/entities/api";
-import { GraphQL, Language, SideBar, Theme } from "@/src/entities/client";
+import { Channel } from "@src/entities/api";
+import { GraphQL, Language, SideBar, Theme } from "@src/entities/client";
 
 // ***** ChannelPage *****
 

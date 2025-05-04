@@ -1,20 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import { Category, Channel } from "@/src/entities/api";
-import { ChannelsPageProviderProps } from "@/src/entities/props";
-import { ChannelsPageContext as ChannelsPageContextT } from "@/src/entities/contexts";
+import { Category, Channel } from "@src/entities/api";
+import { ChannelsPageProviderProps } from "@src/entities/props";
+import { ChannelsPageContext as ChannelsPageContextT } from "@src/entities/contexts";
 
-import { ChannelsPageContext } from "@/src/contexts/ChannelsPage/ChannelsPageContext";
+import { ChannelsPageContext } from "@src/contexts/ChannelsPage/ChannelsPageContext";
 
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
+import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
-import { getChannelsSortByNumber } from "@/src/helpers/getChannelsSortByNumber";
-import { getChannelIndexByArrows } from "@/src/helpers/getChannelIndexByArrows";
+import { getChannelsSortByNumber } from "@src/helpers/getChannelsSortByNumber";
+import { getChannelIndexByArrows } from "@src/helpers/getChannelIndexByArrows";
 
-import getCategories from "@/src/graphql/queries/getCategories";
+import getCategories from "@src/graphql/queries/getCategories";
 
-import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@/src/constants/general";
+import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@src/constants/general";
 
 export const ChannelsPageProvider = ({
   children,

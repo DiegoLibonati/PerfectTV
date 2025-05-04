@@ -1,9 +1,9 @@
-import { SideBarProps } from "@/src/entities/props";
+import { SideBarProps } from "@src/entities/props";
 
-import { Heading2 } from "@/src/components/Heading2/Heading2";
-import { SeparatorText } from "@/src/components/SeparatorText/SeparatorText";
+import { Heading2 } from "@src/components/Heading2/Heading2";
+import { SeparatorText } from "@src/components/SeparatorText/SeparatorText";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const SideBar = ({
   isOpen,

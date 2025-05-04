@@ -1,16 +1,16 @@
 import { useCallback } from "react";
 
-import { CategoryWithChannelsSectionProps } from "@/src/entities/props";
+import { CategoryWithChannelsSectionProps } from "@src/entities/props";
 
-import { Heading2 } from "@/src/components/Heading2/Heading2";
-import { CardChannel } from "@/src/components/CardChannel/CardChannel";
-import { SeparatorText } from "@/src/components/SeparatorText/SeparatorText";
+import { Heading2 } from "@src/components/Heading2/Heading2";
+import { CardChannel } from "@src/components/CardChannel/CardChannel";
+import { SeparatorText } from "@src/components/SeparatorText/SeparatorText";
 
-import { useChannelsPageContext } from "@/src/contexts/ChannelsPage/ChannelsPageProvider";
+import { useChannelsPageContext } from "@src/contexts/ChannelsPage/ChannelsPageProvider";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
-import { getChannelsSortByNumber } from "@/src/helpers/getChannelsSortByNumber";
+import { getChannelsSortByNumber } from "@src/helpers/getChannelsSortByNumber";
 
 export const CategoryWithChannelsSection = ({
   nameCategory,

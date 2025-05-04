@@ -1,6 +1,6 @@
-import { MainLayoutCenterProps } from "@/src/entities/props";
+import { MainLayoutCenterProps } from "@src/entities/props";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const MainLayoutCenter = ({
   children,

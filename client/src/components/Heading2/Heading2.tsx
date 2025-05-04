@@ -1,4 +1,4 @@
-import { Heading2Props } from "@/src/entities/props";
+import { Heading2Props } from "@src/entities/props";
 
 export const Heading2 = ({ className, children }: Heading2Props) => {
   return (

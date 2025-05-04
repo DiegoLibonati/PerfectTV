@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 
-import { ChannelViewerProps } from "@/src/entities/props";
+import { ChannelViewerProps } from "@src/entities/props";
 
-import { Iframe } from "@/src/components/Iframe/Iframe";
-import { ReactPlayer } from "@/src/components/ReactPlayer/ReactPlayer";
+import { Iframe } from "@src/components/Iframe/Iframe";
+import { ReactPlayer } from "@src/components/ReactPlayer/ReactPlayer";
 
-import { whichPlayerToUseBySourceCode } from "@/src/helpers/whichPlayerToUseBySourceCode";
+import { whichPlayerToUseBySourceCode } from "@src/helpers/whichPlayerToUseBySourceCode";
 
 export const ChannelViewer = ({
   name,

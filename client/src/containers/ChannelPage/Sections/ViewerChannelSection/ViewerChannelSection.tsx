@@ -1,8 +1,8 @@
-import { ChannelViewer } from "@/src/components/ChannelViewer/ChannelViewer";
+import { ChannelViewer } from "@src/components/ChannelViewer/ChannelViewer";
 
-import { useChannelPageContext } from "@/src/contexts/ChannelPage/ChannelPageProvider";
+import { useChannelPageContext } from "@src/contexts/ChannelPage/ChannelPageProvider";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const ViewerChannelSection = () => {
   const { graphQL } = useChannelPageContext();

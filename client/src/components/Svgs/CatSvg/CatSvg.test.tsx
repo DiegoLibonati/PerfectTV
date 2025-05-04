@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render } from "@testing-library/react";
 
-import { CatSvg } from "@/src/components/Svgs/CatSvg/CatSvg";
+import { CatSvg } from "@src/components/Svgs/CatSvg/CatSvg";
 
 describe("CatSvg", () => {
   describe("General Tests.", () => {

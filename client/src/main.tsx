@@ -1,9 +1,9 @@
 import { createRoot } from "react-dom/client";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
-import PerfectTvApp from "@/src/PerfectTvApp";
+import PerfectTvApp from "@src/PerfectTvApp";
 
-import "@/src/index.css";
+import "@src/index.css";
 
 const client = new ApolloClient({
   uri: `/graphql`,

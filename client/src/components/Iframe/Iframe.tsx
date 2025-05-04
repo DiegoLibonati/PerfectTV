@@ -1,4 +1,4 @@
-import { IframeProps } from "@/src/entities/props";
+import { IframeProps } from "@src/entities/props";
 
 export const Iframe = ({
   url,

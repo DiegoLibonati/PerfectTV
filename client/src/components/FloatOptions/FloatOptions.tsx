@@ -1,14 +1,14 @@
 import { CiSettings } from "react-icons/ci";
 import { IoReload } from "react-icons/io5";
 
-import { FloatOptionsProps } from "@/src/entities/props";
+import { FloatOptionsProps } from "@src/entities/props";
 
-import { FloatOption } from "@/src/components/FloatOption/FloatOption";
+import { FloatOption } from "@src/components/FloatOption/FloatOption";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { useTheme } from "@/src/hooks/useTheme";
-import { useWindow } from "@/src/hooks/useWindow";
+import { useTheme } from "@src/hooks/useTheme";
+import { useWindow } from "@src/hooks/useWindow";
 
 export const FloatOptions = ({ children }: FloatOptionsProps) => {
   const { bgOut } = useTheme();

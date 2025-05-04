@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render } from "@testing-library/react";
 
-import { SelectOption } from "@/src/components/SelectOption/SelectOption";
+import { SelectOption } from "@src/components/SelectOption/SelectOption";
 
 describe("SelectOption", () => {
   describe("General Tests.", () => {

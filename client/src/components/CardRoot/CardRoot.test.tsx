@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render } from "@testing-library/react";
 
-import { CardRoot } from "@/src/components/CardRoot/CardRoot";
+import { CardRoot } from "@src/components/CardRoot/CardRoot";
 
 describe("CardRoot", () => {
   describe("General Tests.", () => {

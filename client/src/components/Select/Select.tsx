@@ -1,4 +1,4 @@
-import { SelectProps } from "@/src/entities/props";
+import { SelectProps } from "@src/entities/props";
 
 export const Select = ({
   id,

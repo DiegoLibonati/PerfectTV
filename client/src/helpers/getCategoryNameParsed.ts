@@ -1,5 +1,5 @@
-import { Language } from "@/src/entities/client";
-import { CategoryCode } from "@/src/entities/constants";
+import { Language } from "@src/entities/client";
+import { CategoryCode } from "@src/entities/constants";
 
 const categoryTranslations: Record<Language, Record<CategoryCode, string>> = {
   es: {

@@ -1,4 +1,4 @@
-import { UseWindow } from "@/src/entities/hooks";
+import { UseWindow } from "@src/entities/hooks";
 
 export const useWindow = (): UseWindow => {
   const handleChangeUrl = (route: string) => {

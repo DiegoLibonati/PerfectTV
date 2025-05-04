@@ -1,23 +1,23 @@
-import { Language, Theme } from "@/src/entities/client";
+import { Language, Theme } from "@src/entities/client";
 
-import { Heading3 } from "@/src/components/Heading3/Heading3";
-import { Select } from "@/src/components/Select/Select";
-import { SelectOption } from "@/src/components/SelectOption/SelectOption";
-import { ButtonFilled } from "@/src/components/ButtonFilled/ButtonFilled";
+import { Heading3 } from "@src/components/Heading3/Heading3";
+import { Select } from "@src/components/Select/Select";
+import { SelectOption } from "@src/components/SelectOption/SelectOption";
+import { ButtonFilled } from "@src/components/ButtonFilled/ButtonFilled";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { useForm } from "@/src/hooks/useForm";
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
-import { useTheme } from "@/src/hooks/useTheme";
+import { useForm } from "@src/hooks/useForm";
+import { useLocalStorage } from "@src/hooks/useLocalStorage";
+import { useTheme } from "@src/hooks/useTheme";
 
-import { languageTexts } from "@/src/constants/languageTexts";
+import { languageTexts } from "@src/constants/languageTexts";
 import {
   languages,
   LS_KEY_NAME_LANG,
   LS_KEY_NAME_THEME,
   themes,
-} from "@/src/constants/general";
+} from "@src/constants/general";
 
 export const FormSettings = () => {
   const { set, get } = useLocalStorage();

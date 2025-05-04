@@ -1,4 +1,4 @@
-import { SeparatorTextProps } from "@/src/entities/props";
+import { SeparatorTextProps } from "@src/entities/props";
 
 export const SeparatorText = ({ className }: SeparatorTextProps) => {
   return (

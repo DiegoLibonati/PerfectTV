@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        "@/src": path.resolve(__dirname, "src"),
+        "@src": path.resolve(__dirname, "src"),
       },
     },
     plugins: [react(), tsconfigPaths()],

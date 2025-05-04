@@ -2,22 +2,22 @@ import { useKeyBoard } from "usekeyboard-react";
 import { CiGrid41 } from "react-icons/ci";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
-import { SideBarSettings } from "@/src/components/SideBarSettings/SideBarSettings";
-import { FloatOptions } from "@/src/components/FloatOptions/FloatOptions";
-import { FloatOption } from "@/src/components/FloatOption/FloatOption";
+import { SideBarSettings } from "@src/components/SideBarSettings/SideBarSettings";
+import { FloatOptions } from "@src/components/FloatOptions/FloatOptions";
+import { FloatOption } from "@src/components/FloatOption/FloatOption";
 
-import { useChannelPageContext } from "@/src/contexts/ChannelPage/ChannelPageProvider";
+import { useChannelPageContext } from "@src/contexts/ChannelPage/ChannelPageProvider";
 
-import { LoadingChannelSection } from "@/src/containers/ChannelPage/Sections/LoadingChannelSection/LoadingChannelSection";
-import { ErrorChannelSection } from "@/src/containers/ChannelPage/Sections/ErrorChannelSection/ErrorChannelSection";
-import { NotActiveChannelSection } from "@/src/containers/ChannelPage/Sections/NotActiveChannelSection/NotActiveChannelSection";
-import { SearchChannelSection } from "@/src/containers/ChannelPage/Sections/SearchChannelSection/SearchChannelSection";
-import { ActiveChannelSection } from "@/src/containers/ChannelPage/Sections/ActiveChannelSection/ActiveChannelSection";
-import { ViewerChannelSection } from "@/src/containers/ChannelPage/Sections/ViewerChannelSection/ViewerChannelSection";
+import { LoadingChannelSection } from "@src/containers/ChannelPage/Sections/LoadingChannelSection/LoadingChannelSection";
+import { ErrorChannelSection } from "@src/containers/ChannelPage/Sections/ErrorChannelSection/ErrorChannelSection";
+import { NotActiveChannelSection } from "@src/containers/ChannelPage/Sections/NotActiveChannelSection/NotActiveChannelSection";
+import { SearchChannelSection } from "@src/containers/ChannelPage/Sections/SearchChannelSection/SearchChannelSection";
+import { ActiveChannelSection } from "@src/containers/ChannelPage/Sections/ActiveChannelSection/ActiveChannelSection";
+import { ViewerChannelSection } from "@src/containers/ChannelPage/Sections/ViewerChannelSection/ViewerChannelSection";
 
-import { useRouter } from "@/src/hooks/useRouter";
+import { useRouter } from "@src/hooks/useRouter";
 
-import { MainLayoutCenter } from "@/src/layouts/MainLayoutCenter/MainLayoutCenter";
+import { MainLayoutCenter } from "@src/layouts/MainLayoutCenter/MainLayoutCenter";
 
 export const ChannelPage = () => {
   const { handleNavigateToGridChannels } = useRouter();

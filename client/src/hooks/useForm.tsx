@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 
-import { UseFormProps } from "@/src/entities/props";
-import { UseForm } from "@/src/entities/hooks";
+import { UseFormProps } from "@src/entities/props";
+import { UseForm } from "@src/entities/hooks";
 
 export const useForm = <T extends object>({
   initialValueForm,

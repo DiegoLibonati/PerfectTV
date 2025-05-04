@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-import { ButtonFilled } from "@/src/components/ButtonFilled/ButtonFilled";
+import { ButtonFilled } from "@src/components/ButtonFilled/ButtonFilled";
 
 describe("ButtonFillied", () => {
   describe("General Tests.", () => {

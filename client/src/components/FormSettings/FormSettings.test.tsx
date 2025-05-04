@@ -2,17 +2,17 @@ import { describe, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-import { FormSettings } from "@/src/components/FormSettings/FormSettings";
+import { FormSettings } from "@src/components/FormSettings/FormSettings";
 
-import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/contexts/Client/ClientProvider";
 
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
+import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
-import { languageTexts } from "@/src/constants/languageTexts";
-import { LS_KEY_NAME_LANG, LS_KEY_NAME_THEME } from "@/src/constants/general";
+import { languageTexts } from "@src/constants/languageTexts";
+import { LS_KEY_NAME_LANG, LS_KEY_NAME_THEME } from "@src/constants/general";
 
-vi.mock("@/src/hooks/useLocalStorage");
-vi.mock("@/src/contexts/Client/ClientProvider");
+vi.mock("@src/hooks/useLocalStorage");
+vi.mock("@src/contexts/Client/ClientProvider");
 
 describe("FormSettings", () => {
   describe("General Tests.", () => {

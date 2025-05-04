@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 
-import { ClientContext as ClientContextT } from "@/src/entities/contexts";
-import { ClientProviderProps } from "@/src/entities/props";
-import { Language, SideBar, Theme } from "@/src/entities/client";
+import { ClientContext as ClientContextT } from "@src/entities/contexts";
+import { ClientProviderProps } from "@src/entities/props";
+import { Language, SideBar, Theme } from "@src/entities/client";
 
-import { ClientContext } from "@/src/contexts/Client/ClientContext";
+import { ClientContext } from "@src/contexts/Client/ClientContext";
 
 export const ClientProvider = ({
   children,

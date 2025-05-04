@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { Heading3 } from "@/src/components/Heading3/Heading3";
+import { Heading3 } from "@src/components/Heading3/Heading3";
 
 describe("Heading3", () => {
   describe("General Tests.", () => {

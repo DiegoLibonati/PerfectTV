@@ -1,7 +1,7 @@
 import { describe, expect, test, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 
-import { Select } from "@/src/components/Select/Select";
+import { Select } from "@src/components/Select/Select";
 
 describe("Select", () => {
   describe("General Tests.", () => {

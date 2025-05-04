@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { CardActiveChannel } from "@/src/components/CardActiveChannel/CardActiveChannel";
+import { CardActiveChannel } from "@src/components/CardActiveChannel/CardActiveChannel";
 
-import { ClientProvider } from "@/src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/Client/ClientProvider";
 
 describe("CardActiveChannel", () => {
   describe("General Tests.", () => {

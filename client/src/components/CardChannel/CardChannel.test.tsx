@@ -2,13 +2,13 @@ import { describe, expect, test, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
-import { CardChannel } from "@/src/components/CardChannel/CardChannel";
+import { CardChannel } from "@src/components/CardChannel/CardChannel";
 
-import { ClientProvider } from "@/src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/Client/ClientProvider";
 
-import { useRouter } from "@/src/hooks/useRouter";
+import { useRouter } from "@src/hooks/useRouter";
 
-vi.mock("@/src/hooks/useRouter");
+vi.mock("@src/hooks/useRouter");
 
 describe("CardChannel", () => {
   describe("General Tests.", () => {

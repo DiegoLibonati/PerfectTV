@@ -5,7 +5,7 @@ import {
   useParams,
 } from "react-router";
 
-import { UseRouter } from "@/src/entities/hooks";
+import { UseRouter } from "@src/entities/hooks";
 
 export const useRouter = (): UseRouter => {
   const params = useParams();

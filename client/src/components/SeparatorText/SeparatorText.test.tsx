@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render } from "@testing-library/react";
 
-import { SeparatorText } from "@/src/components/SeparatorText/SeparatorText";
+import { SeparatorText } from "@src/components/SeparatorText/SeparatorText";
 
 describe("SeparatorText", () => {
   describe("General Tests.", () => {

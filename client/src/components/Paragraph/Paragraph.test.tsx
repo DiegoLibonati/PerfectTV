@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { Paragraph } from "@/src/components/Paragraph/Paragraph";
+import { Paragraph } from "@src/components/Paragraph/Paragraph";
 
 describe("Paragraph", () => {
   describe("General Tests.", () => {

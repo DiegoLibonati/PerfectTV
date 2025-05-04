@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { CardSearchChannel } from "@/src/components/CardSearchChannel/CardSearchChannel";
+import { CardSearchChannel } from "@src/components/CardSearchChannel/CardSearchChannel";
 
-import { ClientProvider } from "@/src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/Client/ClientProvider";
 
 describe("CardSearchChannel", () => {
   describe("General Tests.", () => {

@@ -1,6 +1,6 @@
-import { MainLayoutStartProps } from "@/src/entities/props";
+import { MainLayoutStartProps } from "@src/entities/props";
 
-import { useTheme } from "@/src/hooks/useTheme";
+import { useTheme } from "@src/hooks/useTheme";
 
 export const MainLayoutStart = ({
   children,
