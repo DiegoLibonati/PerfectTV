@@ -4,6 +4,8 @@ import user from "@testing-library/user-event";
 
 import { FloatOption } from "@/src/components/FloatOption/FloatOption";
 
+import { ClientProvider } from "@/src/contexts/Client/ClientProvider";
+
 describe("FloatOption", () => {
   describe("General Tests.", () => {
     const props = {
@@ -14,9 +16,11 @@ describe("FloatOption", () => {
 
     test("It must render the component correctly.", () => {
       render(
-        <FloatOption ariaLabel={props.ariaLabel} onClick={props.onClick}>
-          {props.text}
-        </FloatOption>
+        <ClientProvider>
+          <FloatOption ariaLabel={props.ariaLabel} onClick={props.onClick}>
+            {props.text}
+          </FloatOption>
+        </ClientProvider>
       );
 
       const button = screen.getByRole("button", {
@@ -30,9 +34,11 @@ describe("FloatOption", () => {
 
     test("It must execute the relevant function when clicked.", async () => {
       render(
-        <FloatOption ariaLabel={props.ariaLabel} onClick={props.onClick}>
-          {props.text}
-        </FloatOption>
+        <ClientProvider>
+          <FloatOption ariaLabel={props.ariaLabel} onClick={props.onClick}>
+            {props.text}
+          </FloatOption>
+        </ClientProvider>
       );
 
       const button = screen.getByRole("button", {
