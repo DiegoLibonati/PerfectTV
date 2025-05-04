@@ -1,26 +1,34 @@
 import { Channel } from "@/src/entities/api";
-import { Language, SideBar, Theme } from "@/src/entities/client";
-import { ApolloError } from "@apollo/client";
+import { GraphQL, Language, SideBar, Theme } from "@/src/entities/client";
 
-// ***** Channel *****
+// ***** ChannelPage *****
 
-export type GraphQL = {
-  status: { loading: boolean; error: ApolloError | undefined };
-  data: {
-    numbersUsed: numbers[];
-    activeChannel: Channel | null;
-  };
-};
-
-export type ChannelContext = {
+export type ChannelPageContext = {
   searchNumber: string;
   channelChange: boolean;
-  graphQL: GraphQL;
+  graphQL: GraphQL<{
+    numbersUsed: numbers[];
+    activeChannel: Channel | null;
+  }>;
   handleSetActiveChannel: (channel: Channel) => void;
   handleClearActiveChannel: () => void;
   handleSetSearchNumber: (number: number) => void;
   handleClearSearchNumber: () => void;
   handleRefetchChannelAndNumbersUsed: () => void;
+  handleSearchChannelWithNumbers: (key: string) => void;
+  handleChangeChannelWithArrows: (key: string) => void;
+};
+
+// ***** ChannelsPage *****
+
+export type ChannelsPageContext = {
+  allChannels: Channel[];
+  channelSelected: Channel | null;
+  graphQL: GraphQL<{
+    categories: Category[];
+  }>;
+  handleSetChannelSelected: (channelSelected: Channel) => void;
+  handleChangeChannelSelectedWithArrows: (key: string) => void;
 };
 
 // ***** Client *****

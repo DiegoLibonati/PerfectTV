@@ -1,23 +1,24 @@
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import { ChannelContext as ChannelContextT } from "@/src/entities/contexts";
-import { ChannelProviderProps } from "@/src/entities/props";
+import { ChannelPageContext as ChannelPageContextT } from "@/src/entities/contexts";
+import { ChannelPageProviderProps } from "@/src/entities/props";
 import { Channel } from "@/src/entities/api";
 
-import { ChannelContext } from "@/src/contexts/Channel/ChannelContext";
+import { ChannelPageContext } from "@/src/contexts/ChannelPage/ChannelPageContext";
 
 import getChannelAndNumbersUsed from "@/src/graphql/queries/getChannelAndNumbersUsed";
 
 import { useRouter } from "@/src/hooks/useRouter";
+import { useLocalStorage } from "@/src/hooks/useLocalStorage";
 
 import { getNumbersChannels } from "@/src/helpers/getNumbersChannels";
 import { isNumberChannelValid } from "@/src/helpers/isNumberChannelValid";
+import { getChannelIndexByArrows } from "@/src/helpers/getChannelIndexByArrows";
 
 import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@/src/constants/general";
-import { useLocalStorage } from "@/src/hooks/useLocalStorage";
 
-export const ChannelProvider = ({ children }: ChannelProviderProps) => {
+export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   const [activeChannel, setActiveChannel] = useState<Channel | null>(null);
   const [numbersUsed, setNumbersUsed] = useState<number[]>([]);
   const [channelChange, setChannelChange] = useState<boolean>(false);
@@ -59,6 +60,27 @@ export const ChannelProvider = ({ children }: ChannelProviderProps) => {
     handleClearSearchNumber();
 
     refetch({ variables: { numberChannel: Number(params?.number) } });
+  };
+
+  const handleChangeChannelWithArrows = (key: string): void => {
+    const indexOfNumberActiveChannel = numbersUsed.findIndex(
+      (numberUsed) => numberUsed === activeChannel?.number
+    );
+    const lastIndex = numbersUsed.length - 1;
+
+    const newIndex = getChannelIndexByArrows(
+      key as "ArrowLeft" | "ArrowRight",
+      indexOfNumberActiveChannel,
+      lastIndex
+    );
+
+    handleNavigateToChannel(numbersUsed[newIndex]);
+  };
+
+  const handleSearchChannelWithNumbers = (key: string): void => {
+    const number = Number(key);
+
+    handleSetSearchNumber(number);
   };
 
   useEffect(() => {
@@ -119,7 +141,7 @@ export const ChannelProvider = ({ children }: ChannelProviderProps) => {
   }, [searchNumber]);
 
   return (
-    <ChannelContext.Provider
+    <ChannelPageContext.Provider
       value={{
         searchNumber: searchNumber,
         channelChange: channelChange,
@@ -135,13 +157,15 @@ export const ChannelProvider = ({ children }: ChannelProviderProps) => {
         handleSetSearchNumber: handleSetSearchNumber,
         handleClearSearchNumber: handleClearSearchNumber,
         handleRefetchChannelAndNumbersUsed: handleRefetchChannelAndNumbersUsed,
+        handleSearchChannelWithNumbers: handleSearchChannelWithNumbers,
+        handleChangeChannelWithArrows: handleChangeChannelWithArrows,
       }}
     >
       {children}
-    </ChannelContext.Provider>
+    </ChannelPageContext.Provider>
   );
 };
 
-export const useChannelContext = (): ChannelContextT => {
-  return useContext(ChannelContext)!;
+export const useChannelPageContext = (): ChannelPageContextT => {
+  return useContext(ChannelPageContext)!;
 };

@@ -13,6 +13,7 @@ vi.mock("@/src/hooks/useRouter");
 describe("CardChannel", () => {
   describe("General Tests.", () => {
     const props = {
+      id: "pepe",
       active: false,
       thumbUrl: "thumbUrl",
       name: "name",
@@ -32,6 +33,7 @@ describe("CardChannel", () => {
       const { container } = render(
         <ClientProvider>
           <CardChannel
+            id={props.id}
             active={props.active}
             description={props.description}
             name={props.name}
@@ -41,7 +43,9 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector(
+        ".card-channel"
+      ) as HTMLDivElement;
       const img = screen.getByRole("img");
       const nameAndNumber = screen.getByRole("heading", {
         name: new RegExp(`${props.name} - ${props.number}`),
@@ -49,6 +53,7 @@ describe("CardChannel", () => {
       const description = screen.getByText(props.description);
 
       expect(cardRoot).toBeInTheDocument();
+      expect(cardRoot.id).toEqual(props.id);
       expect(img).toBeInTheDocument();
       expect(img.getAttribute("src")).toEqual(props.thumbUrl);
       expect(img.getAttribute("alt")).toEqual(props.name);
@@ -60,6 +65,7 @@ describe("CardChannel", () => {
       const { container } = render(
         <ClientProvider>
           <CardChannel
+            id={props.id}
             active={props.active}
             description={props.description}
             name={props.name}
@@ -69,7 +75,9 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector(
+        ".card-channel"
+      ) as HTMLDivElement;
 
       await user.click(cardRoot);
 
@@ -82,6 +90,7 @@ describe("CardChannel", () => {
 
   describe("If props key active is true.", () => {
     const props = {
+      id: "pepe",
       active: true,
       thumbUrl: "thumbUrl",
       name: "name",
@@ -101,6 +110,7 @@ describe("CardChannel", () => {
       const { container } = render(
         <ClientProvider>
           <CardChannel
+            id={props.id}
             active={props.active}
             description={props.description}
             name={props.name}
@@ -110,7 +120,9 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector(
+        ".card-channel"
+      ) as HTMLDivElement;
 
       expect(
         cardRoot.className.includes("outline outline-primary")
@@ -120,6 +132,7 @@ describe("CardChannel", () => {
 
   describe("If props key active is false.", () => {
     const props = {
+      id: "pepe",
       active: false,
       thumbUrl: "thumbUrl",
       name: "name",
@@ -139,6 +152,7 @@ describe("CardChannel", () => {
       const { container } = render(
         <ClientProvider>
           <CardChannel
+            id={props.id}
             active={props.active}
             description={props.description}
             name={props.name}
@@ -148,7 +162,9 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector(
+        ".card-channel"
+      ) as HTMLDivElement;
 
       expect(
         cardRoot.className.includes("outline outline-primary")

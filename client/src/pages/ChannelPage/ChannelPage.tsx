@@ -6,7 +6,7 @@ import { SideBarSettings } from "@/src/components/SideBarSettings/SideBarSetting
 import { FloatOptions } from "@/src/components/FloatOptions/FloatOptions";
 import { FloatOption } from "@/src/components/FloatOption/FloatOption";
 
-import { useChannelContext } from "@/src/contexts/Channel/ChannelProvider";
+import { useChannelPageContext } from "@/src/contexts/ChannelPage/ChannelPageProvider";
 
 import { LoadingChannelSection } from "@/src/containers/ChannelPage/Sections/LoadingChannelSection/LoadingChannelSection";
 import { ErrorChannelSection } from "@/src/containers/ChannelPage/Sections/ErrorChannelSection/ErrorChannelSection";
@@ -16,19 +16,18 @@ import { ActiveChannelSection } from "@/src/containers/ChannelPage/Sections/Acti
 import { ViewerChannelSection } from "@/src/containers/ChannelPage/Sections/ViewerChannelSection/ViewerChannelSection";
 
 import { useRouter } from "@/src/hooks/useRouter";
-import { useKeyBoardFns } from "@/src/hooks/useKeyBoardFns";
 
 import { MainLayoutCenter } from "@/src/layouts/MainLayoutCenter/MainLayoutCenter";
 
 export const ChannelPage = () => {
   const { handleNavigateToGridChannels } = useRouter();
-  const {
-    changeChannelWithArrows,
-    refetchChannelAndNumbersUsed,
-    searchChannelWithNumbers,
-  } = useKeyBoardFns();
 
-  const { graphQL } = useChannelContext();
+  const {
+    graphQL,
+    handleRefetchChannelAndNumbersUsed,
+    handleChangeChannelWithArrows,
+    handleSearchChannelWithNumbers,
+  } = useChannelPageContext();
 
   const { data, status } = graphQL;
   const { activeChannel, numbersUsed } = data;
@@ -37,14 +36,14 @@ export const ChannelPage = () => {
   useKeyBoard({
     config: {
       keys: [
-        { key: "r", fn: refetchChannelAndNumbersUsed },
+        { key: "r", fn: handleRefetchChannelAndNumbersUsed },
         {
           key: "ArrowLeft|ArrowRight",
-          fn: (e) => changeChannelWithArrows(e.key),
+          fn: (e) => handleChangeChannelWithArrows(e.key),
         },
         {
           key: "0|1|2|3|4|5|6|7|8|9",
-          fn: (e) => searchChannelWithNumbers(e.key),
+          fn: (e) => handleSearchChannelWithNumbers(e.key),
         },
       ],
       debug: false,
@@ -85,14 +84,14 @@ export const ChannelPage = () => {
         </FloatOption>
 
         <FloatOption
-          onClick={() => changeChannelWithArrows("ArrowLeft")}
+          onClick={() => handleSearchChannelWithNumbers("ArrowLeft")}
           ariaLabel="go to previous channel"
         >
           <BsArrowLeft className={`text-xl`}></BsArrowLeft>
         </FloatOption>
 
         <FloatOption
-          onClick={() => changeChannelWithArrows("ArrowRight")}
+          onClick={() => handleSearchChannelWithNumbers("ArrowRight")}
           ariaLabel="go to next channel"
         >
           <BsArrowRight className={`text-xl`}></BsArrowRight>

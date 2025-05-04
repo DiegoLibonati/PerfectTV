@@ -1,6 +1,5 @@
-import { useQuery } from "@apollo/client";
+import { useKeyBoard } from "usekeyboard-react";
 
-import { Category } from "@/src/entities/api";
 import { CategoryCode } from "@/src/entities/constants";
 
 import { CategoryWithChannelsSection } from "@/src/containers/ChannelsPage/Sections/CategoryWithChannelsSection/CategoryWithChannelsSection";
@@ -11,9 +10,8 @@ import { NotChannelsSection } from "@/src/containers/ChannelsPage/Sections/NotCh
 import { FloatOptions } from "@/src/components/FloatOptions/FloatOptions";
 import { SideBarSettings } from "@/src/components/SideBarSettings/SideBarSettings";
 
-import getCategories from "@/src/graphql/queries/getCategories";
-
 import { useClientContext } from "@/src/contexts/Client/ClientProvider";
+import { useChannelsPageContext } from "@/src/contexts/ChannelsPage/ChannelsPageProvider";
 
 import { getCategoryNameParsed } from "@/src/helpers/getCategoryNameParsed";
 
@@ -21,13 +19,30 @@ import { MainLayoutStart } from "@/src/layouts/MainLayoutStart/MainLayoutStart";
 import { MainLayoutCenter } from "@/src/layouts/MainLayoutCenter/MainLayoutCenter";
 
 export const ChannelsPage = () => {
-  const { loading, data, error } = useQuery(getCategories, {
-    notifyOnNetworkStatusChange: true,
-  });
-
+  const {
+    graphQL,
+    allChannels,
+    channelSelected,
+    handleChangeChannelSelectedWithArrows,
+  } = useChannelsPageContext();
   const { language } = useClientContext();
 
-  const categories = data?.categories?.data as Category[];
+  const { status, data } = graphQL;
+  const { loading, error } = status;
+  const { categories } = data;
+
+  useKeyBoard({
+    config: {
+      keys: [
+        {
+          key: "ArrowLeft|ArrowRight|ArrowUp|ArrowDown",
+          fn: (e) => handleChangeChannelSelectedWithArrows(e.key),
+        },
+      ],
+      debug: false,
+      dependencies: [allChannels, channelSelected],
+    },
+  });
 
   if (loading) {
     return (
@@ -64,11 +79,11 @@ export const ChannelsPage = () => {
         return (
           <CategoryWithChannelsSection
             key={`category_${category.id}_${category.code}`}
-            name={getCategoryNameParsed(
+            nameCategory={getCategoryNameParsed(
               category.code as CategoryCode,
               language
             )}
-            channels={category.channels!}
+            channelsCategory={category.channels!}
           ></CategoryWithChannelsSection>
         );
       })}

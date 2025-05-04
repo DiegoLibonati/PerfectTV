@@ -20,7 +20,11 @@ export interface CardActiveChannelProps {
   number: number;
 }
 
-export interface ChannelProviderProps {
+export interface ChannelPageProviderProps {
+  children: React.ReactNode;
+}
+
+export interface ChannelsPageProviderProps {
   children: React.ReactNode;
 }
 
@@ -35,8 +39,8 @@ export interface ErrorChannelSectionProps {
 }
 
 export interface CategoryWithChannelsSectionProps {
-  name: string;
-  channels: Channel[];
+  nameCategory: string;
+  channelsCategory: Channel[];
 }
 
 export interface CardSearchChannelProps extends GeneralComponentProps {
@@ -44,6 +48,7 @@ export interface CardSearchChannelProps extends GeneralComponentProps {
 }
 
 export interface CardChannelProps extends GeneralComponentProps {
+  id: string;
   name: string;
   thumbUrl: string;
   number: number;

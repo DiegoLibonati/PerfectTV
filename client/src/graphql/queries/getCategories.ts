@@ -8,11 +8,11 @@ export default gql`
         id
         code
         channels {
-            id
-            name
-            description
-            number
-            thumbUrl
+          id
+          name
+          description
+          number
+          thumbUrl
         }
       }
     }

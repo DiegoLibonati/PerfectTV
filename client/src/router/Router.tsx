@@ -4,7 +4,8 @@ import { HashRouter, Navigate, Route, Routes } from "react-router";
 import { ChannelPage } from "@/src/pages/ChannelPage/ChannelPage";
 import { ChannelsPage } from "@/src/pages/ChannelsPage/ChannelsPage";
 
-import { ChannelProvider } from "@/src/contexts/Channel/ChannelProvider";
+import { ChannelPageProvider } from "@/src/contexts/ChannelPage/ChannelPageProvider";
+import { ChannelsPageProvider } from "@/src/contexts/ChannelsPage/ChannelsPageProvider";
 
 import { useLocalStorage } from "@/src/hooks/useLocalStorage";
 
@@ -28,13 +29,20 @@ export const Router = () => {
         <Route
           path="/channel/:number"
           element={
-            <ChannelProvider>
+            <ChannelPageProvider>
               <ChannelPage></ChannelPage>
-            </ChannelProvider>
+            </ChannelPageProvider>
           }
         ></Route>
 
-        <Route path="/channels" element={<ChannelsPage></ChannelsPage>}></Route>
+        <Route
+          path="/channels"
+          element={
+            <ChannelsPageProvider>
+              <ChannelsPage></ChannelsPage>
+            </ChannelsPageProvider>
+          }
+        ></Route>
 
         <Route
           path="/*"

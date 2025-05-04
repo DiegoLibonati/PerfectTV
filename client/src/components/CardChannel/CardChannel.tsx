@@ -7,6 +7,7 @@ import { useRouter } from "@/src/hooks/useRouter";
 import { useTheme } from "@/src/hooks/useTheme";
 
 export const CardChannel = ({
+  id,
   name,
   description,
   thumbUrl,
@@ -24,7 +25,8 @@ export const CardChannel = ({
     <div
       className={`flex flex-col gap-2 w-full h-96 p-2 ${bgOut} rounded-lg cursor-pointer transition-all lg:flex-row lg:h-full ${
         active && `outline ${outlinePrimary}`
-      } hover:bg-opacity-75 card-root`}
+      } hover:bg-opacity-75 card-channel`}
+      id={id}
       onClick={handleClickCardChannel}
     >
       <div
