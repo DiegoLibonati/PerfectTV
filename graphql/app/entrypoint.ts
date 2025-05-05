@@ -1,2 +1,2 @@
-import 'tsconfig-paths/register';
+import 'tsconfig-paths/src/register';
 import './server';
