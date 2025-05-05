@@ -13,6 +13,7 @@ services:
         condition: service_healthy
     networks:
       - perfect-tv-net
+    command: sh -c "npx prisma migrate deploy && node app/entrypoint.js"
 
   perfect-tv-graphql:
     build:
