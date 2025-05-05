@@ -8,6 +8,7 @@ import { ChannelsPageContext as ChannelsPageContextT } from "@src/entities/conte
 import { ChannelsPageContext } from "@src/contexts/ChannelsPage/ChannelsPageContext";
 
 import { useLocalStorage } from "@src/hooks/useLocalStorage";
+import { useRouter } from "@src/hooks/useRouter";
 
 import { getChannelsSortByNumber } from "@src/helpers/getChannelsSortByNumber";
 import { getChannelIndexByArrows } from "@src/helpers/getChannelIndexByArrows";
@@ -28,6 +29,7 @@ export const ChannelsPageProvider = ({
   });
 
   const { get } = useLocalStorage();
+  const { handleNavigateToChannel } = useRouter();
 
   const handleSetCategories = (categories: Category[]) => {
     setCategories(categories);
@@ -63,6 +65,10 @@ export const ChannelsPageProvider = ({
     handleSetChannelSelected(newChannelSelected);
   };
 
+  const handleEnterChannelSelected = () => {
+    handleNavigateToChannel(channelSelected!.number);
+  };
+
   useEffect(() => {
     const categories = data?.categories?.data as Category[];
 
@@ -95,6 +101,7 @@ export const ChannelsPageProvider = ({
         handleSetChannelSelected: handleSetChannelSelected,
         handleChangeChannelSelectedWithArrows:
           handleChangeChannelSelectedWithArrows,
+        handleEnterChannelSelected: handleEnterChannelSelected,
       }}
     >
       {children}

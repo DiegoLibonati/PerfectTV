@@ -84,14 +84,14 @@ export const ChannelPage = () => {
         </FloatOption>
 
         <FloatOption
-          onClick={() => handleSearchChannelWithNumbers("ArrowLeft")}
+          onClick={() => handleChangeChannelWithArrows("ArrowLeft")}
           ariaLabel="go to previous channel"
         >
           <BsArrowLeft className={`text-xl`}></BsArrowLeft>
         </FloatOption>
 
         <FloatOption
-          onClick={() => handleSearchChannelWithNumbers("ArrowRight")}
+          onClick={() => handleChangeChannelWithArrows("ArrowRight")}
           ariaLabel="go to next channel"
         >
           <BsArrowRight className={`text-xl`}></BsArrowRight>

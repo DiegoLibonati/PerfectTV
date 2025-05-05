@@ -15,10 +15,10 @@ export const CardChannel = ({
   active,
 }: CardChannelProps) => {
   const { bg, color, bgOut, outlinePrimary } = useTheme();
-  const { handleNavigateTo } = useRouter();
+  const { handleNavigateToChannel } = useRouter();
 
   const handleClickCardChannel = () => {
-    handleNavigateTo(`/channel/${number}`);
+    handleNavigateToChannel(number);
   };
 
   return (

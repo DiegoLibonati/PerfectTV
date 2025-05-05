@@ -24,6 +24,7 @@ export const ChannelsPage = () => {
     allChannels,
     channelSelected,
     handleChangeChannelSelectedWithArrows,
+    handleEnterChannelSelected,
   } = useChannelsPageContext();
   const { language } = useClientContext();
 
@@ -37,6 +38,10 @@ export const ChannelsPage = () => {
         {
           key: "ArrowLeft|ArrowRight|ArrowUp|ArrowDown",
           fn: (e) => handleChangeChannelSelectedWithArrows(e.key),
+        },
+        {
+          key: "Enter",
+          fn: handleEnterChannelSelected,
         },
       ],
       debug: false,

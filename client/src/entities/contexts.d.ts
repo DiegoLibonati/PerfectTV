@@ -29,6 +29,7 @@ export type ChannelsPageContext = {
   }>;
   handleSetChannelSelected: (channelSelected: Channel) => void;
   handleChangeChannelSelectedWithArrows: (key: string) => void;
+  handleEnterChannelSelected: () => void;
 };
 
 // ***** Client *****
