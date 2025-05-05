@@ -1,0 +1,72 @@
+services:
+  perfect-tv-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.production
+    restart: always
+    env_file:
+      - ./api/.env
+    ports:
+      - "5000:5000"
+    depends_on:
+      perfect-tv-db:
+        condition: service_healthy
+    networks:
+      - perfect-tv-net
+
+  perfect-tv-graphql:
+    build:
+      context: ./graphql
+      dockerfile: Dockerfile.production
+    restart: always
+    env_file:
+      - ./graphql/.env
+    ports:
+      - "5001:5001"
+    depends_on:
+      perfect-tv-db:
+        condition: service_healthy
+      perfect-tv-api:
+        condition: service_started
+    networks:
+      - perfect-tv-net
+
+  perfect-tv-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.production
+    restart: always
+    env_file:
+      - ./client/.env
+    ports:
+      - "5173:80"
+    depends_on:
+      perfect-tv-api:
+        condition: service_started
+      perfect-tv-graphql:
+        condition: service_started
+    networks:
+      - perfect-tv-net
+
+  perfect-tv-db:
+    image: postgres:16
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: perfecttvdb
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - perfect-tv-net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "root", "-d", "perfecttvdb"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+
+networks:
+  perfect-tv-net:
