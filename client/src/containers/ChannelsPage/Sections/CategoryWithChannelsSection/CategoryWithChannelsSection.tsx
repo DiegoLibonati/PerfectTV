@@ -28,7 +28,7 @@ export const CategoryWithChannelsSection = ({
       <Heading2 className={`${color}`}>{nameCategory}</Heading2>
       <SeparatorText className={`w-full lg:w-64 ${border}`}></SeparatorText>
 
-      <article className="grid grid-cols-1 gap-2 w-full h-full lg:grid-cols-3 lg:h-64">
+      <article className="grid grid-cols-1 gap-2 w-full h-full lg:grid-cols-3">
         {channelsCategorySorted().map((channel) => {
           return (
             <CardChannel

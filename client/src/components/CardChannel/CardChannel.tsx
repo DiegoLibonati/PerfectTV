@@ -23,7 +23,7 @@ export const CardChannel = ({
 
   return (
     <div
-      className={`flex flex-col gap-2 w-full h-96 p-2 ${bgOut} rounded-lg cursor-pointer transition-all lg:flex-row lg:h-full ${
+      className={`flex flex-col gap-2 w-full h-96 p-2 ${bgOut} rounded-lg cursor-pointer transition-all lg:flex-row lg:min-h-64 lg:h-full ${
         active && `outline ${outlinePrimary}`
       } hover:bg-opacity-75 card-channel`}
       id={id}

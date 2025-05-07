@@ -79,7 +79,7 @@ export const ChannelsPage = () => {
   }
 
   return (
-    <MainLayoutStart className="flex-col gap-2 p-4 min-h-screen [&&]:h-auto">
+    <MainLayoutStart className="flex-col gap-6 p-4 min-h-screen [&&]:h-auto">
       {categories.map((category) => {
         return (
           <CategoryWithChannelsSection
