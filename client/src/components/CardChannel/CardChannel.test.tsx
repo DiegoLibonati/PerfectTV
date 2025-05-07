@@ -21,11 +21,11 @@ describe("CardChannel", () => {
       number: 2,
     };
 
-    const handleNavigateToMock = vi.fn();
+    const handleNavigateToChannel = vi.fn();
 
     beforeEach(() => {
       (useRouter as unknown as vi.Mock).mockReturnValue({
-        handleNavigateTo: handleNavigateToMock,
+        handleNavigateToChannel: handleNavigateToChannel,
       });
     });
 
@@ -81,9 +81,9 @@ describe("CardChannel", () => {
 
       await user.click(cardRoot);
 
-      expect(handleNavigateToMock).toHaveBeenCalledTimes(1);
-      expect(handleNavigateToMock).toHaveBeenCalledWith(
-        `/channel/${props.number}`
+      expect(handleNavigateToChannel).toHaveBeenCalledTimes(1);
+      expect(handleNavigateToChannel).toHaveBeenCalledWith(
+        props.number
       );
     });
   });
@@ -98,11 +98,11 @@ describe("CardChannel", () => {
       number: 2,
     };
 
-    const handleNavigateToMock = vi.fn();
+    const handleNavigateToChannel = vi.fn();
 
     beforeEach(() => {
       (useRouter as unknown as vi.Mock).mockReturnValue({
-        handleNavigateTo: handleNavigateToMock,
+        handleNavigateToChannel: handleNavigateToChannel,
       });
     });
 
@@ -140,11 +140,11 @@ describe("CardChannel", () => {
       number: 2,
     };
 
-    const handleNavigateToMock = vi.fn();
+    const handleNavigateToChannel = vi.fn();
 
     beforeEach(() => {
       (useRouter as unknown as vi.Mock).mockReturnValue({
-        handleNavigateTo: handleNavigateToMock,
+        handleNavigateToChannel: handleNavigateToChannel,
       });
     });
 
