@@ -63,6 +63,9 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   };
 
   const handleChangeChannelWithArrows = (key: string): void => {
+    handleClearActiveChannel();
+    handleClearSearchNumber();
+
     const indexOfNumberActiveChannel = numbersUsed.findIndex(
       (numberUsed) => numberUsed === activeChannel?.number
     );
