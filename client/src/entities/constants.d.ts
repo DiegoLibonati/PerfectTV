@@ -28,4 +28,11 @@ export type TranslationKeys = {
   };
 };
 
-export type CategoryCode = "news" | "gameplays";
+export type CategoryCode =
+  | "news"
+  | "gameplays"
+  | "olds"
+  | "music"
+  | "entertainment"
+  | "educational"
+  | "tourism";
