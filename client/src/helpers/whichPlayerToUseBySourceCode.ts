@@ -1,7 +1,7 @@
 export const whichPlayerToUseBySourceCode = (
   sourceCode: string
 ): "iframe" | "react-player" => {
-  const useIframe = ["ftv"];
+  const useIframe = ["ftv", "vmfedgeapps"];
   const code = sourceCode.toLowerCase();
 
   if (useIframe.includes(code)) return "iframe";
