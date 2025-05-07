@@ -35,4 +35,12 @@ export type CategoryCode =
   | "music"
   | "entertainment"
   | "educational"
-  | "tourism";
+  | "tourism"
+  | "sports"
+  | "gastronomy"
+  | "moviesseries"
+  | "cartoonsanimated"
+  | "documentaries"
+  | "animals"
+  | "radio"
+  | "esports";
