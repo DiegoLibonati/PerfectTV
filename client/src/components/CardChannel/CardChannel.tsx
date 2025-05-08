@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import { CardChannelProps } from "@src/entities/props";
 
 import { Heading3 } from "@src/components/Heading3/Heading3";
@@ -14,6 +16,8 @@ export const CardChannel = ({
   number,
   active,
 }: CardChannelProps) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+
   const { bg, color, bgOut, outlinePrimary } = useTheme();
   const { handleNavigateToChannel } = useRouter();
 
@@ -21,12 +25,23 @@ export const CardChannel = ({
     handleNavigateToChannel(number);
   };
 
+  useEffect(() => {
+    const current = ref.current;
+
+    if (!active || !current) return;
+
+    const offsetTop = Number(ref.current?.offsetTop);
+
+    window.scrollTo({ left: 0, top: offsetTop - 100 });
+  }, [active]);
+
   return (
     <div
       className={`flex flex-col gap-2 w-full h-96 p-2 ${bgOut} rounded-lg cursor-pointer transition-all lg:flex-row lg:min-h-64 lg:h-full ${
         active && `outline ${outlinePrimary}`
       } hover:bg-opacity-75 card-channel`}
       id={id}
+      ref={ref}
       onClick={handleClickCardChannel}
     >
       <div

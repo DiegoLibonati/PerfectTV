@@ -21,6 +21,9 @@ export const ChannelsPageProvider = ({
   children,
 }: ChannelsPageProviderProps) => {
   const [allChannels, setAllChannels] = useState<Channel[]>([]);
+  const [allChannelsSortByNumber, setAllChannelsSortByNumber] = useState<
+    Channel[]
+  >([]);
   const [channelSelected, setChannelSelected] = useState<Channel | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -35,8 +38,12 @@ export const ChannelsPageProvider = ({
     setCategories(categories);
   };
 
-  const handleSetChannels = (channels: Channel[]) => {
+  const handleSetAllChannels = (channels: Channel[]) => {
     setAllChannels(channels);
+  };
+
+  const handleSetChannelsSortByNumber = (channels: Channel[]) => {
+    setAllChannelsSortByNumber(channels);
   };
 
   const handleSetChannelSelected = (channelSelected: Channel) => {
@@ -77,10 +84,11 @@ export const ChannelsPageProvider = ({
     handleSetCategories(categories);
 
     const channels = categories.flatMap(
-      (category) => category.channels as Channel[]
+      (category) => getChannelsSortByNumber(category.channels!) as Channel[]
     );
 
-    handleSetChannels(getChannelsSortByNumber(channels));
+    handleSetAllChannels(channels);
+    handleSetChannelsSortByNumber(getChannelsSortByNumber(channels));
     handleSetChannelSelected(
       channels.find(
         (channel) =>
@@ -93,6 +101,7 @@ export const ChannelsPageProvider = ({
     <ChannelsPageContext.Provider
       value={{
         allChannels: allChannels,
+        allChannelsSortByNumber: allChannelsSortByNumber,
         channelSelected: channelSelected,
         graphQL: {
           status: { loading: loading, error: error },

@@ -23,6 +23,7 @@ export type ChannelPageContext = {
 
 export type ChannelsPageContext = {
   allChannels: Channel[];
+  allChannelsSortByNumber: Channel[];
   channelSelected: Channel | null;
   graphQL: GraphQL<{
     categories: Category[];
