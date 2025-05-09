@@ -18,3 +18,20 @@ export const resolveFinalUrl = (initialUrl: string): Promise<string> => {
       });
   });
 };
+
+export const waitForFinalUrl = async (
+  url: string,
+  retryDelayMs: number = 3000
+): Promise<string> => {
+  while (true) {
+    try {
+      console.log("🔁 Intentando obtener final URL...");
+      const finalUrl = await resolveFinalUrl(url);
+      console.log("✅ FINAL URL:", finalUrl);
+      return finalUrl;
+    } catch (err) {
+      console.warn("⚠️ Error temporal en resolveFinalUrl:", err);
+      await new Promise((res) => setTimeout(res, retryDelayMs));
+    }
+  }
+};
