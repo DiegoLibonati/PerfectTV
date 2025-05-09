@@ -1,14 +1,17 @@
-import axios from "axios";
+import { https } from 'follow-redirects';
 
-export const resolveFinalUrl = async (initialUrl: string): Promise<string> => {
-  try {
-    const response = await axios.get(initialUrl, {
-      maxRedirects: 5,
-      timeout: 5000,
+export const resolveFinalUrl = (initialUrl: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    https.get(initialUrl, (res) => {
+      if (res.responseUrl) {
+        console.log("✅ Final URL:", res.responseUrl);
+        resolve(res.responseUrl);
+      } else {
+        reject("No se pudo obtener la URL final");
+      }
+    }).on('error', (err) => {
+      console.error("❌ Error:", err.message);
+      reject(err);
     });
-    return response.request.res.responseUrl;
-  } catch (error) {
-    console.error("Redirección fallida:", error);
-    throw error;
-  }
+  });
 };
