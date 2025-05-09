@@ -6,7 +6,7 @@ export const resolveFinalUrl = (initialUrl: string): Promise<string> => {
     https
       .get(initialUrl, (res) => {
         if (res.responseUrl) {
-          console.log("✅ Final URL:", res.responseUrl);
+          console.log("✅ Final URL - resolveFinalUrl:", res.responseUrl);
           resolve(res.responseUrl);
         } else {
           reject("No se pudo obtener la URL final");
@@ -27,7 +27,7 @@ export const waitForFinalUrl = async (
     try {
       console.log("🔁 Intentando obtener final URL...");
       const finalUrl = await resolveFinalUrl(url);
-      console.log("✅ FINAL URL:", finalUrl);
+      console.log("✅ FINAL URL - waitForFinalUrl:", finalUrl);
       return finalUrl;
     } catch (err) {
       console.warn("⚠️ Error temporal en resolveFinalUrl:", err);

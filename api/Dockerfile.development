@@ -8,10 +8,12 @@ RUN apk add --no-cache \
     freetype \
     harfbuzz \
     ca-certificates \
-    ttf-freefont
+    ttf-freefont \
+    dumb-init \
+    udev \
+    bash
 
-COPY ./package*.json .
-
+COPY ./package*.json ./
 RUN npm install
 
 COPY . .
