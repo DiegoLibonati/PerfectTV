@@ -2,14 +2,21 @@ import puppeteer from "puppeteer-core";
 
 import { config } from "@app/config/env.conf";
 
-import { waitForFinalUrl } from "@app/utils/resolveFinalUrl";
+import { resolveFinalUrl } from "@app/utils/resolveFinalUrl.util";
 
 export const getSrcByIframe = async (url: string): Promise<string> => {
-  const finalUrl = await waitForFinalUrl(url);
+  const finalUrl = await resolveFinalUrl(url);
+
+  console.log("ResolveFinalUrl: ", finalUrl);
 
   const browser = await puppeteer.launch({
     headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--single-process",
+      "--disable-gpu",
+    ],
     executablePath: config.PUPPETEER_EXECUTABLE_PATH || undefined,
   });
 

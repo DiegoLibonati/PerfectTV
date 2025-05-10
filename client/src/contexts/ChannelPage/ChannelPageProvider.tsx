@@ -27,7 +27,7 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   const { set } = useLocalStorage();
   const { params, handleNavigateToChannel } = useRouter();
   const { loading, data, error, refetch } = useQuery(getChannelAndNumbersUsed, {
-    variables: { numberChannel: Number(params?.number) },
+    variables: { numberChannel: Number(params?.number), reload: null },
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "no-cache",
   });
@@ -59,7 +59,10 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
     handleClearActiveChannel();
     handleClearSearchNumber();
 
-    refetch({ variables: { numberChannel: Number(params?.number) } });
+    refetch({
+      numberChannel: Number(params?.number),
+      reload: true,
+    });
   };
 
   const handleChangeChannelWithArrows = (key: string): void => {

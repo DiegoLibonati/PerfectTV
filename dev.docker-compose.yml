@@ -1,3 +1,4 @@
+name: perfect-tv-dev
 services:
   perfect-tv-api:
     build:
@@ -14,6 +15,7 @@ services:
     depends_on:
       perfect-tv-db:
         condition: service_healthy
+    init: true
     networks:
       - perfect-tv-net
 
@@ -59,7 +61,7 @@ services:
       - perfect-tv-net
 
   perfect-tv-db:
-    image: postgres
+    image: postgres:17
     restart: always
     ports:
       - "5432:5432"
@@ -68,7 +70,7 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: perfecttvdb
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./perfect-tv-dev-db-data:/var/lib/postgresql/data
     networks:
       - perfect-tv-net
     healthcheck:
@@ -80,3 +82,6 @@ services:
 
 networks:
   perfect-tv-net:
+
+volumes:
+  perfect-tv-dev-db-data:

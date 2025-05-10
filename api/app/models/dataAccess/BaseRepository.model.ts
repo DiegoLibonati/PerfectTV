@@ -1,16 +1,13 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
+import { PrismaClient } from "@prisma/client";
 
 import { Base } from "@app/entities/models";
 
 import prisma from "@app/database/Prisma.database";
 
 class BaseRepository {
-  prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
+  prisma: PrismaClient;
 
-  constructor(
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
-  ) {
+  constructor(prisma: PrismaClient) {
     this.prisma = prisma;
   }
 
@@ -47,7 +44,7 @@ class BaseRepository {
 
   async createBases(
     data: (Pick<Base, "baseUrl"> & { idSource: number })[]
-  ): Promise<Prisma.BatchPayload> {
+  ): Promise<{ count: number }> {
     return await this.prisma.base.createMany({ data: data });
   }
 

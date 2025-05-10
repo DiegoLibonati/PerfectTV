@@ -1,16 +1,13 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
 
 import { Source } from "@app/entities/models";
 
 import prisma from "@app/database/Prisma.database";
 
 class SourceRepository {
-  prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
+  prisma: PrismaClient;
 
-  constructor(
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
-  ) {
+  constructor(prisma: PrismaClient) {
     this.prisma = prisma;
   }
 
@@ -41,7 +38,7 @@ class SourceRepository {
 
   async createSources(
     data: Pick<Source, "code" | "description">[]
-  ): Promise<Prisma.BatchPayload> {
+  ): Promise<{ count: number }> {
     return await this.prisma.source.createMany({ data: data });
   }
 

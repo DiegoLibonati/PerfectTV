@@ -1,16 +1,13 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
+import { PrismaClient } from "@prisma/client";
 
 import { Category } from "@app/entities/models";
 
 import prisma from "@app/database/Prisma.database";
 
 class CategoryRepository {
-  prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
+  prisma: PrismaClient;
 
-  constructor(
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
-  ) {
+  constructor(prisma: PrismaClient) {
     this.prisma = prisma;
   }
 
@@ -41,7 +38,7 @@ class CategoryRepository {
 
   async createCategories(
     data: Pick<Category, "code" | "description">[]
-  ): Promise<Prisma.BatchPayload> {
+  ): Promise<{ count: number }> {
     return await this.prisma.category.createMany({ data: data });
   }
 

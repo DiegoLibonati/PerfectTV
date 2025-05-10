@@ -1,3 +1,4 @@
+name: perfect-tv-prod
 services:
   perfect-tv-api:
     build:
@@ -13,6 +14,7 @@ services:
         condition: service_healthy
     networks:
       - perfect-tv-net
+    init: true
     command: sh -c "npx prisma migrate deploy && node app/entrypoint.js"
 
   perfect-tv-graphql:
@@ -50,7 +52,7 @@ services:
       - perfect-tv-net
 
   perfect-tv-db:
-    image: postgres:16
+    image: postgres:17
     restart: always
     ports:
       - "5432:5432"
@@ -71,3 +73,6 @@ services:
 
 networks:
   perfect-tv-net:
+
+volumes:
+  data:

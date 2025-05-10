@@ -1,16 +1,13 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
+import { PrismaClient } from "@prisma/client";
 
 import { Channel } from "@app/entities/models";
 
 import prisma from "@app/database/Prisma.database";
 
 class ChannelRepository {
-  prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
+  prisma: PrismaClient;
 
-  constructor(
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
-  ) {
+  constructor(prisma: PrismaClient) {
     this.prisma = prisma;
   }
 

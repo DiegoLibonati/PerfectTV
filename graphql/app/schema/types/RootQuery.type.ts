@@ -76,12 +76,15 @@ const RootQueryType = new GraphQLObjectType({
       type: ChannelResponseType,
       args: {
         numberChannel: { type: GraphQLInt },
+        reload: { type: GraphQLBoolean },
       },
       resolve(parentValue, args) {
-        const { numberChannel } = args;
+        const { numberChannel, reload } = args;
 
         return axios
-          .get(`${API_URL}/channel/v1/channels/number/${numberChannel}`)
+          .get(`${API_URL}/channel/v1/channels/number/${numberChannel}`, {
+            params: { reload: reload },
+          })
           .then((response) => {
             return {
               code: response.data.code,

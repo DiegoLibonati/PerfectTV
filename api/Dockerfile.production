@@ -3,21 +3,19 @@ FROM node:20-slim AS builder
 
 WORKDIR /home/app
 
-COPY ./package*.json ./
+COPY package*.json ./
 RUN npm install
 
 COPY . .
 RUN npm run build
 
-# Etapa final: Producción
+# Etapa final
 FROM node:20-slim
 
-# Dependencias necesarias para Chromium y Puppeteer
-RUN apt-get update && apt-get install -y \
-    wget \
-    ca-certificates \
+# Instalar Chromium y dependencias necesarias
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    chromium \
     fonts-liberation \
-    libappindicator3-1 \
     libasound2 \
     libatk-bridge2.0-0 \
     libatk1.0-0 \
@@ -31,20 +29,23 @@ RUN apt-get update && apt-get install -y \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
-    chromium \
-    --no-install-recommends && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    dumb-init \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV CHROME_BIN=/usr/bin/chromium
 
 WORKDIR /home/app
 
 COPY --from=builder /home/app/dist ./app
+COPY --from=builder /home/app/prisma ./prisma
 COPY --from=builder /home/app/package*.json ./
 COPY --from=builder /home/app/tsconfig.json ./tsconfig.json
-COPY --from=builder /home/app/prisma ./prisma
 
 RUN npm install --omit=dev
 RUN npx prisma generate
 
 EXPOSE 5000
 
+ENTRYPOINT ["dumb-init", "--"]
 CMD ["node", "app/entrypoint.js"]
