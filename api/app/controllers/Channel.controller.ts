@@ -27,9 +27,9 @@ class CategoryController {
 
     channels = await channelRepository.getChannels();
 
-    const invalidUrlChannelExists = invalidUrlChecker(channels);
+    // const invalidUrlChannelExists = invalidUrlChecker(channels);
 
-    if (!reload && !invalidUrlChannelExists) {
+    if (!reload) {
       console.log("Endpoint getChannels executed without reload.");
       res.status(200).json({
         code: responseSuccess.getChannels.code,
@@ -56,26 +56,23 @@ class CategoryController {
       })
     );
 
+    channels = await Promise.all(
+      channels.map(async (channel) => {
+        const sourceIdChannel = channel.source?.id;
+        const sourceBaseUrl = channel.source?.base?.baseUrl;
+
+        if (!channel.url.includes(sourceBaseUrl!)) {
+          const base = await baseRepository.getBaseByIdSource(sourceIdChannel!);
+          const channelUpdated = await setChannelUrl(channel, base?.baseUrl!);
+
+          return channelUpdated;
+        }
+
+        return channel;
+      })
+    );
+
     console.log("Endpoint getChannels executed.");
-
-    channels = await channelRepository.getChannels();
-
-    // channels = await Promise.all(
-    //   channels.map(async (channel) => {
-    //     const sourceIdChannel = channel.source?.id;
-    //     const sourceCodeChannel = channel.source?.code;
-    //     const urlChannel = channel.url
-
-    //     if (sourceCodeChannel === CODE_FTV && !config.TEST_ENVIRONMENT) {
-    //       await manageBaseUrlByIframe(config.FTV_URL!, sourceIdChannel!);
-    //     }
-
-    //     const base = await baseRepository.getBaseByIdSource(sourceIdChannel!);
-    //     const channelUpdated = await setChannelUrl(channel, base?.baseUrl!);
-
-    //     return channelUpdated;
-    //   })
-    // );
 
     res.status(200).json({
       code: responseSuccess.getChannels.code,
