@@ -15,7 +15,7 @@ import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 import baseRepository from "@app/models/dataAccess/BaseRepository.model";
-import { invalidUrlChecker } from "@app/utils/invalidUrlChecker.util";
+// import { invalidUrlChecker } from "@app/utils/invalidUrlChecker.util";
 import { setChannelUrl } from "@app/utils/setChannelUrl.util";
 import { singleInvalidUrlChecker } from "@app/utils/singleInvalidUrlChecker.util";
 import { manageBaseUrlByIframe } from "@app/utils/manageBaseUrlByIframe.util";
@@ -58,12 +58,12 @@ class CategoryController {
 
     channels = await Promise.all(
       channels.map(async (channel) => {
-        const sourceIdChannel = channel.source?.id;
-        const sourceBaseUrl = channel.source?.base?.baseUrl;
+        const sourceIdChannel = channel.source?.id
+        const base = await baseRepository.getBaseByIdSource(sourceIdChannel!);
+        const baseUrl = base?.baseUrl
 
-        if (!channel.url.includes(sourceBaseUrl!)) {
-          const base = await baseRepository.getBaseByIdSource(sourceIdChannel!);
-          const channelUpdated = await setChannelUrl(channel, base?.baseUrl!);
+        if (!channel.url.includes(baseUrl!)) {
+          const channelUpdated = await setChannelUrl(channel, baseUrl!);
 
           return channelUpdated;
         }
@@ -103,10 +103,21 @@ class CategoryController {
       return;
     }
 
+    const baseUrl = channel.source?.base?.baseUrl
     const validUrlChannel = singleInvalidUrlChecker(channel?.url!);
 
+    if (!reload && !validUrlChannel && baseUrl) {
+      channel = await setChannelUrl(channel, baseUrl!);
+      console.log("Endpoint getChannelByNumber executed without reload and not validUrlChannel with pre-baseUrl");
+      res.status(200).json({
+        code: responseSuccess.getChannel.code,
+        data: channel,
+      });
+      return;
+    }
+
     if (!reload && validUrlChannel) {
-      console.log("Endpoint getChannelByNumber executed without reload.");
+      console.log("Endpoint getChannelByNumber executed without reload and validUrlChannel.");
       res.status(200).json({
         code: responseSuccess.getChannel.code,
         data: channel,
