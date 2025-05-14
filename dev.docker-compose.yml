@@ -16,6 +16,9 @@ services:
       perfect-tv-db:
         condition: service_healthy
     init: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     networks:
       - perfect-tv-net
 

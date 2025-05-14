@@ -15,6 +15,9 @@ services:
     networks:
       - perfect-tv-net
     init: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     command: sh -c "npx prisma migrate deploy && node app/entrypoint.js"
 
   perfect-tv-graphql:
