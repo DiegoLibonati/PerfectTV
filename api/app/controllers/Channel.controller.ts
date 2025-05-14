@@ -103,11 +103,11 @@ class CategoryController {
       return;
     }
 
-    const baseUrl = channel.source?.base?.baseUrl
+    const baseChannel = await baseRepository.getBaseByIdSource(channel.source?.id!);
     const validUrlChannel = singleInvalidUrlChecker(channel?.url!);
 
-    if (!reload && !validUrlChannel && baseUrl) {
-      channel = await setChannelUrl(channel, baseUrl!);
+    if (!reload && !validUrlChannel && baseChannel?.baseUrl) {
+      channel = await setChannelUrl(channel, baseChannel?.baseUrl);
       console.log("Endpoint getChannelByNumber executed without reload and not validUrlChannel with pre-baseUrl");
       res.status(200).json({
         code: responseSuccess.getChannel.code,

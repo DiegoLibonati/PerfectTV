@@ -9,6 +9,8 @@ export const manageBaseUrlByIframe = async (
     const srcUrl = await getSrcByIframe(iframeUrl);
     const baseUrl = srcUrl.split("?")[0];
 
+    console.log("BaseURL to update: ", baseUrl);
+
     const baseExists = await baseRepository.getBaseByIdSource(sourceId);
 
     if (!baseExists) {
