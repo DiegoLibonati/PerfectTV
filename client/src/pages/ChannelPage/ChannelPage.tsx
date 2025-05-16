@@ -1,6 +1,7 @@
 import { useKeyBoard } from "usekeyboard-react";
 import { CiGrid41 } from "react-icons/ci";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { TfiReload } from "react-icons/tfi";
 
 import { SideBarSettings } from "@src/components/SideBarSettings/SideBarSettings";
 import { FloatOptions } from "@src/components/FloatOptions/FloatOptions";
@@ -16,10 +17,12 @@ import { ActiveChannelSection } from "@src/containers/ChannelPage/Sections/Activ
 import { ViewerChannelSection } from "@src/containers/ChannelPage/Sections/ViewerChannelSection/ViewerChannelSection";
 
 import { useRouter } from "@src/hooks/useRouter";
+import { useWindow } from "@src/hooks/useWindow";
 
 import { MainLayoutCenter } from "@src/layouts/MainLayoutCenter/MainLayoutCenter";
 
 export const ChannelPage = () => {
+  const { handleReloadWindow } = useWindow();
   const { handleNavigateToGridChannels } = useRouter();
 
   const {
@@ -37,6 +40,7 @@ export const ChannelPage = () => {
     config: {
       keys: [
         { key: "r", fn: handleRefetchChannelAndNumbersUsed },
+        { key: "t", fn: handleReloadWindow },
         {
           key: "ArrowLeft|ArrowRight",
           fn: (e) => handleChangeChannelWithArrows(e.key),
@@ -76,6 +80,13 @@ export const ChannelPage = () => {
       <SideBarSettings></SideBarSettings>
 
       <FloatOptions>
+        <FloatOption
+          onClick={handleRefetchChannelAndNumbersUsed}
+          ariaLabel="force reload channel"
+        >
+          <TfiReload className={`text-xl`}></TfiReload>
+        </FloatOption>
+
         <FloatOption
           onClick={handleNavigateToGridChannels}
           ariaLabel="go to grid channels page"
