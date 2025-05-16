@@ -40,12 +40,14 @@ describe("Category.routes.ts", () => {
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(201);
+
       expect(data).toEqual({
         code: responseSuccess.addCategory.code,
         data: {
           id: expect.any(Number),
           code: code,
           description: description,
+          channels: expect.any(Array),
         },
       });
     });
@@ -81,6 +83,7 @@ describe("Category.routes.ts", () => {
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
+            channels: expect.any(Array),
           },
         ]),
       });
@@ -124,6 +127,7 @@ describe("Category.routes.ts", () => {
           id: expect.any(Number),
           code: code,
           description: description,
+          channels: expect.any(Array),
         },
       });
     });
