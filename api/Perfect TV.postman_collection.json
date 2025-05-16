@@ -15,11 +15,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_APP}}/alive",
+							"raw": "{{API_URL_DEV}}/app/v1/alive",
 							"host": [
-								"{{API_URL_APP}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"app",
+								"v1",
 								"alive"
 							]
 						}
@@ -37,11 +39,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DOCS}}/swagger.json",
+							"raw": "{{API_URL_DEV}}/doc/v1/docs/swagger.json",
 							"host": [
-								"{{API_URL_DOCS}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"doc",
+								"v1",
+								"docs",
 								"swagger.json"
 							]
 						}
@@ -54,11 +59,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DOCS}}/",
+							"raw": "{{API_URL_DEV}}/doc/v1/docs/",
 							"host": [
-								"{{API_URL_DOCS}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"doc",
+								"v1",
+								"docs",
 								""
 							]
 						}
@@ -76,11 +84,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_TYPE}}/",
+							"raw": "{{API_URL_DEV}}/type/v1/types/",
 							"host": [
-								"{{API_URL_TYPE}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"type",
+								"v1",
+								"types",
 								""
 							]
 						}
@@ -102,11 +113,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_TYPE}}/add",
+							"raw": "{{API_URL_DEV}}/type/v1/types/add",
 							"host": [
-								"{{API_URL_TYPE}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"type",
+								"v1",
+								"types",
 								"add"
 							]
 						}
@@ -119,11 +133,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_TYPE}}/delete/1",
+							"raw": "{{API_URL_DEV}}/type/v1/types/delete/1",
 							"host": [
-								"{{API_URL_TYPE}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"type",
+								"v1",
+								"types",
 								"delete",
 								"1"
 							]
@@ -142,11 +159,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_SOURCES}}/",
+							"raw": "{{API_URL_DEV}}/source/v1/sources/",
 							"host": [
-								"{{API_URL_SOURCES}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"source",
+								"v1",
+								"sources",
 								""
 							]
 						}
@@ -160,7 +180,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"youtube2\",\r\n    \"description\": \"a\"\r\n}",
+							"raw": "{\r\n    \"code\": \"vmfedgeapps\",\r\n    \"description\": \"Canales de Televisión de VmfEdgeApps\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -168,11 +188,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_SOURCES}}/add",
+							"raw": "{{API_URL_DEV}}/source/v1/sources/add",
 							"host": [
-								"{{API_URL_SOURCES}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"source",
+								"v1",
+								"sources",
 								"add"
 							]
 						}
@@ -185,11 +208,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_SOURCES}}/delete/14",
+							"raw": "{{API_URL_DEV}}/source/v1/sources/delete/14",
 							"host": [
-								"{{API_URL_SOURCES}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"source",
+								"v1",
+								"sources",
 								"delete",
 								"14"
 							]
@@ -208,11 +234,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_BASE}}/",
+							"raw": "{{API_URL_DEV}}/base/v1/bases/",
 							"host": [
-								"{{API_URL_BASE}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"base",
+								"v1",
+								"bases",
 								""
 							]
 						}
@@ -226,7 +255,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\",\r\n    \"idSource\": 2\r\n}",
+							"raw": "{\r\n    \"baseUrl\": \"https://vmf.edge-apps.net\",\r\n    \"idSource\": 6\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,11 +263,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_BASE}}/add",
+							"raw": "{{API_URL_DEV}}/base/v1/bases/add",
 							"host": [
-								"{{API_URL_BASE}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"base",
+								"v1",
+								"bases",
 								"add"
 							]
 						}
@@ -251,11 +283,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_BASE}}/delete/5",
+							"raw": "{{API_URL_DEV}}/base/v1/bases/delete/5",
 							"host": [
-								"{{API_URL_BASE}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"base",
+								"v1",
+								"bases",
 								"delete",
 								"5"
 							]
@@ -278,11 +313,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_BASE}}/update/8",
+							"raw": "{{API_URL_DEV}}/base/v1/bases/update/8",
 							"host": [
-								"{{API_URL_BASE}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"base",
+								"v1",
+								"bases",
 								"update",
 								"8"
 							]
@@ -301,11 +339,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_CATEGORY}}/",
+							"raw": "{{API_URL_DEV}}/category/v1/categories/",
 							"host": [
-								"{{API_URL_CATEGORY}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"category",
+								"v1",
+								"categories",
 								""
 							]
 						}
@@ -319,7 +360,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"gameplays\",\r\n    \"description\": \"Canales de Televisión de Juegos\"\r\n}",
+							"raw": "{\r\n    \"code\": \"esports\",\r\n    \"description\": \"Canales de Televisión de Deportes Electrónicos\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -327,11 +368,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_CATEGORY}}/add",
+							"raw": "{{API_URL_DEV}}/category/v1/categories/add",
 							"host": [
-								"{{API_URL_CATEGORY}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"category",
+								"v1",
+								"categories",
 								"add"
 							]
 						}
@@ -344,11 +388,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_CATEGORY}}/delete/68",
+							"raw": "{{API_URL_DEV}}/category/v1/categories/delete/68",
 							"host": [
-								"{{API_URL_CATEGORY}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"category",
+								"v1",
+								"categories",
 								"delete",
 								"68"
 							]
@@ -367,17 +414,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_CHANNEL}}/?reload=true",
+							"raw": "{{API_URL_DEV}}/channel/v1/channels/",
 							"host": [
-								"{{API_URL_CHANNEL}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"channel",
+								"v1",
+								"channels",
 								""
 							],
 							"query": [
 								{
 									"key": "reload",
-									"value": "true"
+									"value": "true",
+									"disabled": true
 								}
 							]
 						}
@@ -390,13 +441,23 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_CHANNEL}}/number/1",
+							"raw": "{{API_URL_DEV}}/channel/v1/channels/number/1",
 							"host": [
-								"{{API_URL_CHANNEL}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"channel",
+								"v1",
+								"channels",
 								"number",
 								"1"
+							],
+							"query": [
+								{
+									"key": "reload",
+									"value": "true",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -409,7 +470,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Axelelcapo Stream\",\r\n    \"description\": \"Alejandro Fernández Miret, mejor conocido como Alexelcapo (Alex, Alejandro, EvilAFM), es un youtuber de Mallorca que sube vídeos relacionados con el mundo de los videojuegos, realizando gameplays comentados de los mismos. Cuenta actualmente con 1.500.000 suscriptores en su canal de YouTube y con más de 4.900 vídeos. Su contenido abarca gameplays comentados de toda la variedad de juegos, sobre todo famosos, aunque sea más identificado por subir contenido del juego Minecraft.\",\r\n    \"thumbUrl\": \"https://static.wikia.nocookie.net/youtubepedia/images/4/47/Alexelcapo_1.PNG/revision/latest?cb=20200214201549&path-prefix=es\",\r\n    \"url\": \"alexelcapo\",\r\n    \"urlRest\": \"alexelcapo\",\r\n    \"number\": 10000,\r\n    \"idType\": 1,\r\n    \"idCategory\": 40,\r\n    \"idSource\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"LoL LA TW\",\r\n    \"description\": \"League of Legends (también conocido por sus siglas LoL) es un videojuego multijugador de arena de batalla en línea desarrollado y publicado por Riot Games. Inspirándose en Defense of the Ancients, un mapa personalizado para Warcraft III, los fundadores de Riot Games buscaron desarrollar un juego independiente del mismo género.\",\r\n    \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/League_of_Legends_2019_vector.svg/250px-League_of_Legends_2019_vector.svg.png\",\r\n    \"url\": \"/LTAEspanol\",\r\n    \"urlRest\": \"/LTAEspanol\",\r\n    \"number\": 4501,\r\n    \"idType\": 1,\r\n    \"idCategory\": 14,\r\n    \"idSource\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -417,11 +478,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_CHANNEL}}/add",
+							"raw": "{{API_URL_DEV}}/channel/v1/channels/add",
 							"host": [
-								"{{API_URL_CHANNEL}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"channel",
+								"v1",
+								"channels",
 								"add"
 							]
 						}
@@ -435,7 +499,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"url\": \"?get=TGFfTmFjaW9u&lang=1&start=true\"\r\n}",
+							"raw": "{\r\n    \"name\": \"LoL LATAM [SUR] TW\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -443,13 +507,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_CHANNEL}}/update/8",
+							"raw": "{{API_URL_DEV}}/channel/v1/channels/update/125",
 							"host": [
-								"{{API_URL_CHANNEL}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"channel",
+								"v1",
+								"channels",
 								"update",
-								"8"
+								"125"
 							]
 						}
 					},
@@ -461,11 +528,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_CHANNEL}}/delete/185",
+							"raw": "{{API_URL_DEV}}/channel/v1/channels/delete/185",
 							"host": [
-								"{{API_URL_CHANNEL}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
+								"channel",
+								"v1",
+								"channels",
 								"delete",
 								"185"
 							]
@@ -500,38 +570,13 @@
 	],
 	"variable": [
 		{
-			"key": "API_URL_APP",
-			"value": "http://localhost:5000/app/v1",
+			"key": "API_URL_DEV",
+			"value": "http://localhost:5000",
 			"type": "string"
 		},
 		{
-			"key": "API_URL_DOCS",
-			"value": "http://localhost:5000/doc/v1/docs",
-			"type": "string"
-		},
-		{
-			"key": "API_URL_TYPE",
-			"value": "http://localhost:5000/type/v1/types",
-			"type": "string"
-		},
-		{
-			"key": "API_URL_CATEGORY",
-			"value": "http://localhost:5000/category/v1/categories",
-			"type": "string"
-		},
-		{
-			"key": "API_URL_CHANNEL",
-			"value": "http://localhost:5000/channel/v1/channels",
-			"type": "string"
-		},
-		{
-			"key": "API_URL_SOURCES",
-			"value": "http://localhost:5000/source/v1/sources",
-			"type": "string"
-		},
-		{
-			"key": "API_URL_BASE",
-			"value": "http://localhost:5000/base/v1/bases",
+			"key": "API_URL_PROD",
+			"value": "http://YOUR_URL_PROD",
 			"type": "string"
 		}
 	]

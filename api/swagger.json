@@ -707,6 +707,15 @@
                             "type": "integer",
                             "example": 1
                         }
+                    },
+                    {
+                        "name": "reload",
+                        "in": "query",
+                        "description": "Key to know if URLS need to be reloaded again.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -773,45 +782,6 @@
                                         "summary": "Not found channel",
                                         "value": {
                                             "code": "NOT_FOUND_CHANNEL"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/channel/v1/channels/numbers": {
-            "get": {
-                "summary": "Gets the total number of channels currently occupied.",
-                "tags": [
-                    "Channel"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful response",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "Simple Response": {
-                                        "summary": "Standard response",
-                                        "value": {
-                                            "code": "GET_NUMBERS_SUCCESSFULLY",
-                                            "data": [
-                                                {
-                                                    "id": 8,
-                                                    "number": 1
-                                                },
-                                                {
-                                                    "id": 7,
-                                                    "number": 3
-                                                },
-                                                {
-                                                    "id": 9,
-                                                    "number": 10000
-                                                }
-                                            ]
                                         }
                                     }
                                 }
