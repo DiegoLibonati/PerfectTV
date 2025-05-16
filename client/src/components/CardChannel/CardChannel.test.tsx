@@ -9,6 +9,7 @@ import { ClientProvider } from "@src/contexts/Client/ClientProvider";
 import { useRouter } from "@src/hooks/useRouter";
 
 vi.mock("@src/hooks/useRouter");
+window.scrollTo = vi.fn();
 
 describe("CardChannel", () => {
   describe("General Tests.", () => {
@@ -82,9 +83,7 @@ describe("CardChannel", () => {
       await user.click(cardRoot);
 
       expect(handleNavigateToChannel).toHaveBeenCalledTimes(1);
-      expect(handleNavigateToChannel).toHaveBeenCalledWith(
-        props.number
-      );
+      expect(handleNavigateToChannel).toHaveBeenCalledWith(props.number);
     });
   });
 
