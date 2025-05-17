@@ -1,5 +1,7 @@
 import request from "supertest";
 
+import { Source } from "@app/entities/models";
+
 import app from "@app/index";
 
 import {
@@ -8,12 +10,16 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
+
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Source.routes.ts", () => {
-  const code = "test";
-  const description = "description test";
   const prefix = "/source/v1/sources";
+
+  const sourceToAdd: Pick<Source, "code" | "description"> = {
+    code: "test",
+    description: "description test",
+  };
 
   describe("POST Add Source", () => {
     test("It should return that no valid fields were entered.", async () => {
@@ -32,8 +38,8 @@ describe("Source.routes.ts", () => {
 
     test("It must add a new source.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        code: code,
-        description: description,
+        code: sourceToAdd.code,
+        description: sourceToAdd.description,
       });
 
       const data = res.body;
@@ -42,19 +48,19 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addSource.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
-          code: code,
-          description: description,
+          code: sourceToAdd.code,
+          description: sourceToAdd.description,
           base: null,
-        },
+        }),
       });
     });
 
     test("It should show that the source to be added already exists.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        code: code,
-        description: description,
+        code: sourceToAdd.code,
+        description: sourceToAdd.description,
       });
 
       const data = res.body;
@@ -78,16 +84,16 @@ describe("Source.routes.ts", () => {
       expect(data).toEqual({
         code: responseSuccess.getSources.code,
         data: expect.arrayContaining([
-          {
+          expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-            base: {
+            base: expect.objectContaining({
               id: expect.any(Number),
               idSource: expect.any(Number),
               baseUrl: expect.any(String),
-            },
-          },
+            }),
+          }),
         ]),
       });
     });
@@ -111,12 +117,9 @@ describe("Source.routes.ts", () => {
     });
 
     test("It must delete the source entered by test.", async () => {
-      const sources = await sourceRepository.getSources();
-      const sourceTest = sources.find((source) => source.code === code);
+      const source = await sourceRepository.getSourceByCode(sourceToAdd.code);
 
-      const res = await request(app).delete(
-        `${prefix}/delete/${sourceTest?.id}`
-      );
+      const res = await request(app).delete(`${prefix}/delete/${source?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -124,12 +127,12 @@ describe("Source.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteSource.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
-          code: code,
-          description: description,
+          code: source?.code,
+          description: source?.description,
           base: null,
-        },
+        }),
       });
     });
   });

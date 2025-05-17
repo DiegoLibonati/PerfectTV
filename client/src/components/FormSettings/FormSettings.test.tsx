@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi, Mock } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
@@ -25,12 +25,12 @@ describe("FormSettings", () => {
     const handleSetTheme = vi.fn();
 
     beforeEach(() => {
-      (useLocalStorage as unknown as vi.Mock).mockReturnValue({
+      (useLocalStorage as unknown as Mock).mockReturnValue({
         set: setLocalStorage,
         get: getLocalStorage,
       });
 
-      (useClientContext as unknown as vi.Mock).mockReturnValue({
+      (useClientContext as unknown as Mock).mockReturnValue({
         language: language,
         handleSetSideBar: handleSetSideBar,
         handleSetLanguage: handleSetLanguage,

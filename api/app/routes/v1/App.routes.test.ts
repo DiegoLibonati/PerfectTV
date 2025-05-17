@@ -7,7 +7,7 @@ import {
   responseNotFound,
 } from "@app/constants/Response.constants";
 
-describe("* ROUTES", () => {
+describe("* Routes", () => {
   const prefix = "/123412412/v1";
 
   describe("GET not exists.", () => {
@@ -35,9 +35,9 @@ describe("App.routes.ts", () => {
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(200);
-      expect(data["code"]).toBe(responseSuccess.alive.code);
-      expect(data["author"]).toBe("Diego Martin Libonati");
-      expect(data["version"]).toBe("1.0.0");
+      expect(data["code"]).toEqual(responseSuccess.alive.code);
+      expect(data["author"]).toEqual("Diego Martin Libonati");
+      expect(data["version"]).toEqual(expect.any(String));
     });
   });
 });

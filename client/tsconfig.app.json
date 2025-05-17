@@ -26,8 +26,8 @@
     "paths": {
       "@src/*": ["./src/*"]
     },
-    "types": ["node", "vitest", "@testing-library/jest-dom"]
+    "types": ["node", "vitest", "vitest/globals",  "@testing-library/jest-dom"]
   },
   "include": ["src"],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/__tests__/**", "tests"]
+  "exclude": ["tests"]
 }

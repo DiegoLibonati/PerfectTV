@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi, Mock } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 import { SideBarSettings } from "@src/components/SideBarSettings/SideBarSettings";
@@ -16,7 +16,7 @@ describe("SideBarSettings", () => {
     const handleSetSideBar = vi.fn();
 
     beforeEach(() => {
-      (useClientContext as unknown as vi.Mock).mockReturnValue({
+      (useClientContext as unknown as Mock).mockReturnValue({
         language: language,
         sideBar: sideBar,
         handleSetSideBar: handleSetSideBar,
@@ -48,7 +48,7 @@ describe("SideBarSettings", () => {
     const handleSetSideBar = vi.fn();
 
     beforeEach(() => {
-      (useClientContext as unknown as vi.Mock).mockReturnValue({
+      (useClientContext as unknown as Mock).mockReturnValue({
         language: language,
         sideBar: sideBar,
         handleSetSideBar: handleSetSideBar,
@@ -71,7 +71,7 @@ describe("SideBarSettings", () => {
     const handleSetSideBar = vi.fn();
 
     beforeEach(() => {
-      (useClientContext as unknown as vi.Mock).mockReturnValue({
+      (useClientContext as unknown as Mock).mockReturnValue({
         language: language,
         sideBar: sideBar,
         handleSetSideBar: handleSetSideBar,

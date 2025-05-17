@@ -2,6 +2,7 @@ import { Channel, Source } from "@app/entities/models";
 
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
+
 import { setChannelUrl } from "@app/utils/setChannelUrl.util";
 
 describe("setChannelUrl.util.ts", () => {
@@ -50,13 +51,12 @@ describe("setChannelUrl.util.ts", () => {
 
   describe("If code exists.", () => {
     test("It should return the updated channels based on the new URLs set.", async () => {
-      const channels: Channel[] = await channelRepository.getChannels();
-      const channelTest = channels.find(
-        (channel) => channel.id === idChannelTest
-      )!;
+      const channel: Channel | null = await channelRepository.getChannelById(
+        idChannelTest
+      );
       const baseUrl = "https://hola.com/";
 
-      const newChannelTest = await setChannelUrl(channelTest, baseUrl);
+      const newChannelTest = await setChannelUrl(channel!, baseUrl);
 
       expect(newChannelTest.url).toBe(`${baseUrl}${channelTest.urlRest}`);
     });
@@ -64,15 +64,14 @@ describe("setChannelUrl.util.ts", () => {
 
   describe("If code not exists.", () => {
     test("It must return the same channels that were entered.", async () => {
-      const channels: Channel[] = await channelRepository.getChannels();
-      const channelTest = channels.find(
-        (channel) => channel.id === idChannelTest
-      )!;
+      const channel: Channel | null = await channelRepository.getChannelById(
+        idChannelTest
+      );
       const baseUrl = "https://hola.com/";
 
-      const newChannelTest = await setChannelUrl(channelTest, baseUrl);
+      const newChannelTest = await setChannelUrl(channel!, baseUrl);
 
-      expect(newChannelTest.url).toBe(channelTest.url);
+      expect(newChannelTest.url).toBe(channel!.url);
     });
   });
 });

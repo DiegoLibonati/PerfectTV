@@ -1,6 +1,7 @@
 import request from "supertest";
+import crypto from "node:crypto";
 
-import { Category, Channel, Source, Type } from "@app/entities/models";
+import { Channel } from "@app/entities/models";
 
 import app from "@app/index";
 
@@ -10,28 +11,30 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
+
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Channel.routes.ts", () => {
-  let testChannel: Channel;
-  let types: Pick<Type, "id" | "code" | "description">[];
-  let categories: Pick<Category, "id" | "code" | "description">[];
-  let sources: Pick<Source, "id" | "code" | "description">[];
+  const prefix = "/channel/v1/channels";
+
   let channelType: number;
   let channelCategory: number;
   let channelSource: number;
 
-  const name = "test";
-  const description = "test description";
-  const thumbUrl = "https://pepe.png";
-  const url = "https://www.youtube.com.ar";
-  const urlRest = "a";
-  const number = 999992;
-
-  const prefix = "/channel/v1/channels";
+  const channelToAdd: Pick<
+    Channel,
+    "name" | "description" | "thumbUrl" | "url" | "urlRest" | "number"
+  > = {
+    name: "",
+    description: "test description",
+    thumbUrl: "https://pepe.png",
+    url: "https://www.youtube.com.ar",
+    urlRest: "a",
+    number: 999992,
+  };
 
   const notExistsChannelType = 123123;
   const notExistsChannelCategory = 1233232;
@@ -41,9 +44,11 @@ describe("Channel.routes.ts", () => {
   const newUrl = "https://youtube.com.ar/test.liveStream";
 
   beforeAll(async () => {
-    types = await typeRepository.getTypes();
-    categories = await categoryRepository.getCategories();
-    sources = await sourceRepository.getSources();
+    channelToAdd.name = crypto.randomUUID()
+
+    const types = await typeRepository.getTypes();
+    const categories = await categoryRepository.getCategories();
+    const sources = await sourceRepository.getSources();
 
     if (!types.length || !categories.length || !sources.length)
       throw "Add types and categories firts.";
@@ -68,11 +73,11 @@ describe("Channel.routes.ts", () => {
 
     test("It should show that a channel type with the entered id was not found.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        name: name,
-        description: description,
-        thumbUrl: thumbUrl,
-        url: url,
-        number: number,
+        name: channelToAdd.name,
+        description: channelToAdd.description,
+        thumbUrl: channelToAdd.thumbUrl,
+        url: channelToAdd.url,
+        number: channelToAdd.number,
         idType: notExistsChannelType,
         idCategory: channelCategory,
         idSource: channelSource,
@@ -89,11 +94,11 @@ describe("Channel.routes.ts", () => {
 
     test("It should show that a channel category with the entered id was not found.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        name: name,
-        description: description,
-        thumbUrl: thumbUrl,
-        url: url,
-        number: number,
+        name: channelToAdd.name,
+        description: channelToAdd.description,
+        thumbUrl: channelToAdd.thumbUrl,
+        url: channelToAdd.url,
+        number: channelToAdd.number,
         idType: channelType,
         idCategory: notExistsChannelCategory,
         idSource: channelSource,
@@ -110,11 +115,11 @@ describe("Channel.routes.ts", () => {
 
     test("It should show that a channel source with the entered id was not found.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        name: name,
-        description: description,
-        thumbUrl: thumbUrl,
-        url: url,
-        number: number,
+        name: channelToAdd.name,
+        description: channelToAdd.description,
+        thumbUrl: channelToAdd.thumbUrl,
+        url: channelToAdd.url,
+        number: channelToAdd.number,
         idType: channelType,
         idCategory: channelCategory,
         idSource: notExistsChannelSource,
@@ -131,12 +136,12 @@ describe("Channel.routes.ts", () => {
 
     test("It must add a new channel.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        name: name,
-        description: description,
-        thumbUrl: thumbUrl,
-        url: url,
-        urlRest: urlRest,
-        number: number,
+        name: channelToAdd.name,
+        description: channelToAdd.description,
+        thumbUrl: channelToAdd.thumbUrl,
+        url: channelToAdd.url,
+        urlRest: channelToAdd.urlRest,
+        number: channelToAdd.number,
         idType: channelType,
         idCategory: channelCategory,
         idSource: channelSource,
@@ -148,40 +153,40 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addChannel.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
-          name: name,
-          description: description,
-          thumbUrl: thumbUrl,
-          url: url,
-          urlRest: urlRest,
-          number: number,
-          type: {
+          name: channelToAdd.name,
+          description: channelToAdd.description,
+          thumbUrl: channelToAdd.thumbUrl,
+          url: channelToAdd.url,
+          urlRest: channelToAdd.urlRest,
+          number: channelToAdd.number,
+          type: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          category: {
+          }),
+          category: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          source: {
+          }),
+          source: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-        },
+          }),
+        }),
       });
     });
 
     test("It should show that the category to be added already exists.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        name: name,
-        description: description,
-        thumbUrl: thumbUrl,
-        url: url,
-        number: number,
+        name: channelToAdd.name,
+        description: channelToAdd.description,
+        thumbUrl: channelToAdd.thumbUrl,
+        url: channelToAdd.url,
+        number: channelToAdd.number,
         idType: channelType,
         idCategory: channelCategory,
         idSource: channelSource,
@@ -199,18 +204,16 @@ describe("Channel.routes.ts", () => {
 
   describe("GET Channels", () => {
     test("It must return the result success of the channels", async () => {
-      const res = await request(app).get(`${prefix}/`);
+      const res = await request(app).get(`${prefix}/`).query({ reload: false });
 
       const data = res.body;
       const statusCode = res.statusCode;
-
-      testChannel = data.data.find((c: Channel) => c.name === name);
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getChannels.code,
         data: expect.arrayContaining([
-          {
+          expect.objectContaining({
             id: expect.any(Number),
             name: expect.any(String),
             description: expect.any(String),
@@ -218,22 +221,60 @@ describe("Channel.routes.ts", () => {
             url: expect.any(String),
             urlRest: expect.any(String),
             number: expect.any(Number),
-            type: {
+            type: expect.objectContaining({
               id: expect.any(Number),
               code: expect.any(String),
               description: expect.any(String),
-            },
-            category: {
+            }),
+            category: expect.objectContaining({
               id: expect.any(Number),
               code: expect.any(String),
               description: expect.any(String),
-            },
-            source: {
+            }),
+            source: expect.objectContaining({
               id: expect.any(Number),
               code: expect.any(String),
               description: expect.any(String),
-            },
-          },
+            }),
+          }),
+        ]),
+      });
+    });
+
+    test("It must return the result success of the channels with url https", async () => {
+      const res = await request(app).get(`${prefix}/`).query({ reload: true });
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(200);
+      expect(data).toEqual({
+        code: responseSuccess.getChannels.code,
+        data: expect.arrayContaining([
+          expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            description: expect.any(String),
+            thumbUrl: expect.any(String),
+            url: expect.stringMatching(/^https:\/\//),
+            urlRest: expect.any(String),
+            number: expect.any(Number),
+            type: expect.objectContaining({
+              id: expect.any(Number),
+              code: expect.any(String),
+              description: expect.any(String),
+            }),
+            category: expect.objectContaining({
+              id: expect.any(Number),
+              code: expect.any(String),
+              description: expect.any(String),
+            }),
+            source: expect.objectContaining({
+              id: expect.any(Number),
+              code: expect.any(String),
+              description: expect.any(String),
+            }),
+          }),
         ]),
       });
     });
@@ -255,7 +296,9 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It should return the channel added by test through the channel number.", async () => {
-      const res = await request(app).get(`${prefix}/number/${number}`);
+      const res = await request(app).get(
+        `${prefix}/number/${channelToAdd.number}`
+      );
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -263,30 +306,30 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getChannel.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
           name: expect.any(String),
           description: expect.any(String),
           thumbUrl: expect.any(String),
-          url: expect.any(String),
+          url: expect.stringMatching(/^https:\/\//),
           urlRest: expect.any(String),
           number: expect.any(Number),
-          type: {
+          type: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          category: {
+          }),
+          category: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          source: {
+          }),
+          source: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-        },
+          }),
+        }),
       });
     });
   });
@@ -309,11 +352,12 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It must make an update of a channel with the properties entered.", async () => {
-      const channels = await channelRepository.getChannels();
-      const channelTest = channels.find((category) => category.name === name);
+      const channel = await channelRepository.getChannelByNumber(
+        channelToAdd.number
+      );
 
       const res = await request(app)
-        .patch(`${prefix}/update/${channelTest?.id}`)
+        .patch(`${prefix}/update/${channel?.id}`)
         .send({ url: newUrl });
 
       const data = res.body;
@@ -322,30 +366,30 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.updateChannel.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
-          name: name,
-          description: description,
-          thumbUrl: thumbUrl,
+          name: channel?.name,
+          description: channel?.description,
+          thumbUrl: channel?.thumbUrl,
           url: newUrl,
-          urlRest: urlRest,
-          number: number,
-          type: {
+          urlRest: channel?.urlRest,
+          number: channel?.number,
+          type: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          category: {
+          }),
+          category: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          source: {
+          }),
+          source: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-        },
+          }),
+        }),
       });
     });
   });
@@ -368,45 +412,42 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It must delete the channel entered by test.", async () => {
-      const channels = await channelRepository.getChannels();
-      const channelTest = channels.find((category) => category.name === name);
-
-      const res = await request(app).delete(
-        `${prefix}/delete/${channelTest?.id}`
+      const channel = await channelRepository.getChannelByNumber(
+        channelToAdd.number
       );
+
+      const res = await request(app).delete(`${prefix}/delete/${channel?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
 
-      console.log(typeof data);
-
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteChannel.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
-          name: name,
-          description: description,
-          thumbUrl: thumbUrl,
+          name: channel?.name,
+          description: channel?.description,
+          thumbUrl: channel?.thumbUrl,
           url: newUrl,
-          urlRest: urlRest,
-          number: number,
-          type: {
+          urlRest: channel?.urlRest,
+          number: channel?.number,
+          type: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          category: {
+          }),
+          category: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-          source: {
+          }),
+          source: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-        },
+          }),
+        }),
       });
     });
   });

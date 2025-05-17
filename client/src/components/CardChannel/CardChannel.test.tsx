@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi, Mock } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
@@ -25,7 +25,7 @@ describe("CardChannel", () => {
     const handleNavigateToChannel = vi.fn();
 
     beforeEach(() => {
-      (useRouter as unknown as vi.Mock).mockReturnValue({
+      (useRouter as unknown as Mock).mockReturnValue({
         handleNavigateToChannel: handleNavigateToChannel,
       });
     });
@@ -100,7 +100,7 @@ describe("CardChannel", () => {
     const handleNavigateToChannel = vi.fn();
 
     beforeEach(() => {
-      (useRouter as unknown as vi.Mock).mockReturnValue({
+      (useRouter as unknown as Mock).mockReturnValue({
         handleNavigateToChannel: handleNavigateToChannel,
       });
     });
@@ -142,7 +142,7 @@ describe("CardChannel", () => {
     const handleNavigateToChannel = vi.fn();
 
     beforeEach(() => {
-      (useRouter as unknown as vi.Mock).mockReturnValue({
+      (useRouter as unknown as Mock).mockReturnValue({
         handleNavigateToChannel: handleNavigateToChannel,
       });
     });

@@ -1,5 +1,7 @@
 import request from "supertest";
 
+import { Type } from "@app/entities/models";
+
 import app from "@app/index";
 
 import {
@@ -8,14 +10,18 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
-import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 
-describe("Category.routes.ts", () => {
-  const code = "test";
-  const description = "description test";
-  const prefix = "/category/v1/categories";
+import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 
-  describe("POST Add Category", () => {
+describe("Type.routes.ts", () => {
+  const prefix = "/type/v1/types";
+
+  const typeToAdd: Pick<Type, "code" | "description"> = {
+    code: "test",
+    description: "description test",
+  };
+
+  describe("POST Add Type", () => {
     test("It should return that no valid fields were entered.", async () => {
       const res = await request(app)
         .post(`${prefix}/add`)
@@ -30,32 +36,30 @@ describe("Category.routes.ts", () => {
       });
     });
 
-    test("It must add a new category.", async () => {
+    test("It must add a new type.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        code: code,
-        description: description,
+        code: typeToAdd.code,
+        description: typeToAdd.description,
       });
 
       const data = res.body;
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(201);
-
       expect(data).toEqual({
-        code: responseSuccess.addCategory.code,
-        data: {
+        code: responseSuccess.addType.code,
+        data: expect.objectContaining({
           id: expect.any(Number),
-          code: code,
-          description: description,
-          channels: expect.any(Array),
-        },
+          code: typeToAdd.code,
+          description: typeToAdd.description,
+        }),
       });
     });
 
-    test("It should show that the category to be added already exists.", async () => {
+    test("It should show that the type to be added already exists.", async () => {
       const res = await request(app).post(`${prefix}/add`).send({
-        code: code,
-        description: description,
+        code: typeToAdd.code,
+        description: typeToAdd.description,
       });
 
       const data = res.body;
@@ -63,13 +67,13 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(400);
       expect(data).toEqual({
-        code: responseAlreadyExists.category.code,
+        code: responseAlreadyExists.type.code,
       });
     });
   });
 
-  describe("GET Categories", () => {
-    test("It must return the result success of the categories", async () => {
+  describe("GET Types", () => {
+    test("It must return the result success of the types", async () => {
       const res = await request(app).get(`${prefix}/`);
 
       const data = res.body;
@@ -77,25 +81,24 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseSuccess.getCategories.code,
+        code: responseSuccess.getTypes.code,
         data: expect.arrayContaining([
-          {
+          expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-            channels: expect.any(Array),
-          },
+          }),
         ]),
       });
     });
   });
 
-  describe("DELETE Delete Category", () => {
-    const categoryNotExistsId = "100";
+  describe("DELETE Delete Type", () => {
+    const typeNotExistsId = "100";
 
-    test("It should return that there is no category with the entered id.", async () => {
+    test("It should return that there is no type with the entered id.", async () => {
       const res = await request(app).delete(
-        `${prefix}/delete/${categoryNotExistsId}`
+        `${prefix}/delete/${typeNotExistsId}`
       );
 
       const data = res.body;
@@ -103,32 +106,26 @@ describe("Category.routes.ts", () => {
 
       expect(statusCode).toBe(404);
       expect(data).toEqual({
-        code: responseNotFound.category.code,
+        code: responseNotFound.type.code,
       });
     });
 
-    test("It must delete the category entered by test.", async () => {
-      const categories = await categoryRepository.getCategories();
-      const categoryTest = categories.find(
-        (category) => category.code === code
-      );
+    test("It must delete the type entered by test.", async () => {
+      const type = await typeRepository.getTypeByCode(typeToAdd.code);
 
-      const res = await request(app).delete(
-        `${prefix}/delete/${categoryTest?.id}`
-      );
+      const res = await request(app).delete(`${prefix}/delete/${type?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(200);
       expect(data).toEqual({
-        code: responseSuccess.deleteCategory.code,
-        data: {
+        code: responseSuccess.deleteType.code,
+        data: expect.objectContaining({
           id: expect.any(Number),
-          code: code,
-          description: description,
-          channels: expect.any(Array),
-        },
+          code: type?.code,
+          description: type?.description,
+        }),
       });
     });
   });

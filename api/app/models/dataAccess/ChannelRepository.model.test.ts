@@ -1,4 +1,4 @@
-import { Category, Channel, Source, Type } from "@app/entities/models";
+import { Channel } from "@app/entities/models";
 
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 import channelRepository from "@app/models/dataAccess/ChannelRepository.model";
@@ -6,14 +6,12 @@ import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 
 describe("ChannelRepository.model.ts", () => {
-  let types: Pick<Type, "id" | "code" | "description">[];
-  let categories: Pick<Category, "id" | "code" | "description">[];
-  let sources: Pick<Source, "id" | "code" | "description">[];
   let channelType: number;
   let channelCategory: number;
   let channelSource: number;
 
   const newUrl = "https://asd.com";
+
   const channelTest: Omit<Channel, "id" | "source" | "category" | "type"> = {
     name: "channelTest name",
     description: "channelTest description",
@@ -24,9 +22,9 @@ describe("ChannelRepository.model.ts", () => {
   };
 
   beforeAll(async () => {
-    types = await typeRepository.getTypes();
-    categories = await categoryRepository.getCategories();
-    sources = await sourceRepository.getSources();
+    const types = await typeRepository.getTypes();
+    const categories = await categoryRepository.getCategories();
+    const sources = await sourceRepository.getSources();
 
     if (!types.length || !categories.length || !sources.length)
       throw "Add types, sources and categories firts.";

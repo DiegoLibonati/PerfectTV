@@ -42,5 +42,5 @@ export const getCategoryNameParsed = (
   code: CategoryCode,
   language: Language
 ): string => {
-  return categoryTranslations[language][code];
+  return categoryTranslations[language]?.[code];
 };

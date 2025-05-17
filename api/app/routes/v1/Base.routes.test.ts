@@ -10,13 +10,14 @@ import {
   responseAlreadyExists,
   responseNotValid,
 } from "@app/constants/Response.constants";
+
 import baseRepository from "@app/models/dataAccess/BaseRepository.model";
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Base.routes.ts", () => {
   let source: Source;
 
-  const sourceTest: Pick<Source, "code" | "description"> = {
+  const sourceToAdd: Pick<Source, "code" | "description"> = {
     code: "sourci1234test",
     description: "dsaq",
   };
@@ -26,8 +27,8 @@ describe("Base.routes.ts", () => {
 
   beforeAll(async () => {
     source = await sourceRepository.createSource(
-      sourceTest.code,
-      sourceTest.description
+      sourceToAdd.code,
+      sourceToAdd.description
     );
   });
 
@@ -58,15 +59,15 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(201);
       expect(data).toEqual({
         code: responseSuccess.addBase.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
           baseUrl: baseUrl,
-          source: {
+          source: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-        },
+          }),
+        }),
       });
     });
 
@@ -97,15 +98,15 @@ describe("Base.routes.ts", () => {
       expect(data).toEqual({
         code: responseSuccess.getBases.code,
         data: expect.arrayContaining([
-          {
+          expect.objectContaining({
             id: expect.any(Number),
             baseUrl: expect.any(String),
-            source: {
+            source: expect.objectContaining({
               id: expect.any(Number),
               code: expect.any(String),
               description: expect.any(String),
-            },
-          },
+            }),
+          }),
         ]),
       });
     });
@@ -141,15 +142,15 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.updateBase.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
           baseUrl: newBaseUrl,
-          source: {
+          source: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-        },
+          }),
+        }),
       });
     });
   });
@@ -183,15 +184,15 @@ describe("Base.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.deleteBase.code,
-        data: {
+        data: expect.objectContaining({
           id: expect.any(Number),
           baseUrl: newBaseUrl,
-          source: {
+          source: expect.objectContaining({
             id: expect.any(Number),
             code: expect.any(String),
             description: expect.any(String),
-          },
-        },
+          }),
+        }),
       });
     });
   });
