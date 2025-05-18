@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PerfectTV</string>
+    <string name="title_activity_main">PerfectTV</string>
+    <string name="package_name">com.libonatis.perfecttv</string>
+    <string name="custom_url_scheme">com.libonatis.perfecttv</string>
+</resources>

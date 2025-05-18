@@ -1,13 +1,31 @@
-# Folders
-
-node_modules
-data
-perfect-tv-dev-db-data
-dist
-
-# Files
-
+# Node + Vite
+node_modules/
+dist/
 .env
 package-lock.json
-todos.ts
 yarn.lock
+todos.ts
+
+# Android build system
+android/.gradle/
+android/.idea/
+android/build/
+android/app/build/
+android/captures/
+android/local.properties
+android/gradlew
+android/gradlew.bat
+android/gradle/
+android/gradle-wrapper.jar
+android/gradle-wrapper.properties
+
+# Capacitor plugin build artifacts
+android/capacitor-cordova-android-plugins/
+
+# Mac / system files
+.DS_Store
+Thumbs.db
+
+# Volumes Docker
+data/
+perfect-tv-dev-db-data/
