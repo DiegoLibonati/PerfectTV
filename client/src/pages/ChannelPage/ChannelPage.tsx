@@ -41,6 +41,7 @@ export const ChannelPage = () => {
       keys: [
         { key: "r", fn: handleRefetchChannelAndNumbersUsed },
         { key: "t", fn: handleReloadWindow },
+        { key: "g", fn: handleNavigateToGridChannels },
         {
           key: "ArrowLeft|ArrowRight",
           fn: (e) => handleChangeChannelWithArrows(e.key),
