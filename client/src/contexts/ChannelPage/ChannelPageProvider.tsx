@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 
 import { ChannelPageContext as ChannelPageContextT } from "@src/entities/contexts";
@@ -24,13 +24,15 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   const [channelChange, setChannelChange] = useState<boolean>(false);
   const [searchNumber, setSearchNumber] = useState<string>("");
 
-  const { set } = useLocalStorage();
+  const { set, get } = useLocalStorage();
   const { params, handleNavigateToChannel } = useRouter();
   const { loading, data, error, refetch } = useQuery(getChannelAndNumbersUsed, {
     variables: { numberChannel: Number(params?.number), reload: null },
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "no-cache",
   });
+
+  const debounceChannelChangeRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleSetActiveChannel = (channel: Channel): void => {
     setActiveChannel(channel);
@@ -56,7 +58,6 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   };
 
   const handleRefetchChannelAndNumbersUsed = () => {
-    handleClearActiveChannel();
     handleClearSearchNumber();
 
     refetch({
@@ -66,21 +67,25 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   };
 
   const handleChangeChannelWithArrows = (key: string): void => {
-    handleClearActiveChannel();
-    handleClearSearchNumber();
+    clearTimeout(debounceChannelChangeRef.current!);
 
-    const indexOfNumberActiveChannel = numbersUsed.findIndex(
-      (numberUsed) => numberUsed === activeChannel?.number
-    );
-    const lastIndex = numbersUsed.length - 1;
+    debounceChannelChangeRef.current = setTimeout(() => {
+      handleClearSearchNumber();
 
-    const newIndex = getChannelIndexByArrows(
-      key as "ArrowLeft" | "ArrowRight",
-      indexOfNumberActiveChannel,
-      lastIndex
-    );
+      const indexOfNumberActiveChannel = numbersUsed.findIndex(
+        (numberUsed) =>
+          numberUsed === Number(get(LS_KEY_NAME_LAST_NUMBER_CHANNEL))
+      );
+      const lastIndex = numbersUsed.length - 1;
 
-    handleNavigateToChannel(numbersUsed[newIndex]);
+      const newIndex = getChannelIndexByArrows(
+        key as "ArrowLeft" | "ArrowRight",
+        indexOfNumberActiveChannel,
+        lastIndex
+      );
+
+      handleNavigateToChannel(numbersUsed[newIndex]);
+    }, 300);
   };
 
   const handleSearchChannelWithNumbers = (key: string): void => {
@@ -94,6 +99,7 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
 
     if (!currentChannel) return;
 
+    handleClearActiveChannel();
     handleSetActiveChannel(currentChannel);
     set(LS_KEY_NAME_LAST_NUMBER_CHANNEL, currentChannel.number);
   }, [data?.channel]);
@@ -136,7 +142,6 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
         return;
       }
 
-      handleClearActiveChannel();
       handleNavigateToChannel(number);
       handleClearSearchNumber();
     }, 2000);
