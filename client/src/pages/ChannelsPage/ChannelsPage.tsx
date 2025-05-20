@@ -67,7 +67,7 @@ export const ChannelsPage = () => {
     );
   }
 
-  if (!categories.length || !categories) {
+  if (!categories.length || !categories || !allChannels.length) {
     return (
       <MainLayoutCenter>
         <NotChannelsSection></NotChannelsSection>
