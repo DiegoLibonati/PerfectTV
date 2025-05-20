@@ -2,13 +2,12 @@ import { useKeyBoard } from "usekeyboard-react";
 
 import { CategoryCode } from "@src/entities/constants";
 
+import { FloatOptions } from "@src/components/FloatOptions/FloatOptions";
+
 import { CategoryWithChannelsSection } from "@src/containers/ChannelsPage/Sections/CategoryWithChannelsSection/CategoryWithChannelsSection";
 import { LoadingChannelsSection } from "@src/containers/ChannelsPage/Sections/LoadingChannelsSection/LoadingChannelsSection";
 import { ErrorChannelsSection } from "@src/containers/ChannelsPage/Sections/ErrorChannelsSection/ErrorChannelsSection";
 import { NotChannelsSection } from "@src/containers/ChannelsPage/Sections/NotChannelsSection/NotChannelsSection";
-
-import { FloatOptions } from "@src/components/FloatOptions/FloatOptions";
-import { SideBarSettings } from "@src/components/SideBarSettings/SideBarSettings";
 
 import { useClientContext } from "@src/contexts/Client/ClientProvider";
 import { useChannelsPageContext } from "@src/contexts/ChannelsPage/ChannelsPageProvider";
@@ -67,12 +66,10 @@ export const ChannelsPage = () => {
     );
   }
 
-  if (!categories.length || !categories) {
+  if (!categories.length || !categories || !allChannels.length) {
     return (
       <MainLayoutCenter>
         <NotChannelsSection></NotChannelsSection>
-
-        <SideBarSettings></SideBarSettings>
         <FloatOptions></FloatOptions>
       </MainLayoutCenter>
     );
@@ -92,8 +89,6 @@ export const ChannelsPage = () => {
           ></CategoryWithChannelsSection>
         );
       })}
-
-      <SideBarSettings></SideBarSettings>
       <FloatOptions></FloatOptions>
     </MainLayoutStart>
   );
