@@ -23,7 +23,7 @@ describe("Base.routes.ts", () => {
   };
   const baseUrl: string = "https://hodasdasdasdasla3.com";
   const newBaseUrl: string = "https://hodasdsdsla32.com";
-  const prefix = "/base/v1/bases";
+  const prefix = "/api/v1/bases";
 
   beforeAll(async () => {
     source = await sourceRepository.createSource(
@@ -35,7 +35,7 @@ describe("Base.routes.ts", () => {
   describe("POST Add Base", () => {
     test("It should return that no valid fields were entered.", async () => {
       const res = await request(app)
-        .post(`${prefix}/add`)
+        .post(`${prefix}/`)
         .send({ baseUrl: "", idSource: source.id });
 
       const data = res.body;
@@ -48,7 +48,7 @@ describe("Base.routes.ts", () => {
     });
 
     test("It must add a new base.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         baseUrl: baseUrl,
         idSource: source.id,
       });
@@ -72,7 +72,7 @@ describe("Base.routes.ts", () => {
     });
 
     test("It should show that the base to be added already exists.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         baseUrl: baseUrl,
         idSource: source.id,
       });
@@ -117,7 +117,7 @@ describe("Base.routes.ts", () => {
 
     test("It should return that there is no base with the entered id.", async () => {
       const res = await request(app).patch(
-        `${prefix}/update/${baseNotExistsId}`
+        `${prefix}/${baseNotExistsId}`
       );
 
       const data = res.body;
@@ -133,7 +133,7 @@ describe("Base.routes.ts", () => {
       const base = await baseRepository.getBaseByIdSource(source.id);
 
       const res = await request(app)
-        .patch(`${prefix}/update/${base?.id}`)
+        .patch(`${prefix}/${base?.id}`)
         .send({ baseUrl: newBaseUrl });
 
       const data = res.body;
@@ -160,7 +160,7 @@ describe("Base.routes.ts", () => {
 
     test("It should return that there is no base with the entered id.", async () => {
       const res = await request(app).delete(
-        `${prefix}/delete/${baseNotExistsId}`
+        `${prefix}/${baseNotExistsId}`
       );
 
       const data = res.body;
@@ -175,7 +175,7 @@ describe("Base.routes.ts", () => {
     test("It must delete the base entered by test.", async () => {
       const base = await baseRepository.getBaseByIdSource(source.id);
 
-      const res = await request(app).delete(`${prefix}/delete/${base?.id}`);
+      const res = await request(app).delete(`${prefix}/${base?.id}`);
       await sourceRepository.deleteSource(source.id);
 
       const data = res.body;

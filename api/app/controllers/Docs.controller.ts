@@ -12,7 +12,7 @@ class DocsController {
   getDocs(req: Request, res: Response) {
     return redoc({
       title: "PerfectTV API Documentation",
-      specUrl: "/doc/v1/docs/swagger.json",
+      specUrl: "/api/v1/docs/swagger.json",
     })(req, res);
   }
 }

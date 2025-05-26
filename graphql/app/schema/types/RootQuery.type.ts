@@ -47,7 +47,7 @@ const RootQueryType = new GraphQLObjectType({
         const { reload } = args;
 
         return axios
-          .get(`${API_URL}/channel/v1/channels`, {
+          .get(`${API_URL}/channels`, {
             params: { reload: reload },
           })
           .then((response) => {
@@ -62,14 +62,12 @@ const RootQueryType = new GraphQLObjectType({
       type: CategoriesResponseType,
       args: {},
       resolve(parentValue, args) {
-        return axios
-          .get(`${API_URL}/category/v1/categories`)
-          .then((response) => {
-            return {
-              code: response.data.code,
-              data: response.data.data,
-            };
-          });
+        return axios.get(`${API_URL}/categories`).then((response) => {
+          return {
+            code: response.data.code,
+            data: response.data.data,
+          };
+        });
       },
     },
     channel: {
@@ -82,7 +80,7 @@ const RootQueryType = new GraphQLObjectType({
         const { numberChannel, reload } = args;
 
         return axios
-          .get(`${API_URL}/channel/v1/channels/number/${numberChannel}`, {
+          .get(`${API_URL}/channels/${numberChannel}`, {
             params: { reload: reload },
           })
           .then((response) => {

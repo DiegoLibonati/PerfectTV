@@ -14,7 +14,7 @@ import {
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Source.routes.ts", () => {
-  const prefix = "/source/v1/sources";
+  const prefix = "/api/v1/sources";
 
   const sourceToAdd: Pick<Source, "code" | "description"> = {
     code: "test",
@@ -24,7 +24,7 @@ describe("Source.routes.ts", () => {
   describe("POST Add Source", () => {
     test("It should return that no valid fields were entered.", async () => {
       const res = await request(app)
-        .post(`${prefix}/add`)
+        .post(`${prefix}/`)
         .send({ code: "", description: "" });
 
       const data = res.body;
@@ -37,7 +37,7 @@ describe("Source.routes.ts", () => {
     });
 
     test("It must add a new source.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         code: sourceToAdd.code,
         description: sourceToAdd.description,
       });
@@ -58,7 +58,7 @@ describe("Source.routes.ts", () => {
     });
 
     test("It should show that the source to be added already exists.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         code: sourceToAdd.code,
         description: sourceToAdd.description,
       });
@@ -103,9 +103,7 @@ describe("Source.routes.ts", () => {
     const sourceNotExistsId = "100";
 
     test("It should return that there is no source with the entered id.", async () => {
-      const res = await request(app).delete(
-        `${prefix}/delete/${sourceNotExistsId}`
-      );
+      const res = await request(app).delete(`${prefix}/${sourceNotExistsId}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -119,7 +117,7 @@ describe("Source.routes.ts", () => {
     test("It must delete the source entered by test.", async () => {
       const source = await sourceRepository.getSourceByCode(sourceToAdd.code);
 
-      const res = await request(app).delete(`${prefix}/delete/${source?.id}`);
+      const res = await request(app).delete(`${prefix}/${source?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;

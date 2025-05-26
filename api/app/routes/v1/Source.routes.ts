@@ -7,8 +7,8 @@ const sourceController = new SourceController();
 
 sourceRoutes
   .get("/", (req, res) => sourceController.getSources(req, res))
-  .post("/add", (req, res) => sourceController.addSource(req, res))
-  .delete("/delete/:idSource", (req, res) =>
+  .post("/", (req, res) => sourceController.addSource(req, res))
+  .delete("/:idSource", (req, res) =>
     sourceController.deleteSource(req, res)
   );
 

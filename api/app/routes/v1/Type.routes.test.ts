@@ -14,7 +14,7 @@ import {
 import typeRepository from "@app/models/dataAccess/TypeRepository.model";
 
 describe("Type.routes.ts", () => {
-  const prefix = "/type/v1/types";
+  const prefix = "/api/v1/types";
 
   const typeToAdd: Pick<Type, "code" | "description"> = {
     code: "test",
@@ -24,7 +24,7 @@ describe("Type.routes.ts", () => {
   describe("POST Add Type", () => {
     test("It should return that no valid fields were entered.", async () => {
       const res = await request(app)
-        .post(`${prefix}/add`)
+        .post(`${prefix}/`)
         .send({ code: "", description: "" });
 
       const data = res.body;
@@ -37,7 +37,7 @@ describe("Type.routes.ts", () => {
     });
 
     test("It must add a new type.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         code: typeToAdd.code,
         description: typeToAdd.description,
       });
@@ -57,7 +57,7 @@ describe("Type.routes.ts", () => {
     });
 
     test("It should show that the type to be added already exists.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         code: typeToAdd.code,
         description: typeToAdd.description,
       });
@@ -98,7 +98,7 @@ describe("Type.routes.ts", () => {
 
     test("It should return that there is no type with the entered id.", async () => {
       const res = await request(app).delete(
-        `${prefix}/delete/${typeNotExistsId}`
+        `${prefix}/${typeNotExistsId}`
       );
 
       const data = res.body;
@@ -113,7 +113,7 @@ describe("Type.routes.ts", () => {
     test("It must delete the type entered by test.", async () => {
       const type = await typeRepository.getTypeByCode(typeToAdd.code);
 
-      const res = await request(app).delete(`${prefix}/delete/${type?.id}`);
+      const res = await request(app).delete(`${prefix}/${type?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;

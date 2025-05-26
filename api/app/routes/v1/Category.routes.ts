@@ -7,8 +7,8 @@ const categoryController = new CategoryController();
 
 categoryRoutes
   .get("/", (req, res) => categoryController.getCategories(req, res))
-  .post("/add", (req, res) => categoryController.addCategory(req, res))
-  .delete("/delete/:idCategory", (req, res) =>
+  .post("/", (req, res) => categoryController.addCategory(req, res))
+  .delete("/:idCategory", (req, res) =>
     categoryController.deleteCategory(req, res)
   );
 

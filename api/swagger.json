@@ -12,7 +12,7 @@
         }
     ],
     "paths": {
-        "/app/v1/alive": {
+        "/api/v1/apps/alive": {
             "get": {
                 "summary": "Connection test",
                 "tags": [
@@ -39,7 +39,7 @@
                 }
             }
         },
-        "/doc/v1/docs": {
+        "/api/v1/docs": {
             "get": {
                 "summary": "View Redoc documentation",
                 "tags": [
@@ -62,7 +62,7 @@
                 }
             }
         },
-        "/doc/v1/docs/swagger.json": {
+        "/api/v1/docs/swagger.json": {
             "get": {
                 "summary": "JSON content of the documentation.",
                 "tags": [
@@ -85,7 +85,7 @@
                 }
             }
         },
-        "/category/v1/categories/": {
+        "/api/v1/categories/": {
             "get": {
                 "summary": "Obtains the totality of the categories.",
                 "tags": [
@@ -115,9 +115,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/category/v1/categories/add": {
+            },
             "post": {
                 "summary": "Add a new category.",
                 "tags": [
@@ -192,7 +190,7 @@
                 }
             }
         },
-        "/category/v1/categories/delete/{idCategory}": {
+        "/api/v1/categories/{idCategory}": {
             "delete": {
                 "summary": "Delete a category by ID",
                 "tags": [
@@ -264,7 +262,7 @@
                 }
             }
         },
-        "/type/v1/types/": {
+        "/api/v1/types/": {
             "get": {
                 "summary": "Obtains the totality of the types.",
                 "tags": [
@@ -294,9 +292,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/type/v1/types/add": {
+            },
             "post": {
                 "summary": "Add a new type.",
                 "tags": [
@@ -371,7 +367,7 @@
                 }
             }
         },
-        "/type/v1/types/delete/{idType}": {
+        "/api/v1/types/{idType}": {
             "delete": {
                 "summary": "Delete a type by ID",
                 "tags": [
@@ -443,7 +439,7 @@
                 }
             }
         },
-        "/source/v1/sources/": {
+        "/api/v1/sources/": {
             "get": {
                 "summary": "Obtains the totality of the sources.",
                 "tags": [
@@ -483,9 +479,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/source/v1/sources/add": {
+            },
             "post": {
                 "summary": "Add a new source.",
                 "tags": [
@@ -557,7 +551,7 @@
                 }
             }
         },
-        "/source/v1/sources/delete/{idSource}": {
+        "/api/v1/sources/{idSource}": {
             "delete": {
                 "summary": "Delete a source by ID",
                 "tags": [
@@ -629,7 +623,7 @@
                 }
             }
         },
-        "/channel/v1/channels/": {
+        "/api/v1/channels/": {
             "get": {
                 "summary": "Obtains the totality of the channels.",
                 "tags": [
@@ -689,109 +683,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/channel/v1/channels/number/{numberChannel}": {
-            "get": {
-                "summary": "Get a specific channel through the channel number.",
-                "tags": [
-                    "Channel"
-                ],
-                "parameters": [
-                    {
-                        "name": "numberChannel",
-                        "in": "path",
-                        "required": true,
-                        "description": "Number of the channel to find.",
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    },
-                    {
-                        "name": "reload",
-                        "in": "query",
-                        "description": "Key to know if URLS need to be reloaded again.",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful response",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "Simple Response": {
-                                        "summary": "Standard response",
-                                        "value": {
-                                            "code": "GET_CHANNEL_SUCCESSFULLY",
-                                            "data": {
-                                                "id": 2,
-                                                "name": "TN",
-                                                "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
-                                                "thumbUrl": "https://url.com/img/tn.png",
-                                                "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
-                                                "urlRest": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
-                                                "number": 3,
-                                                "type": {
-                                                    "id": 1,
-                                                    "code": "public",
-                                                    "description": "Canales de Televisión Públicos"
-                                                },
-                                                "category": {
-                                                    "id": 1,
-                                                    "code": "news",
-                                                    "description": "Canales de Televisión de Noticias"
-                                                },
-                                                "source": {
-                                                    "id": 1,
-                                                    "code": "youtube",
-                                                    "description": "Canales de Televisión de YouTube"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Controlled errors.",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "Invalid Params": {
-                                        "summary": "Invalid Params",
-                                        "value": {
-                                            "code": "NOT_VALID_PARAMS"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found errors.",
-                        "content": {
-                            "application/json": {
-                                "examples": {
-                                    "Not found channel": {
-                                        "summary": "Not found channel",
-                                        "value": {
-                                            "code": "NOT_FOUND_CHANNEL"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/channel/v1/channels/add": {
+            },
             "post": {
                 "summary": "Add a new channel.",
                 "tags": [
@@ -946,7 +838,107 @@
                 }
             }
         },
-        "/channel/v1/channels/update/{idChannel}": {
+        "/api/v1/channels/{numberChannel}": {
+            "get": {
+                "summary": "Get a specific channel through the channel number.",
+                "tags": [
+                    "Channel"
+                ],
+                "parameters": [
+                    {
+                        "name": "numberChannel",
+                        "in": "path",
+                        "required": true,
+                        "description": "Number of the channel to find.",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "reload",
+                        "in": "query",
+                        "description": "Key to know if URLS need to be reloaded again.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_CHANNEL_SUCCESSFULLY",
+                                            "data": {
+                                                "id": 2,
+                                                "name": "TN",
+                                                "description": "Todo Noticias es un canal de televisión por suscripción argentino, perteneciente al Grupo Clarín y operado por su subsidiaria Arte Radiotelevisivo Argentino.",
+                                                "thumbUrl": "https://url.com/img/tn.png",
+                                                "url": "https://www.youtube.com/embed/live_stream?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
+                                                "urlRest": "?channel=UCj6PcyLvpnIRT_2W_mwa9Aw&autoplay=1",
+                                                "number": 3,
+                                                "type": {
+                                                    "id": 1,
+                                                    "code": "public",
+                                                    "description": "Canales de Televisión Públicos"
+                                                },
+                                                "category": {
+                                                    "id": 1,
+                                                    "code": "news",
+                                                    "description": "Canales de Televisión de Noticias"
+                                                },
+                                                "source": {
+                                                    "id": 1,
+                                                    "code": "youtube",
+                                                    "description": "Canales de Televisión de YouTube"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Controlled errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Invalid Params": {
+                                        "summary": "Invalid Params",
+                                        "value": {
+                                            "code": "NOT_VALID_PARAMS"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found errors.",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Not found channel": {
+                                        "summary": "Not found channel",
+                                        "value": {
+                                            "code": "NOT_FOUND_CHANNEL"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/channels/{idChannel}": {
             "patch": {
                 "summary": "Update a channel by ID",
                 "tags": [
@@ -1084,9 +1076,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/channel/v1/channels/delete/{idChannel}": {
+            },
             "delete": {
                 "summary": "Delete a channel by ID",
                 "tags": [
@@ -1177,7 +1167,7 @@
                 }
             }
         },
-        "/base/v1/bases/": {
+        "/api/v1/bases/": {
             "get": {
                 "summary": "Obtains the totality of the bases urls.",
                 "tags": [
@@ -1211,9 +1201,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/base/v1/bases/add": {
+            },
             "post": {
                 "summary": "Add a new base.",
                 "tags": [
@@ -1289,7 +1277,7 @@
                 }
             }
         },
-        "/base/v1/bases/update/{idBase}": {
+        "/api/v1/bases/{idBase}": {
             "patch": {
                 "summary": "Update a base by ID",
                 "tags": [
@@ -1384,9 +1372,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/base/v1/bases/delete/{idBase}": {
+            },
             "delete": {
                 "summary": "Delete a base by ID",
                 "tags": [

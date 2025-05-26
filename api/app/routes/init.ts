@@ -9,13 +9,15 @@ import channelRoutes from "@app/routes/v1/Channel.routes";
 import sourceRoutes from "@app/routes/v1/Source.routes";
 import baseRoutes from "@app/routes/v1/Base.routes";
 
-app.use("/app/v1", appRoutes);
-app.use("/doc/v1/docs", docsRoutes);
-app.use("/type/v1/types", typeRoutes);
-app.use("/category/v1/categories", categoryRoutes);
-app.use("/channel/v1/channels", channelRoutes);
-app.use("/source/v1/sources", sourceRoutes);
-app.use("/base/v1/bases", baseRoutes);
+const prefix = "/api/v1";
+
+app.use(`${prefix}/apps`, appRoutes);
+app.use(`${prefix}/docs`, docsRoutes);
+app.use(`${prefix}/types`, typeRoutes);
+app.use(`${prefix}/categories`, categoryRoutes);
+app.use(`${prefix}/channels`, channelRoutes);
+app.use(`${prefix}/sources`, sourceRoutes);
+app.use(`${prefix}/bases`, baseRoutes);
 
 app.use("*", (req, res) => {
   const baseUrl = req.baseUrl;

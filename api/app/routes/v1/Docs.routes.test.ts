@@ -3,7 +3,7 @@ import request from "supertest";
 import app from "@app/index";
 
 describe("Docs.routes.ts", () => {
-  const prefix = "/doc/v1/docs";
+  const prefix = "/api/v1/docs";
 
   describe("GET Docs", () => {
     test("It must return the result success of the docs", async () => {

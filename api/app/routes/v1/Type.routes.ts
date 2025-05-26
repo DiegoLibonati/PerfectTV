@@ -7,7 +7,7 @@ const typeController = new TypeController();
 
 typeRoutes
   .get("/", (req, res) => typeController.getTypes(req, res))
-  .post("/add", (req, res) => typeController.addType(req, res))
-  .delete("/delete/:idType", (req, res) => typeController.deleteType(req, res));
+  .post("/", (req, res) => typeController.addType(req, res))
+  .delete("/:idType", (req, res) => typeController.deleteType(req, res));
 
 export default typeRoutes;

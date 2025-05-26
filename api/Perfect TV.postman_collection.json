@@ -15,13 +15,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/app/v1/alive",
+							"raw": "{{API_URL_DEV}}/apps/alive",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"app",
-								"v1",
+								"apps",
 								"alive"
 							]
 						}
@@ -39,13 +38,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/doc/v1/docs/swagger.json",
+							"raw": "{{API_URL_DEV}}/docs/swagger.json",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"doc",
-								"v1",
 								"docs",
 								"swagger.json"
 							]
@@ -59,13 +56,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/doc/v1/docs/",
+							"raw": "{{API_URL_DEV}}/docs/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"doc",
-								"v1",
 								"docs",
 								""
 							]
@@ -84,13 +79,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/type/v1/types/",
+							"raw": "{{API_URL_DEV}}/types/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"type",
-								"v1",
 								"types",
 								""
 							]
@@ -113,15 +106,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/type/v1/types/add",
+							"raw": "{{API_URL_DEV}}/types",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"type",
-								"v1",
-								"types",
-								"add"
+								"types"
 							]
 						}
 					},
@@ -133,15 +123,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/type/v1/types/delete/1",
+							"raw": "{{API_URL_DEV}}/types/1",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"type",
-								"v1",
 								"types",
-								"delete",
 								"1"
 							]
 						}
@@ -159,13 +146,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/source/v1/sources/",
+							"raw": "{{API_URL_DEV}}/sources/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"source",
-								"v1",
 								"sources",
 								""
 							]
@@ -188,15 +173,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/source/v1/sources/add",
+							"raw": "{{API_URL_DEV}}/sources",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"source",
-								"v1",
-								"sources",
-								"add"
+								"sources"
 							]
 						}
 					},
@@ -208,15 +190,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/source/v1/sources/delete/14",
+							"raw": "{{API_URL_DEV}}/sources/14",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"source",
-								"v1",
 								"sources",
-								"delete",
 								"14"
 							]
 						}
@@ -234,13 +213,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/base/v1/bases/",
+							"raw": "{{API_URL_DEV}}/bases/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"base",
-								"v1",
 								"bases",
 								""
 							]
@@ -263,15 +240,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/base/v1/bases/add",
+							"raw": "{{API_URL_DEV}}/bases/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"base",
-								"v1",
 								"bases",
-								"add"
+								""
 							]
 						}
 					},
@@ -283,15 +258,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/base/v1/bases/delete/5",
+							"raw": "{{API_URL_DEV}}/bases/5",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"base",
-								"v1",
 								"bases",
-								"delete",
 								"5"
 							]
 						}
@@ -313,15 +285,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/base/v1/bases/update/8",
+							"raw": "{{API_URL_DEV}}/bases/8",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"base",
-								"v1",
 								"bases",
-								"update",
 								"8"
 							]
 						}
@@ -339,13 +308,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/category/v1/categories/",
+							"raw": "{{API_URL_DEV}}/categories/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"category",
-								"v1",
 								"categories",
 								""
 							]
@@ -368,15 +335,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/category/v1/categories/add",
+							"raw": "{{API_URL_DEV}}/categories/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"category",
-								"v1",
 								"categories",
-								"add"
+								""
 							]
 						}
 					},
@@ -388,15 +353,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/category/v1/categories/delete/68",
+							"raw": "{{API_URL_DEV}}/categories/68",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"category",
-								"v1",
 								"categories",
-								"delete",
 								"68"
 							]
 						}
@@ -414,13 +376,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/channel/v1/channels/",
+							"raw": "{{API_URL_DEV}}/channels/",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"channel",
-								"v1",
 								"channels",
 								""
 							],
@@ -441,15 +401,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/channel/v1/channels/number/1",
+							"raw": "{{API_URL_DEV}}/channels/1",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"channel",
-								"v1",
 								"channels",
-								"number",
 								"1"
 							],
 							"query": [
@@ -470,7 +427,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"LoL LA TW\",\r\n    \"description\": \"League of Legends (también conocido por sus siglas LoL) es un videojuego multijugador de arena de batalla en línea desarrollado y publicado por Riot Games. Inspirándose en Defense of the Ancients, un mapa personalizado para Warcraft III, los fundadores de Riot Games buscaron desarrollar un juego independiente del mismo género.\",\r\n    \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/League_of_Legends_2019_vector.svg/250px-League_of_Legends_2019_vector.svg.png\",\r\n    \"url\": \"/LTAEspanol\",\r\n    \"urlRest\": \"/LTAEspanol\",\r\n    \"number\": 4501,\r\n    \"idType\": 1,\r\n    \"idCategory\": 14,\r\n    \"idSource\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"Carajo Stream YouTube\",\r\n    \"description\": \"Los primeros en verla.\",\r\n    \"thumbUrl\": \"https://files.kick.com/images/user/39628762/profile_image/conversion/9bf09146-e086-4f04-881a-0508cbcf5959-fullsize.webp\",\r\n    \"url\": \"?channel=UC4mdhKZXjrKoq5aVG6juHEg&autoplay=true\",\r\n    \"urlRest\": \"?channel=UC4mdhKZXjrKoq5aVG6juHEg&autoplay=true\",\r\n    \"number\": 4009,\r\n    \"idType\": 1,\r\n    \"idCategory\": 13,\r\n    \"idSource\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -478,15 +435,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/channel/v1/channels/add",
+							"raw": "{{API_URL_PROD}}/channels/",
 							"host": [
-								"{{API_URL_DEV}}"
+								"{{API_URL_PROD}}"
 							],
 							"path": [
-								"channel",
-								"v1",
 								"channels",
-								"add"
+								""
 							]
 						}
 					},
@@ -507,15 +462,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/channel/v1/channels/update/125",
+							"raw": "{{API_URL_DEV}}/channels/125",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"channel",
-								"v1",
 								"channels",
-								"update",
 								"125"
 							]
 						}
@@ -528,16 +480,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/channel/v1/channels/delete/185",
+							"raw": "{{API_URL_DEV}}/channels/265",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
-								"channel",
-								"v1",
 								"channels",
-								"delete",
-								"185"
+								"265"
 							]
 						}
 					},
@@ -571,12 +520,12 @@
 	"variable": [
 		{
 			"key": "API_URL_DEV",
-			"value": "http://localhost:5000",
+			"value": "http://localhost:5000/api/v1",
 			"type": "string"
 		},
 		{
 			"key": "API_URL_PROD",
-			"value": "http://YOUR_URL_PROD",
+			"value": "http://192.168.1.54:5000/api/v1",
 			"type": "string"
 		}
 	]

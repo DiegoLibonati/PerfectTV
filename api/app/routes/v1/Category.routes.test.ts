@@ -14,7 +14,7 @@ import {
 import categoryRepository from "@app/models/dataAccess/CategoryRepository.model";
 
 describe("Category.routes.ts", () => {
-  const prefix = "/category/v1/categories";
+  const prefix = "/api/v1/categories";
 
   const categoryToAdd: Pick<Category, "code" | "description"> = {
     code: "test",
@@ -24,7 +24,7 @@ describe("Category.routes.ts", () => {
   describe("POST Add Category", () => {
     test("It should return that no valid fields were entered.", async () => {
       const res = await request(app)
-        .post(`${prefix}/add`)
+        .post(`${prefix}/`)
         .send({ code: "", description: "" });
 
       const data = res.body;
@@ -37,7 +37,7 @@ describe("Category.routes.ts", () => {
     });
 
     test("It must add a new category.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         code: categoryToAdd.code,
         description: categoryToAdd.description,
       });
@@ -59,7 +59,7 @@ describe("Category.routes.ts", () => {
     });
 
     test("It should show that the category to be added already exists.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         code: categoryToAdd.code,
         description: categoryToAdd.description,
       });
@@ -101,7 +101,7 @@ describe("Category.routes.ts", () => {
 
     test("It should return that there is no category with the entered id.", async () => {
       const res = await request(app).delete(
-        `${prefix}/delete/${categoryNotExistsId}`
+        `${prefix}/${categoryNotExistsId}`
       );
 
       const data = res.body;
@@ -118,7 +118,7 @@ describe("Category.routes.ts", () => {
         categoryToAdd.code
       );
 
-      const res = await request(app).delete(`${prefix}/delete/${category?.id}`);
+      const res = await request(app).delete(`${prefix}/${category?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;

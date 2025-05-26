@@ -18,7 +18,7 @@ import categoryRepository from "@app/models/dataAccess/CategoryRepository.model"
 import sourceRepository from "@app/models/dataAccess/SourceRepository.model";
 
 describe("Channel.routes.ts", () => {
-  const prefix = "/channel/v1/channels";
+  const prefix = "/api/v1/channels";
 
   let channelType: number;
   let channelCategory: number;
@@ -60,7 +60,7 @@ describe("Channel.routes.ts", () => {
 
   describe("POST Add Channel", () => {
     test("It should return that no valid fields were entered.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({ name: "" });
+      const res = await request(app).post(`${prefix}/`).send({ name: "" });
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -72,7 +72,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It should show that a channel type with the entered id was not found.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         name: channelToAdd.name,
         description: channelToAdd.description,
         thumbUrl: channelToAdd.thumbUrl,
@@ -93,7 +93,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It should show that a channel category with the entered id was not found.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         name: channelToAdd.name,
         description: channelToAdd.description,
         thumbUrl: channelToAdd.thumbUrl,
@@ -114,7 +114,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It should show that a channel source with the entered id was not found.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         name: channelToAdd.name,
         description: channelToAdd.description,
         thumbUrl: channelToAdd.thumbUrl,
@@ -135,7 +135,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It must add a new channel.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         name: channelToAdd.name,
         description: channelToAdd.description,
         thumbUrl: channelToAdd.thumbUrl,
@@ -181,7 +181,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It should show that the category to be added already exists.", async () => {
-      const res = await request(app).post(`${prefix}/add`).send({
+      const res = await request(app).post(`${prefix}/`).send({
         name: channelToAdd.name,
         description: channelToAdd.description,
         thumbUrl: channelToAdd.thumbUrl,
@@ -283,7 +283,7 @@ describe("Channel.routes.ts", () => {
   describe("GET Channel By Number", () => {
     test("It should return that the channel entered through the number was not found.", async () => {
       const res = await request(app).get(
-        `${prefix}/number/${notExistsChannelNumber}`
+        `${prefix}/${notExistsChannelNumber}`
       );
 
       const data = res.body;
@@ -297,7 +297,7 @@ describe("Channel.routes.ts", () => {
 
     test("It should return the channel added by test through the channel number.", async () => {
       const res = await request(app).get(
-        `${prefix}/number/${channelToAdd.number}`
+        `${prefix}/${channelToAdd.number}`
       );
 
       const data = res.body;
@@ -339,7 +339,7 @@ describe("Channel.routes.ts", () => {
 
     test("It should return that there is no channel with the entered id.", async () => {
       const res = await request(app).patch(
-        `${prefix}/update/${channelNotExistsId}`
+        `${prefix}/${channelNotExistsId}`
       );
 
       const data = res.body;
@@ -357,7 +357,7 @@ describe("Channel.routes.ts", () => {
       );
 
       const res = await request(app)
-        .patch(`${prefix}/update/${channel?.id}`)
+        .patch(`${prefix}/${channel?.id}`)
         .send({ url: newUrl });
 
       const data = res.body;
@@ -399,7 +399,7 @@ describe("Channel.routes.ts", () => {
 
     test("It should return that there is no channel with the entered id.", async () => {
       const res = await request(app).delete(
-        `${prefix}/delete/${channelNotExistsId}`
+        `${prefix}/${channelNotExistsId}`
       );
 
       const data = res.body;
@@ -416,7 +416,7 @@ describe("Channel.routes.ts", () => {
         channelToAdd.number
       );
 
-      const res = await request(app).delete(`${prefix}/delete/${channel?.id}`);
+      const res = await request(app).delete(`${prefix}/${channel?.id}`);
 
       const data = res.body;
       const statusCode = res.statusCode;

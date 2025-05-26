@@ -25,7 +25,7 @@ describe("* Routes", () => {
 });
 
 describe("App.routes.ts", () => {
-  const prefix = "/app/v1";
+  const prefix = "/api/v1/apps";
 
   describe("GET Alive - /alive", () => {
     test("It must return the result success of the alive", async () => {
