@@ -290,7 +290,7 @@ describe("Channel.routes.ts", () => {
       expect(statusCode).toBe(200);
       expect(data).toEqual({
         code: responseSuccess.getChannelsNumber.code,
-        data: expect.arrayContaining(expect.any(Number)),
+        data: expect.arrayContaining([expect.any(Number)]),
       });
     });
   });
