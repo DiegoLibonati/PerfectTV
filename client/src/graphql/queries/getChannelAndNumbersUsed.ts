@@ -2,12 +2,9 @@ import { gql } from "@apollo/client";
 
 export default gql`
   query getChannelAndNumbersUsed($numberChannel: Int!, $reload: Boolean) {
-    numbers: channels {
+    numbers {
       code
-      data {
-        id
-        number
-      }
+      data
     }
     channel(numberChannel: $numberChannel, reload: $reload) {
       code

@@ -44,7 +44,7 @@ describe("Channel.routes.ts", () => {
   const newUrl = "https://youtube.com.ar/test.liveStream";
 
   beforeAll(async () => {
-    channelToAdd.name = crypto.randomUUID()
+    channelToAdd.name = crypto.randomUUID();
 
     const types = await typeRepository.getTypes();
     const categories = await categoryRepository.getCategories();
@@ -280,11 +280,24 @@ describe("Channel.routes.ts", () => {
     });
   });
 
+  describe("GET Channels Numbers", () => {
+    test("It should return all the numbers being used as a list.", async () => {
+      const res = await request(app).get(`${prefix}/numbers`);
+
+      const data = res.body;
+      const statusCode = res.statusCode;
+
+      expect(statusCode).toBe(200);
+      expect(data).toEqual({
+        code: responseSuccess.getChannelsNumber.code,
+        data: expect.arrayContaining(expect.any(Number)),
+      });
+    });
+  });
+
   describe("GET Channel By Number", () => {
     test("It should return that the channel entered through the number was not found.", async () => {
-      const res = await request(app).get(
-        `${prefix}/${notExistsChannelNumber}`
-      );
+      const res = await request(app).get(`${prefix}/${notExistsChannelNumber}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -296,9 +309,7 @@ describe("Channel.routes.ts", () => {
     });
 
     test("It should return the channel added by test through the channel number.", async () => {
-      const res = await request(app).get(
-        `${prefix}/${channelToAdd.number}`
-      );
+      const res = await request(app).get(`${prefix}/${channelToAdd.number}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -338,9 +349,7 @@ describe("Channel.routes.ts", () => {
     const channelNotExistsId = "100";
 
     test("It should return that there is no channel with the entered id.", async () => {
-      const res = await request(app).patch(
-        `${prefix}/${channelNotExistsId}`
-      );
+      const res = await request(app).patch(`${prefix}/${channelNotExistsId}`);
 
       const data = res.body;
       const statusCode = res.statusCode;
@@ -398,9 +407,7 @@ describe("Channel.routes.ts", () => {
     const channelNotExistsId = "100";
 
     test("It should return that there is no channel with the entered id.", async () => {
-      const res = await request(app).delete(
-        `${prefix}/${channelNotExistsId}`
-      );
+      const res = await request(app).delete(`${prefix}/${channelNotExistsId}`);
 
       const data = res.body;
       const statusCode = res.statusCode;

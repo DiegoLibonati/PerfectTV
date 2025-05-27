@@ -21,6 +21,14 @@ const ChannelsResponseType = new GraphQLObjectType({
   },
 });
 
+const ChannelsNumberResponseType = new GraphQLObjectType({
+  name: "ChannelsNumberResponse",
+  fields: {
+    code: { type: GraphQLString },
+    data: { type: new GraphQLList(GraphQLInt) },
+  },
+});
+
 const CategoriesResponseType = new GraphQLObjectType({
   name: "CategoriesResponse",
   fields: {
@@ -89,6 +97,18 @@ const RootQueryType = new GraphQLObjectType({
               data: response.data.data,
             };
           });
+      },
+    },
+    numbers: {
+      type: ChannelsNumberResponseType,
+      args: {},
+      resolve(parentValue, args) {
+        return axios.get(`${API_URL}/channels/numbers`).then((response) => {
+          return {
+            code: response.data.code,
+            data: response.data.data,
+          };
+        });
       },
     },
   },

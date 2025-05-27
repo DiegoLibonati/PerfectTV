@@ -58,9 +58,9 @@ class CategoryController {
 
     channels = await Promise.all(
       channels.map(async (channel) => {
-        const sourceIdChannel = channel.source?.id
+        const sourceIdChannel = channel.source?.id;
         const base = await baseRepository.getBaseByIdSource(sourceIdChannel!);
-        const baseUrl = base?.baseUrl
+        const baseUrl = base?.baseUrl;
 
         if (!channel.url.includes(baseUrl!)) {
           const channelUpdated = await setChannelUrl(channel, baseUrl!);
@@ -103,12 +103,16 @@ class CategoryController {
       return;
     }
 
-    const baseChannel = await baseRepository.getBaseByIdSource(channel.source?.id!);
+    const baseChannel = await baseRepository.getBaseByIdSource(
+      channel.source?.id!
+    );
     const validUrlChannel = singleInvalidUrlChecker(channel?.url!);
 
     if (!reload && !validUrlChannel && baseChannel?.baseUrl) {
       channel = await setChannelUrl(channel, baseChannel?.baseUrl);
-      console.log("Endpoint getChannelByNumber executed without reload and not validUrlChannel with pre-baseUrl");
+      console.log(
+        "Endpoint getChannelByNumber executed without reload and not validUrlChannel with pre-baseUrl"
+      );
       res.status(200).json({
         code: responseSuccess.getChannel.code,
         data: channel,
@@ -117,7 +121,9 @@ class CategoryController {
     }
 
     if (!reload && validUrlChannel) {
-      console.log("Endpoint getChannelByNumber executed without reload and validUrlChannel.");
+      console.log(
+        "Endpoint getChannelByNumber executed without reload and validUrlChannel."
+      );
       res.status(200).json({
         code: responseSuccess.getChannel.code,
         data: channel,
@@ -319,6 +325,20 @@ class CategoryController {
     res.status(200).json({
       code: responseSuccess.deleteChannel.code,
       data: channelDeleted,
+    });
+    return;
+  }
+
+  async getChannelsNumber(req: Request, res: Response) {
+    const channels = await channelRepository.getChannels();
+    const numbers = channels.map((channel) => {
+      return channel.number;
+    });
+    const numbersSorted = numbers.sort((a, b) => a - b);
+
+    res.status(200).json({
+      code: responseSuccess.getChannelsNumber.code,
+      data: numbersSorted,
     });
     return;
   }

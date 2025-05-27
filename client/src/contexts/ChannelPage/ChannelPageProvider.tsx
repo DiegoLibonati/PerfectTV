@@ -12,7 +12,6 @@ import getChannelAndNumbersUsed from "@src/graphql/queries/getChannelAndNumbersU
 import { useRouter } from "@src/hooks/useRouter";
 import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
-import { getNumbersChannels } from "@src/helpers/getNumbersChannels";
 import { isNumberChannelValid } from "@src/helpers/isNumberChannelValid";
 import { getChannelIndexByArrows } from "@src/helpers/getChannelIndexByArrows";
 
@@ -105,15 +104,13 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   }, [data?.channel]);
 
   useEffect(() => {
-    const numbers = data?.numbers?.data as Pick<Channel, "id" | "number">[];
+    const numbers = data?.numbers?.data;
 
     if (!numbers || !numbers?.length) return;
 
-    const newNumbersUsed: number[] = getNumbersChannels(numbers);
+    if (JSON.stringify(numbersUsed) === JSON.stringify(numbers)) return;
 
-    if (JSON.stringify(numbersUsed) === JSON.stringify(newNumbersUsed)) return;
-
-    setNumbersUsed(newNumbersUsed);
+    setNumbersUsed(numbers);
   }, [data?.numbers?.data?.length]);
 
   useEffect(() => {

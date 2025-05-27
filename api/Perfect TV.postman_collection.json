@@ -421,6 +421,24 @@
 					"response": []
 				},
 				{
+					"name": "GET Channels Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/channels/numbers",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"channels",
+								"numbers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "POST Add Channel",
 					"request": {
 						"method": "POST",

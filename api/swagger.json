@@ -838,6 +838,39 @@
                 }
             }
         },
+        "/api/v1/channels/numbers": {
+            "get": {
+                "summary": "Gets all the numbers that are in use.",
+                "tags": [
+                    "Channel"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "examples": {
+                                    "Simple Response": {
+                                        "summary": "Standard response",
+                                        "value": {
+                                            "code": "GET_CHANNELS_NUMBER_SUCCESSFULLY",
+                                            "data": [
+                                                1,
+                                                2,
+                                                5,
+                                                10,
+                                                10000
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/channels/{numberChannel}": {
             "get": {
                 "summary": "Get a specific channel through the channel number.",

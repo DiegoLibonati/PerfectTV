@@ -61,6 +61,9 @@ export const responseSuccess: ResponseConstants = {
   getNumbers: {
     code: "GET_NUMBERS_SUCCESSFULLY",
   },
+  getChannelsNumber: {
+    code: "GET_CHANNELS_NUMBER_SUCCESSFULLY",
+  },
 };
 
 export const responseNotFound: ResponseConstants = {
