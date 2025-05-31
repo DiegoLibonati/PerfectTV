@@ -5,6 +5,8 @@ import { ChannelPageContext as ChannelPageContextT } from "@src/entities/context
 import { ChannelPageProviderProps } from "@src/entities/props";
 import { Channel } from "@src/entities/api";
 
+import { envs } from "@src/config/envs";
+
 import { ChannelPageContext } from "@src/contexts/ChannelPage/ChannelPageContext";
 
 import getChannelAndNumbersUsed from "@src/graphql/queries/getChannelAndNumbersUsed";
@@ -14,6 +16,8 @@ import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
 import { isNumberChannelValid } from "@src/helpers/isNumberChannelValid";
 import { getChannelIndexByArrows } from "@src/helpers/getChannelIndexByArrows";
+import { startPlayerPoster } from "@src/helpers/startPlayerPoster";
+import { startJwPlayer } from "@src/helpers/startJwPlayer";
 
 import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@src/constants/general";
 
@@ -93,6 +97,21 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
     handleSetSearchNumber(number);
   };
 
+  const activeChannelNeedsToRun = (activeChannel: Channel): void => {
+    switch (activeChannel.source.code) {
+      case "la12hd": {
+        startPlayerPoster();
+        break;
+      }
+      case "ftv": {
+        startJwPlayer();
+        break;
+      }
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     const currentChannel = data?.channel?.data;
 
@@ -118,6 +137,9 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
 
     const timeout = setTimeout(() => {
       setChannelChange(false);
+
+      if (envs.CHANNELS_NEEDS_TO_RUN.includes(String(activeChannel!.number)))
+        activeChannelNeedsToRun(activeChannel!);
     }, 2000);
 
     return () => {
