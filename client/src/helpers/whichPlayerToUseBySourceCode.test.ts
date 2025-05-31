@@ -12,14 +12,6 @@ describe("whichPlayerToUseBySourceCode.ts", () => {
       expect(result).toBe("iframe");
     });
 
-    test('It should return "iframe" for "VMFEDGEAPPS" (case insensitive)', () => {
-      const sourceCode = "VMFEDGEAPPS";
-
-      const result = whichPlayerToUseBySourceCode(sourceCode);
-
-      expect(result).toBe("iframe");
-    });
-
     test('It should return "iframe" for "youtube"', () => {
       const sourceCode = "youtube";
 

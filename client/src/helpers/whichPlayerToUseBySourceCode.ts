@@ -1,7 +1,9 @@
+import { envs } from "@src/config/envs";
+
 export const whichPlayerToUseBySourceCode = (
   sourceCode: string
 ): "iframe" | "react-player" => {
-  const useIframe = ["ftv", "vmfedgeapps", "youtube", "la12hd"];
+  const useIframe = envs.CODE_USE_IFRAME;
   const code = sourceCode.toLowerCase();
 
   if (useIframe.includes(code)) return "iframe";

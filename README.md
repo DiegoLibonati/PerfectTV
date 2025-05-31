@@ -186,10 +186,12 @@ AUTHOR: Diego Libonati
 5. `PUPPETEER_EXECUTABLE_PATH`: Refers to the internal google chrome path of the API service for scraping.
 6. `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD`: Refers to bypass chromium downloading
 7. `API_URL`: Refers to the URL of the API service
+8. `VITE_CODE_USE_IFRAME`: Refers to source codes that must use iframe if or iframe to be displayed.
 
 ```ts
 # CLIENT Envs
 VITE_GRAPHQL_URL=http://host.docker.internal:5001
+VITE_CODE_USE_IFRAME=ftv,youtube
 
 # API Envs
 PORT=5000
