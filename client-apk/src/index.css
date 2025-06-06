@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base-font-size: 16px;
+  --primary-color: "#D72638";
+  --white-color: #ffffff;
+  --black-color: #000000;
+}
+
+* {
+  font-size: var(--base-font-size);
+}
