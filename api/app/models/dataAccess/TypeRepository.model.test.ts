@@ -42,9 +42,7 @@ describe("TypeRepository.model.ts", () => {
     });
 
     test("It must get one type per id.", async () => {
-      const typeByCode = await typeRepository.getTypeByCode(
-        typeTest.code
-      );
+      const typeByCode = await typeRepository.getTypeByCode(typeTest.code);
       const type = await typeRepository.getTypeById(typeByCode!.id);
 
       expect(type!.id).toBeTruthy();
@@ -58,19 +56,17 @@ describe("TypeRepository.model.ts", () => {
       expect(types.count).toEqual(1);
     });
 
-    test("It must delete all test types created.", () => {
-        typesTest.push(typeTest)
-      
-        typesTest.forEach(async (t) => {
+    test("It must delete all test types created.", async () => {
+      typesTest.push(typeTest);
+
+      for (const t of typesTest) {
         const typeByCode = await typeRepository.getTypeByCode(t.code);
-        const typeDeleted = await typeRepository.deleteType(
-          typeByCode!.id
-        );
+        const typeDeleted = await typeRepository.deleteType(typeByCode!.id);
 
         expect(typeDeleted!.id).toBeTruthy();
         expect(typeDeleted!.code).toEqual(t.code);
         expect(typeDeleted!.description).toEqual(t.description);
-      });
+      }
     });
   });
 });

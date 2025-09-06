@@ -16,7 +16,6 @@ import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
 import { isNumberChannelValid } from "@src/helpers/isNumberChannelValid";
 import { getChannelIndexByArrows } from "@src/helpers/getChannelIndexByArrows";
-import { startPlayerPoster } from "@src/helpers/startPlayerPoster";
 import { startJwPlayer } from "@src/helpers/startJwPlayer";
 
 import { LS_KEY_NAME_LAST_NUMBER_CHANNEL } from "@src/constants/general";
@@ -99,10 +98,6 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
 
   const activeChannelNeedsToRun = (activeChannel: Channel): void => {
     switch (activeChannel.source.code) {
-      case "la12hd": {
-        startPlayerPoster();
-        break;
-      }
       case "ftv": {
         startJwPlayer();
         break;
@@ -137,6 +132,8 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
 
     const timeout = setTimeout(() => {
       setChannelChange(false);
+
+      if (!activeChannel) return
 
       if (envs.CHANNELS_NEEDS_TO_RUN.includes(String(activeChannel!.number)))
         activeChannelNeedsToRun(activeChannel!);

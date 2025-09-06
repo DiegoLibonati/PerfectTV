@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { HashRouter, Navigate, Route, Routes } from "react-router";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { ChannelPage } from "@src/pages/ChannelPage/ChannelPage";
 import { ChannelsPage } from "@src/pages/ChannelsPage/ChannelsPage";

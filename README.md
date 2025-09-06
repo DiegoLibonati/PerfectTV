@@ -61,7 +61,7 @@ The client allows:
 "react-dom": "^19.0.0"
 "react-icons": "^5.5.0"
 "react-player": "^2.16.0"
-"react-router": "^7.4.0"
+"react-router-dom": "^7.4.0"
 "usekeyboard-react": "^1.5.2"
 ```
 
@@ -84,7 +84,7 @@ The client allows:
 "globals": "^15.15.0"
 "jsdom": "^26.0.0"
 "postcss": "^8.5.3"
-"tailwindcss": "3"
+"tailwindcss": "^3.4.15"
 "typescript": "~5.7.2"
 "typescript-eslint": "^8.24.1"
 "vite": "^6.2.0"
@@ -99,12 +99,12 @@ The client allows:
 ```
 "@prisma/client": "^6.4.1"
 "express": "^4.21.2"
-"jest": "^29.7.0"
+"got": "^14.4.7"
 "module-alias": "^2.2.3"
-"puppeteer": "^24.4.0"
+"puppeteer": "^24.8.2"
 "redoc-express": "^2.1.0"
-"supertest": "^7.0.0"
 "swagger-jsdoc": "^6.2.8"
+"tsconfig-paths": "^4.2.0"
 ```
 
 #### devDependencies
@@ -115,11 +115,12 @@ The client allows:
 "@types/node": "^22.13.8"
 "@types/supertest": "^6.0.2"
 "@types/swagger-jsdoc": "^6.0.4"
+"jest": "^29.7.0"
 "nodemon": "^3.1.9"
 "prisma": "^6.4.1"
+"supertest": "^7.0.0"
 "ts-jest": "^29.2.6"
 "ts-node": "^10.9.2"
-"tsconfig-paths": "^4.2.0"
 "typescript": "^5.8.2"
 ```
 
@@ -134,17 +135,19 @@ The client allows:
 "graphql-http": "^1.22.4"
 "graphql-playground-middleware-express": "^1.7.23"
 "module-alias": "^2.2.3"
+"tsconfig-paths": "^4.2.0"
 ```
 
 #### devDependencies
 
 ```
 "@types/express": "^5.0.0"
-"@types/graphql": "^14.5.0"
 "nodemon": "^3.1.9"
 "ts-node": "^10.9.2"
-"tsconfig-paths": "^4.2.0"
 "typescript": "^5.8.2"
+"jest": "^29.7.0"
+"ts-jest": "^29.2.6"
+"@types/jest": "^29.5.14"
 ```
 
 ## Portfolio Link
@@ -173,7 +176,7 @@ https://github.com/user-attachments/assets/6a4d56dd-d3be-4c57-94c7-587d0fc38788
 
 ```ts
 APP VERSION: 1.0.0
-README UPDATED: 10/04/2025
+README UPDATED: 06/09/2025
 AUTHOR: Diego Libonati
 ```
 
@@ -205,6 +208,7 @@ PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 # GRAPHQL Envs
 CHOKIDAR_USEPOLLING=true # If you want to hot reload
 
+PORT=5001
 API_URL=http://host.docker.internal:5000
 ```
 

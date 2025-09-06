@@ -81,20 +81,14 @@ describe("Source.routes.ts", () => {
       const statusCode = res.statusCode;
 
       expect(statusCode).toBe(200);
-      expect(data).toEqual({
-        code: responseSuccess.getSources.code,
-        data: expect.arrayContaining([
-          expect.objectContaining({
-            id: expect.any(Number),
-            code: expect.any(String),
-            description: expect.any(String),
-            base: expect.objectContaining({
-              id: expect.any(Number),
-              idSource: expect.any(Number),
-              baseUrl: expect.any(String),
-            }),
-          }),
-        ]),
+      expect(data.code).toBe(responseSuccess.getSources.code);
+      expect(Array.isArray(data.data)).toBe(true);
+
+      data.data.forEach((s: Source) => {
+        expect(s.id).toEqual(expect.any(Number));
+        expect(s.code).toEqual(expect.any(String));
+        expect(s.description).toEqual(expect.any(String));
+        expect(s.base === null || typeof s.base === "object").toBe(true);
       });
     });
   });

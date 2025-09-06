@@ -58,10 +58,10 @@ describe("SourceRepository.model.ts", () => {
       expect(sources.count).toEqual(1);
     });
 
-    test("It must delete all test sources created.", () => {
-        sourcesTest.push(sourceTest)
-      
-        sourcesTest.forEach(async (s) => {
+    test("It must delete all test sources created.", async () => {
+      sourcesTest.push(sourceTest);
+
+      for (const s of sourcesTest) {
         const sourceByCode = await sourceRepository.getSourceByCode(s.code);
         const sourceDeleted = await sourceRepository.deleteSource(
           sourceByCode!.id
@@ -70,7 +70,7 @@ describe("SourceRepository.model.ts", () => {
         expect(sourceDeleted!.id).toBeTruthy();
         expect(sourceDeleted!.code).toEqual(s.code);
         expect(sourceDeleted!.description).toEqual(s.description);
-      });
+      }
     });
   });
 });

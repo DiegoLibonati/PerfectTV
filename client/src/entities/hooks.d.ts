@@ -1,4 +1,4 @@
-import { Params } from "react-router";
+import { Params } from "react-router-dom";
 
 export type UseTheme = {
   bg: string;

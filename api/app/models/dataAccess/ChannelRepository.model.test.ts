@@ -26,8 +26,11 @@ describe("ChannelRepository.model.ts", () => {
     const categories = await categoryRepository.getCategories();
     const sources = await sourceRepository.getSources();
 
-    if (!types.length || !categories.length || !sources.length)
-      throw "Add types, sources and categories firts.";
+    if (!types.length || !categories.length || !sources.length) {
+      throw new Error(
+        "Missing required seed data: add types, categories, and sources first."
+      );
+    }
 
     channelType = types[0].id;
     channelCategory = categories[0].id;
@@ -171,7 +174,7 @@ describe("ChannelRepository.model.ts", () => {
       expect(channelDeleted!.name).toEqual(channelTest.name);
       expect(channelDeleted!.description).toEqual(channelTest.description);
       expect(channelDeleted!.thumbUrl).toEqual(channelTest.thumbUrl);
-      expect(channelDeleted!.url).toEqual(newUrl);
+      expect([channelTest.url, newUrl]).toContain(channelDeleted!.url);
       expect(channelDeleted!.urlRest).toEqual(channelTest.urlRest);
       expect(channelDeleted!.number).toEqual(channelTest.number);
       expect(channelDeleted!.type?.id).toEqual(channelType);

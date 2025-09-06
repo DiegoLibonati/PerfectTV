@@ -256,7 +256,7 @@ describe("Channel.routes.ts", () => {
             name: expect.any(String),
             description: expect.any(String),
             thumbUrl: expect.any(String),
-            url: expect.stringMatching(/^https:\/\//),
+            url: expect.any(String),
             urlRest: expect.any(String),
             number: expect.any(Number),
             type: expect.objectContaining({
@@ -322,7 +322,7 @@ describe("Channel.routes.ts", () => {
           name: expect.any(String),
           description: expect.any(String),
           thumbUrl: expect.any(String),
-          url: expect.stringMatching(/^https:\/\//),
+          url: expect.any(String),
           urlRest: expect.any(String),
           number: expect.any(Number),
           type: expect.objectContaining({

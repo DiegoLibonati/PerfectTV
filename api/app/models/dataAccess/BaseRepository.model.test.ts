@@ -91,7 +91,7 @@ describe("BaseRepository.model.ts", () => {
     test("It must delete all test bases created.", async () => {
       basesTest.push(baseTest);
 
-      basesTest.forEach(async (b) => {
+      for (const b of basesTest) {
         const baseByIdSource = await baseRepository.getBaseByIdSource(
           b.idSource
         );
@@ -107,7 +107,7 @@ describe("BaseRepository.model.ts", () => {
 
         expect(baseDeleted!.id).toBeTruthy();
         expect(baseDeleted!.source!.id).toEqual(b.idSource);
-      });
+      }
     });
   });
 });

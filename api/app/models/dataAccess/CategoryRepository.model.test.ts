@@ -58,10 +58,10 @@ describe("CategoryRepository.model.ts", () => {
       expect(cats.count).toEqual(1);
     });
 
-    test("It must delete all test categories created.", () => {
+    test("It must delete all test categories created.", async () => {
       categoriesTest.push(categoryTest);
 
-      categoriesTest.forEach(async (c) => {
+      for (const c of categoriesTest) {
         const catByCode = await categoryRepository.getCategoryByCode(c.code);
         const categoryDeleted = await categoryRepository.deleteCategory(
           catByCode!.id
@@ -70,7 +70,7 @@ describe("CategoryRepository.model.ts", () => {
         expect(categoryDeleted!.id).toBeTruthy();
         expect(categoryDeleted!.code).toEqual(c.code);
         expect(categoryDeleted!.description).toEqual(c.description);
-      });
+      }
     });
   });
 });
