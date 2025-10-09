@@ -7,74 +7,10 @@
 	},
 	"item": [
 		{
-			"name": "App Routes",
-			"item": [
-				{
-					"name": "GET Alive",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL_DEV}}/apps/alive",
-							"host": [
-								"{{API_URL_DEV}}"
-							],
-							"path": [
-								"apps",
-								"alive"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Docs Routes",
-			"item": [
-				{
-					"name": "GET swagger.json",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL_DEV}}/docs/swagger.json",
-							"host": [
-								"{{API_URL_DEV}}"
-							],
-							"path": [
-								"docs",
-								"swagger.json"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Docs",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API_URL_DEV}}/docs/",
-							"host": [
-								"{{API_URL_DEV}}"
-							],
-							"path": [
-								"docs",
-								""
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Type Routes",
 			"item": [
 				{
-					"name": "GET Types",
+					"name": "GET - Get Types",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -89,16 +25,69 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/types/",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "214"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d6-fEE2YcK3LV+aIYrbygZXBkCHos4\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:26:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_TYPES\",\n    \"message\": \"Types delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"public\",\n            \"description\": \"Canales de Televisión Públicos\"\n        },\n        {\n            \"id\": 2,\n            \"code\": \"private\",\n            \"description\": \"Canales de Televisión Privados\"\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
-					"name": "POST Add Type",
+					"name": "POST - Add Type",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"public\",\r\n    \"description\": \"a\"\r\n}",
+							"raw": "{\r\n    \"code\": \"public2\",\r\n    \"description\": \"a\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -115,25 +104,157 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"public2\",\r\n    \"description\": \"a\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/types",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-AeDg/TIla4cB3ZO3cDaX7EJu5oI\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:26:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_TYPE\",\n    \"message\": \"Type added.\",\n    \"data\": {\n        \"id\": 3,\n        \"code\": \"public2\",\n        \"description\": \"a\"\n    }\n}"
+						}
+					]
 				},
 				{
-					"name": "DELETE Delete Type",
+					"name": "DELETE - Delete Type",
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/types/1",
+							"raw": "{{API_URL_DEV}}/types/3",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"types",
-								"1"
+								"3"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/types/3",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6b-unsWdg7J/zbb98vaNDJOsO3Ihak\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:28:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_TYPE\",\n    \"message\": \"Type deleted.\",\n    \"data\": {\n        \"id\": 3,\n        \"code\": \"public2\",\n        \"description\": \"a\"\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -141,7 +262,7 @@
 			"name": "Sources Route",
 			"item": [
 				{
-					"name": "GET Sources",
+					"name": "GET - Get Sources",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -156,16 +277,69 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources/",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "480"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e0-I9yIV44kpwamzzMceaa+Etg8ueA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:28:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_SOURCES\",\n    \"message\": \"Sources delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"youtube\",\n            \"description\": \"Canales de Televisión de YouTube\",\n            \"base\": {\n                \"id\": 1,\n                \"baseUrl\": \"https://www.youtube.com/embed/live_stream\",\n                \"idSource\": 1,\n                \"source\": {\n                    \"id\": 1,\n                    \"code\": \"youtube\",\n                    \"description\": \"Canales de Televisión de YouTube\"\n                }\n            }\n        },\n        {\n            \"id\": 2,\n            \"code\": \"twitch\",\n            \"description\": \"Canales de Televisión de Twitch\",\n            \"base\": null\n        },\n        {\n            \"id\": 3,\n            \"code\": \"ftv\",\n            \"description\": \"Canales de Televisión de FTV\",\n            \"base\": null\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
-					"name": "POST Add Source",
+					"name": "POST -  Add Source",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"code\": \"vmfedgeapps\",\r\n    \"description\": \"Canales de Televisión de VmfEdgeApps\"\r\n}",
+							"raw": "{\r\n    \"code\": \"ftv32\",\r\n    \"description\": \"Canales de Televisión de FTV\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -182,25 +356,139 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"ftv32\",\r\n    \"description\": \"Canales de Televisión de FTV\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "144"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"90-ahTrnm2BtMk6bIqba5uRuhmGxSw\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:33:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_SOURCE\",\n    \"message\": \"Source added.\",\n    \"data\": {\n        \"id\": 4,\n        \"code\": \"ftv32\",\n        \"description\": \"Canales de Televisión de FTV\",\n        \"base\": null\n    }\n}"
+						}
+					]
 				},
 				{
-					"name": "DELETE Delete Source",
+					"name": "DELETE - Delete Source",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/sources/14",
+							"raw": "{{API_URL_DEV}}/sources/4",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"sources",
-								"14"
+								"4"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources/4",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "149"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"95-8rj7MyIChhiVlE16wkehACdLGfE\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:33:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_SOURCE\",\n    \"message\": \"Source deleted.\",\n    \"data\": {\n        \"id\": 4,\n        \"code\": \"ftv32\",\n        \"description\": \"Canales de Televisión de FTV\",\n        \"base\": null\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -208,7 +496,7 @@
 			"name": "Base Route",
 			"item": [
 				{
-					"name": "GET Bases",
+					"name": "GET - Get Bases",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -223,7 +511,60 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "227"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e3-Vx/8UeE6GfSDZSlyYUK0XXrY//8\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:30:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_BASES\",\n    \"message\": \"Bases delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"baseUrl\": \"https://www.youtube.com/embed/live_stream\",\n            \"idSource\": 1,\n            \"source\": {\n                \"id\": 1,\n                \"code\": \"youtube\",\n                \"description\": \"Canales de Televisión de YouTube\"\n            }\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "POST Add Base",
@@ -232,7 +573,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"baseUrl\": \"https://vmf.edge-apps.net\",\r\n    \"idSource\": 6\r\n}",
+							"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\",\r\n    \"idSource\": 4\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,7 +591,69 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\",\r\n    \"idSource\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "197"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c5-GWnIHDFRH/i8nN/f+ftJJTHGItw\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:32:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_BASE\",\n    \"message\": \"Base added.\",\n    \"data\": {\n        \"id\": 2,\n        \"baseUrl\": \"https://www.twitch.tv\",\n        \"idSource\": 2,\n        \"source\": {\n            \"id\": 2,\n            \"code\": \"twitch\",\n            \"description\": \"Canales de Televisión de Twitch\"\n        }\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "DELETE Delete Base",
@@ -258,17 +661,70 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/bases/5",
+							"raw": "{{API_URL_DEV}}/bases/3",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"bases",
-								"5"
+								"3"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/3",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "178"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b2-pjM9HWb20OWpeApCMNvZUDU6SYk\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:35:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_BASE\",\n    \"message\": \"Base deleted.\",\n    \"data\": {\n        \"id\": 3,\n        \"baseUrl\": \"321\",\n        \"idSource\": 3,\n        \"source\": {\n            \"id\": 3,\n            \"code\": \"ftv\",\n            \"description\": \"Canales de Televisión de FTV\"\n        }\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "PATCH Update Base",
@@ -277,7 +733,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"baseUrl\": \"https://www.youtube.com/embed/live_stream\"\r\n}",
+							"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -285,17 +741,79 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/bases/8",
+							"raw": "{{API_URL_DEV}}/bases/2",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"bases",
-								"8"
+								"2"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/2",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "202"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ca-4+jjbnfeXZT7vcKUnBetDmISvlU\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:35:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_UPDATE_BASE\",\n    \"message\": \"Base updated.\",\n    \"data\": {\n        \"id\": 2,\n        \"baseUrl\": \"https://www.twitch.tv\",\n        \"idSource\": 2,\n        \"source\": {\n            \"id\": 2,\n            \"code\": \"twitch\",\n            \"description\": \"Canales de Televisión de Twitch\"\n        }\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -318,7 +836,60 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories/",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "164"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a4-y6MVjCzSLwHCo6hZb/mXLg3T3sM\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:36:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_CATEGORIES\",\n    \"message\": \"Categories delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"news\",\n            \"description\": \"Canales de Televisión de Noticias\",\n            \"channels\": []\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "POST Add Category",
@@ -345,7 +916,69 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"esports\",\r\n    \"description\": \"Canales de Televisión de Deportes Electrónicos\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories/",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "171"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ab-vuYhJwTWEfGvN7/b2BHEScFpRYI\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:36:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_CATEGORY\",\n    \"message\": \"Category added.\",\n    \"data\": {\n        \"id\": 2,\n        \"code\": \"esports\",\n        \"description\": \"Canales de Televisión de Deportes Electrónicos\",\n        \"channels\": []\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "DELETE Delete Category",
@@ -353,17 +986,70 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/categories/68",
+							"raw": "{{API_URL_DEV}}/categories/2",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"categories",
-								"68"
+								"2"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Ok.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories/2",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "176"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b0-LsB5Vw2J6zW6QbpFUNKQzVW3FPQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 23:36:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_CATEGORY\",\n    \"message\": \"Category deleted.\",\n    \"data\": {\n        \"id\": 2,\n        \"code\": \"esports\",\n        \"description\": \"Canales de Televisión de Deportes Electrónicos\",\n        \"channels\": []\n    }\n}"
+						}
+					]
 				}
 			]
 		},
@@ -401,13 +1087,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/channels/1",
+							"raw": "{{API_URL_DEV}}/channels/14",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"channels",
-								"1"
+								"14"
 							],
 							"query": [
 								{
@@ -445,7 +1131,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Carajo Stream YouTube\",\r\n    \"description\": \"Los primeros en verla.\",\r\n    \"thumbUrl\": \"https://files.kick.com/images/user/39628762/profile_image/conversion/9bf09146-e086-4f04-881a-0508cbcf5959-fullsize.webp\",\r\n    \"url\": \"?channel=UC4mdhKZXjrKoq5aVG6juHEg&autoplay=true\",\r\n    \"urlRest\": \"?channel=UC4mdhKZXjrKoq5aVG6juHEg&autoplay=true\",\r\n    \"number\": 4009,\r\n    \"idType\": 1,\r\n    \"idCategory\": 13,\r\n    \"idSource\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"América TV FTV2\",\r\n    \"description\": \"América Televisión, es un canal de televisión abierta argentino con licencia en la ciudad de La Plata, Argentina, aunque su señal es producida en la ciudad de Buenos Aires. Es también conocido por ser uno de los cinco canales abiertos que emiten desde el Área metropolitana de Buenos Aires.\",\r\n    \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\r\n    \"url\": \"?get=QW1lcmljYVRW&lang=1&start=true\",\r\n    \"urlRest\": \"?get=QW1lcmljYVRW&lang=1&start=true\",\r\n    \"number\": 1,\r\n    \"idType\": 1,\r\n    \"idCategory\": 1,\r\n    \"idSource\": 3\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -453,9 +1139,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_PROD}}/channels/",
+							"raw": "{{API_URL_DEV}}/channels/",
 							"host": [
-								"{{API_URL_PROD}}"
+								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"channels",
@@ -472,7 +1158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"LoL LATAM [SUR] TW\"\r\n}",
+							"raw": "{\r\n    \"url\": \"?get=QW1lcmljYVRW&lang=1&start=true\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -480,13 +1166,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL_DEV}}/channels/125",
+							"raw": "{{API_URL_DEV}}/channels/1",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"channels",
-								"125"
+								"1"
 							]
 						}
 					},
@@ -498,13 +1184,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL_DEV}}/channels/265",
+							"raw": "{{API_URL_DEV}}/channels/3",
 							"host": [
 								"{{API_URL_DEV}}"
 							],
 							"path": [
 								"channels",
-								"265"
+								"3"
 							]
 						}
 					},

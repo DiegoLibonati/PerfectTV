@@ -1,6 +1,11 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -19,9 +24,10 @@ model Channel {
   idType      Int
   idCategory  Int
   idSource    Int
-  category    Category @relation(fields: [idCategory], references: [id])
-  type        Type     @relation(fields: [idType], references: [id])
-  source      Source   @relation(fields: [idSource], references: [id])
+
+  category    Category @relation(fields: [idCategory], references: [id], onDelete: Restrict)
+  type        Type     @relation(fields: [idType], references: [id], onDelete: Restrict)
+  source      Source   @relation(fields: [idSource], references: [id], onDelete: Restrict)
 }
 
 model Type {
@@ -50,5 +56,6 @@ model Base {
   id          Int       @id @default(autoincrement())
   baseUrl     String    @unique
   idSource    Int       @unique
-  source      Source    @relation(fields: [idSource], references: [id])
+  
+  source      Source    @relation(fields: [idSource], references: [id], onDelete: Cascade)
 }

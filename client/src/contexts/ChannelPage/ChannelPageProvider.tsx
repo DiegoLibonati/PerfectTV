@@ -29,7 +29,7 @@ export const ChannelPageProvider = ({ children }: ChannelPageProviderProps) => {
   const { set, get } = useLocalStorage();
   const { params, handleNavigateToChannel } = useRouter();
   const { loading, data, error, refetch } = useQuery(getChannelAndNumbersUsed, {
-    variables: { numberChannel: Number(params?.number), reload: null },
+    variables: { number: Number(params?.number), reload: null },
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "no-cache",
   });

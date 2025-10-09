@@ -1,15 +1,15 @@
-import path from "path";
 import { execSync } from "child_process";
 
-module.exports = async () => {
-  console.log("Stopping db container...");
+export default async () => {
+  console.log("Stopping test database container...");
   try {
-    // Especifica el archivo correcto
-    execSync("docker-compose -f dev.docker-compose.yml down", {
-      stdio: "inherit",
-      cwd: path.resolve(__dirname, "../.."),
-    });
-    console.log("db container stopped!");
+    execSync(
+      `docker-compose -f ../dev.docker-compose.yml down -v --remove-orphans`,
+      {
+        stdio: "inherit",
+      }
+    );
+    console.log("DB container stopped!");
   } catch (error) {
     console.error("Error stopping db container:", error);
   }

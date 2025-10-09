@@ -1,13 +1,19 @@
-export default {
+import type { Config } from "jest";
+
+const config: Config = {
   preset: "ts-jest",
   testEnvironment: "node",
-  transform: {
-    "^.+\\.tsx?$": "ts-jest",
-  },
+  roots: ["<rootDir>/src", "<rootDir>/tests"],
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"],
   globalSetup: "<rootDir>/tests/jest.globalSetup.ts",
   globalTeardown: "<rootDir>/tests/jest.globalTeardown.ts",
   moduleNameMapper: {
-    "^@app/(.*)$": "<rootDir>/app/$1",
+    "^@src/(.*)$": "<rootDir>/src/$1",
+    "^@tests/(.*)$": "<rootDir>/tests/$1",
+  },
+  transform: {
+    "^.+\\.ts?$": ["ts-jest", { tsconfig: "tsconfig.test.json" }],
   },
 };
+
+export default config;

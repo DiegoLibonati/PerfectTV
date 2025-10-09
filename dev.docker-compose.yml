@@ -8,8 +8,7 @@ services:
     env_file:
       - ./api/.env
     volumes:
-      - ./api/app:/home/app/app
-      - ./api/swagger.json:/home/app/swagger.json
+      - ./api/src:/home/app/src
     ports:
       - 5000:5000
     depends_on:
@@ -30,7 +29,7 @@ services:
     env_file:
       - ./graphql/.env
     volumes:
-      - ./graphql/app:/home/app/app
+      - ./graphql/src:/home/app/src
     ports:
       - 5001:5001
     depends_on:
@@ -62,6 +61,7 @@ services:
         condition: service_started
     networks:
       - perfect-tv-net
+    tty: true
 
   perfect-tv-db:
     image: postgres:17
@@ -80,8 +80,21 @@ services:
       test: ["CMD", "pg_isready", "-U", "root", "-d", "perfecttvdb"]
       interval: 10s
       retries: 5
-      start_period: 30s
+      start_period: 75s
       timeout: 5s
+
+  perfect-tv-adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: perfect-tv-db
+    networks:
+      - perfect-tv-net
+    depends_on:
+      perfect-tv-db:
+        condition: service_healthy
 
 networks:
   perfect-tv-net:
