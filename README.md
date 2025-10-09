@@ -512,3 +512,5 @@ NOTE: You will find a docs tab to visualize existing queries and mutations.
 ```
 
 ---
+
+## Known Issues
