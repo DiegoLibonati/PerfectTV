@@ -1,5 +1,5 @@
+import { describe, vi, expect, test } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { describe, vi, expect } from "vitest";
 
 import { ReactPlayer } from "@src/components/ReactPlayer/ReactPlayer";
 
@@ -11,7 +11,7 @@ vi.mock("react-player", () => ({
   )),
 }));
 
-describe("ReactPlayer", () => {
+describe("ReactPlayer.tsx", () => {
   describe("General Tests.", () => {
     test("It must render the component correctly.", () => {
       render(

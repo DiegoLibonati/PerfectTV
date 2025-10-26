@@ -9,4 +9,5 @@ afterEach(() => {
 
 beforeAll(() => {
   window.focus = vi.fn();
+  window.scrollTo = vi.fn();
 });

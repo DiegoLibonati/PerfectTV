@@ -11,7 +11,7 @@ vi.mock("react-player", () => ({
   )),
 }));
 
-describe("ChannelViewer", () => {
+describe("ChannelViewer.tsx", () => {
   describe("If source code use iframe component.", () => {
     const props = {
       name: "name",
@@ -34,14 +34,13 @@ describe("ChannelViewer", () => {
         ></ChannelViewer>
       );
 
-      const iframe = container.querySelector("iframe") as HTMLIFrameElement;
+      const iframe = container.querySelector<HTMLIFrameElement>("iframe");
 
       expect(iframe).toBeInTheDocument();
-      expect(iframe.src).toEqual(`http://localhost:3000/${props.url}`);
-      expect(iframe.width).toEqual(String(props.sizes.width));
-      expect(iframe.height).toEqual(String(props.sizes.height));
-      expect(iframe.title).toEqual(`iframe to view: ${props.name}`);
-      //   expect(iframe.allow).toEqual("autoplay; fullscreen; encrypted-media");
+      expect(iframe!.src).toEqual(`http://localhost:3000/${props.url}`);
+      expect(iframe!.width).toEqual(String(props.sizes.width));
+      expect(iframe!.height).toEqual(String(props.sizes.height));
+      expect(iframe!.title).toEqual(`iframe to view: ${props.name}`);
     });
   });
 

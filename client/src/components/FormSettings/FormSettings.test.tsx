@@ -1,20 +1,19 @@
-import { describe, expect, test, vi, Mock } from "vitest";
+import { describe, expect, test, vi, Mock, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
 import { FormSettings } from "@src/components/FormSettings/FormSettings";
 
-import { useClientContext } from "@src/contexts/Client/ClientProvider";
-
+import { useClientContext } from "@src/hooks/useClientContext";
 import { useLocalStorage } from "@src/hooks/useLocalStorage";
 
 import { languageTexts } from "@src/constants/languageTexts";
-import { LS_KEY_NAME_LANG, LS_KEY_NAME_THEME } from "@src/constants/general";
+import { LS_KEY_NAME_LANG, LS_KEY_NAME_THEME } from "@src/constants/vars";
 
 vi.mock("@src/hooks/useLocalStorage");
-vi.mock("@src/contexts/Client/ClientProvider");
+vi.mock("@src/hooks/useClientContext");
 
-describe("FormSettings", () => {
+describe("FormSettings.tsx", () => {
   describe("General Tests.", () => {
     const setLocalStorage = vi.fn();
     const getLocalStorage = vi.fn();
@@ -41,19 +40,17 @@ describe("FormSettings", () => {
     test("It must render the component correctly.", () => {
       const { container } = render(<FormSettings></FormSettings>);
 
-      const form = container.querySelector("form") as HTMLFormElement;
+      const form = container.querySelector<HTMLFormElement>("form");
       const headingLanguage = screen.getByRole("heading", {
         name: languageTexts[language].settings.language.title,
       });
-      const selectLanguage = container.querySelector(
-        ".select-language"
-      ) as HTMLSelectElement;
+      const selectLanguage =
+        container.querySelector<HTMLSelectElement>(".select-language");
       const headingTheme = screen.getByRole("heading", {
         name: languageTexts[language].settings.theme.title,
       });
-      const selectTheme = container.querySelector(
-        ".select-theme"
-      ) as HTMLSelectElement;
+      const selectTheme =
+        container.querySelector<HTMLSelectElement>(".select-theme");
       const btnSubmit = screen.getByRole("button", { name: /Save changes/i });
 
       expect(form).toBeInTheDocument();
@@ -67,12 +64,10 @@ describe("FormSettings", () => {
     test("It must execute the relevant functions if you click submit.", async () => {
       const { container } = render(<FormSettings></FormSettings>);
 
-      const selectLanguage = container.querySelector(
-        ".select-language"
-      ) as HTMLSelectElement;
-      const selectTheme = container.querySelector(
-        ".select-theme"
-      ) as HTMLSelectElement;
+      const selectLanguage =
+        container.querySelector<HTMLSelectElement>(".select-language");
+      const selectTheme =
+        container.querySelector<HTMLSelectElement>(".select-theme");
       const btnSubmit = screen.getByRole("button", { name: /Save changes/i });
 
       await user.click(btnSubmit);
@@ -80,18 +75,18 @@ describe("FormSettings", () => {
       expect(setLocalStorage).toHaveBeenCalledTimes(2);
       expect(setLocalStorage).toHaveBeenCalledWith(
         LS_KEY_NAME_LANG,
-        selectLanguage.value
+        selectLanguage!.value
       );
       expect(setLocalStorage).toHaveBeenCalledWith(
         LS_KEY_NAME_THEME,
-        selectTheme.value
+        selectTheme!.value
       );
 
       expect(handleSetLanguage).toHaveBeenCalledTimes(1);
-      expect(handleSetLanguage).toHaveBeenCalledWith(selectLanguage.value);
+      expect(handleSetLanguage).toHaveBeenCalledWith(selectLanguage!.value);
 
       expect(handleSetTheme).toHaveBeenCalledTimes(1);
-      expect(handleSetTheme).toHaveBeenCalledWith(selectTheme.value);
+      expect(handleSetTheme).toHaveBeenCalledWith(selectTheme!.value);
 
       expect(handleSetSideBar).toHaveBeenCalledTimes(1);
       expect(handleSetSideBar).toHaveBeenCalledWith({ open: false });

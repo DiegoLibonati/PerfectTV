@@ -3,8 +3,7 @@ import { FormSettings } from "@src/components/FormSettings/FormSettings";
 import { ButtonFilled } from "@src/components/ButtonFilled/ButtonFilled";
 
 import { useTheme } from "@src/hooks/useTheme";
-
-import { useClientContext } from "@src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/hooks/useClientContext";
 
 import { languageTexts } from "@src/constants/languageTexts";
 

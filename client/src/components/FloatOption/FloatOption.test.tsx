@@ -4,9 +4,9 @@ import user from "@testing-library/user-event";
 
 import { FloatOption } from "@src/components/FloatOption/FloatOption";
 
-import { ClientProvider } from "@src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/ClientContext/ClientContext";
 
-describe("FloatOption", () => {
+describe("FloatOption.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       ariaLabel: "32",

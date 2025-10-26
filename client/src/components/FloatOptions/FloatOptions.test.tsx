@@ -1,17 +1,16 @@
-import { describe, expect, test, vi, Mock } from "vitest";
+import { describe, expect, test, vi, Mock, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
 import { FloatOptions } from "@src/components/FloatOptions/FloatOptions";
 
-import { useClientContext } from "@src/contexts/Client/ClientProvider";
-
+import { useClientContext } from "@src/hooks/useClientContext";
 import { useWindow } from "@src/hooks/useWindow";
 
 vi.mock("@src/hooks/useWindow");
-vi.mock("@src/contexts/Client/ClientProvider");
+vi.mock("@src/hooks/useClientContext");
 
-describe("FloatOptions", () => {
+describe("FloatOptions.tsx", () => {
   describe("General Tests.", () => {
     const ariaLabelButtonChildren = "1234";
     const btnChildrenFn = vi.fn();
@@ -40,7 +39,7 @@ describe("FloatOptions", () => {
         </FloatOptions>
       );
 
-      const root = container.querySelector(".float-options") as HTMLDivElement;
+      const root = container.querySelector<HTMLDivElement>(".float-options");
       const btnOpenSettings = screen.getByRole("button", {
         name: /open settings/i,
       });

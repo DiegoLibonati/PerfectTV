@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 
 import { Iframe } from "@src/components/Iframe/Iframe";
 
-describe("Iframe", () => {
+describe("Iframe.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       title: `iframe to view: name`,
@@ -27,14 +27,13 @@ describe("Iframe", () => {
         </Iframe>
       );
 
-      const iframe = container.querySelector("iframe") as HTMLIFrameElement;
+      const iframe = container.querySelector<HTMLIFrameElement>("iframe");
 
       expect(iframe).toBeInTheDocument();
-      expect(iframe.src).toEqual(`http://localhost:3000/${props.url}`);
-      expect(iframe.width).toEqual(String(props.sizes.width));
-      expect(iframe.height).toEqual(String(props.sizes.height));
-      expect(iframe.title).toEqual(props.title);
-      //   expect(iframe.allow).toEqual("autoplay; fullscreen; encrypted-media");
+      expect(iframe!.src).toEqual(`http://localhost:3000/${props.url}`);
+      expect(iframe!.width).toEqual(String(props.sizes.width));
+      expect(iframe!.height).toEqual(String(props.sizes.height));
+      expect(iframe!.title).toEqual(props.title);
     });
   });
 });

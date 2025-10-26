@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 import { Heading3 } from "@src/components/Heading3/Heading3";
 
-describe("Heading3", () => {
+describe("Heading3.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       className: "12345",

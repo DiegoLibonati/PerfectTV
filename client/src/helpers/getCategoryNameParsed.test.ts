@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { Language } from "@src/entities/client";
+import { Language } from "@src/entities/app";
 import { CategoryCode } from "@src/entities/constants";
 
 import { getCategoryNameParsed } from "@src/helpers/getCategoryNameParsed";

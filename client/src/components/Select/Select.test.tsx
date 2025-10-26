@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 import { Select } from "@src/components/Select/Select";
 
-describe("Select", () => {
+describe("Select.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       id: "id",

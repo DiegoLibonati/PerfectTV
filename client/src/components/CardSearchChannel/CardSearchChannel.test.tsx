@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 
 import { CardSearchChannel } from "@src/components/CardSearchChannel/CardSearchChannel";
 
-import { ClientProvider } from "@src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/ClientContext/ClientContext";
 
-describe("CardSearchChannel", () => {
+describe("CardSearchChannel.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       search: "1234",
@@ -18,7 +18,7 @@ describe("CardSearchChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-root");
       const search = screen.getByText(props.search);
 
       expect(cardRoot).toBeInTheDocument();
@@ -38,9 +38,9 @@ describe("CardSearchChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-root");
 
-      expect(cardRoot.className.includes("opacity-100")).toBeTruthy();
+      expect(cardRoot?.className.includes("opacity-100")).toBeTruthy();
     });
   });
 
@@ -56,9 +56,9 @@ describe("CardSearchChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-root");
 
-      expect(cardRoot.className.includes("opacity-0")).toBeTruthy();
+      expect(cardRoot?.className.includes("opacity-0")).toBeTruthy();
     });
   });
 });

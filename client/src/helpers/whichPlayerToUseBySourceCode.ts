@@ -1,4 +1,4 @@
-import { envs } from "@src/config/envs";
+import envs from "@src/constants/envs";
 
 export const whichPlayerToUseBySourceCode = (
   sourceCode: string

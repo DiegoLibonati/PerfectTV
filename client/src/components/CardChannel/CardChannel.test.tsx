@@ -1,17 +1,16 @@
-import { describe, expect, test, vi, Mock } from "vitest";
+import { describe, expect, test, vi, Mock, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 
 import { CardChannel } from "@src/components/CardChannel/CardChannel";
 
-import { ClientProvider } from "@src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/ClientContext/ClientContext";
 
 import { useRouter } from "@src/hooks/useRouter";
 
 vi.mock("@src/hooks/useRouter");
-window.scrollTo = vi.fn();
 
-describe("CardChannel", () => {
+describe("CardChannel.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       id: "pepe",
@@ -44,9 +43,7 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(
-        ".card-channel"
-      ) as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-channel");
       const img = screen.getByRole("img");
       const nameAndNumber = screen.getByRole("heading", {
         name: new RegExp(`${props.name} - ${props.number}`),
@@ -54,7 +51,7 @@ describe("CardChannel", () => {
       const description = screen.getByText(props.description);
 
       expect(cardRoot).toBeInTheDocument();
-      expect(cardRoot.id).toEqual(props.id);
+      expect(cardRoot?.id).toEqual(props.id);
       expect(img).toBeInTheDocument();
       expect(img.getAttribute("src")).toEqual(props.thumbUrl);
       expect(img.getAttribute("alt")).toEqual(props.name);
@@ -76,11 +73,9 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(
-        ".card-channel"
-      ) as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-channel");
 
-      await user.click(cardRoot);
+      await user.click(cardRoot!);
 
       expect(handleNavigateToChannel).toHaveBeenCalledTimes(1);
       expect(handleNavigateToChannel).toHaveBeenCalledWith(props.number);
@@ -119,12 +114,10 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(
-        ".card-channel"
-      ) as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-channel");
 
       expect(
-        cardRoot.className.includes("outline outline-primary")
+        cardRoot!.className.includes("outline outline-primary")
       ).toBeTruthy();
     });
   });
@@ -161,12 +154,10 @@ describe("CardChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(
-        ".card-channel"
-      ) as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-channel");
 
       expect(
-        cardRoot.className.includes("outline outline-primary")
+        cardRoot!.className.includes("outline outline-primary")
       ).toBeFalsy();
     });
   });

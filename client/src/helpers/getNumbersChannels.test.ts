@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { Channel } from "@src/entities/api";
+import { Channel } from "@src/entities/app";
 
 import { getNumbersChannels } from "@src/helpers/getNumbersChannels";
 

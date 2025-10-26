@@ -1,6 +1,6 @@
 import { UseTheme } from "@src/entities/hooks";
 
-import { useClientContext } from "@src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/hooks/useClientContext";
 
 export const useTheme = (): UseTheme => {
   const { theme } = useClientContext();

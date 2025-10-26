@@ -19,7 +19,7 @@ export const getChannelIndexByArrows = (
 
   if ((key === "ArrowUp" || key === "ArrowDown") && idClassElements) {
     const elements = Array.from(
-      document.querySelectorAll(`.${idClassElements}`)
+      document.querySelectorAll<HTMLElement>(`.${idClassElements}`)
     );
 
     const currentElement = elements[currentIndex];

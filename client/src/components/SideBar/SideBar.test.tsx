@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 
 import { SideBar } from "@src/components/SideBar/SideBar";
 
-import { ClientProvider } from "@src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/ClientContext/ClientContext";
 
-describe("SideBar", () => {
+describe("SideBar.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       isOpen: false,
@@ -21,7 +21,7 @@ describe("SideBar", () => {
         </ClientProvider>
       );
 
-      const aside = container.querySelector("aside");
+      const aside = container.querySelector<HTMLElement>("aside");
       const title = screen.getByRole("heading", {
         name: new RegExp(props.title),
       });
@@ -48,7 +48,7 @@ describe("SideBar", () => {
         </ClientProvider>
       );
 
-      const aside = container.querySelector("aside");
+      const aside = container.querySelector<HTMLElement>("aside");
 
       expect(aside).toBeInTheDocument();
       expect(aside?.className.includes("w-full p-4 lg:w-[35%]"));
@@ -70,7 +70,7 @@ describe("SideBar", () => {
         </ClientProvider>
       );
 
-      const aside = container.querySelector("aside");
+      const aside = container.querySelector<HTMLElement>("aside");
 
       expect(aside).toBeInTheDocument();
       expect(aside?.className.includes("w-0 p-0 lg:w-0"));

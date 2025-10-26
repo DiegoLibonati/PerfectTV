@@ -1,4 +1,4 @@
-import { Language } from "@src/entities/client";
+import { Language } from "@src/entities/app";
 import { TranslationKeys } from "@src/entities/constants";
 
 export const languageTexts: Record<Language, TranslationKeys> = {

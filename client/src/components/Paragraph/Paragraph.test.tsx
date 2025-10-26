@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 import { Paragraph } from "@src/components/Paragraph/Paragraph";
 
-describe("Paragraph", () => {
+describe("Paragraph.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       className: "12345",

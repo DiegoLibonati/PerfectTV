@@ -4,7 +4,7 @@ import user from "@testing-library/user-event";
 
 import { ButtonFilled } from "@src/components/ButtonFilled/ButtonFilled";
 
-describe("ButtonFillied", () => {
+describe("ButtonFillied.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       ariaLabel: "32",

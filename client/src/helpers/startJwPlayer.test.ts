@@ -1,4 +1,4 @@
-import { describe, vi, beforeEach, expect } from "vitest";
+import { describe, vi, beforeEach, expect, test } from "vitest";
 
 import { startJwPlayer } from "@src/helpers/startJwPlayer";
 

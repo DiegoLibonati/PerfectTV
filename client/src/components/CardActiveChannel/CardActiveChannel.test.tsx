@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 
 import { CardActiveChannel } from "@src/components/CardActiveChannel/CardActiveChannel";
 
-import { ClientProvider } from "@src/contexts/Client/ClientProvider";
+import { ClientProvider } from "@src/contexts/ClientContext/ClientContext";
 
-describe("CardActiveChannel", () => {
+describe("CardActiveChannel.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       active: false,
@@ -28,7 +28,7 @@ describe("CardActiveChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-root");
       const img = screen.getByRole("img");
       const nameAndNumber = screen.getByRole("heading", {
         name: new RegExp(`${props.name} - ${props.number}`),
@@ -66,9 +66,9 @@ describe("CardActiveChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-root");
 
-      expect(cardRoot.className.includes("opacity-100")).toBeTruthy();
+      expect(cardRoot?.className.includes("opacity-100")).toBeTruthy();
     });
   });
 
@@ -94,9 +94,9 @@ describe("CardActiveChannel", () => {
         </ClientProvider>
       );
 
-      const cardRoot = container.querySelector(".card-root") as HTMLDivElement;
+      const cardRoot = container.querySelector<HTMLDivElement>(".card-root");
 
-      expect(cardRoot.className.includes("opacity-0")).toBeTruthy();
+      expect(cardRoot?.className.includes("opacity-0")).toBeTruthy();
     });
   });
 });

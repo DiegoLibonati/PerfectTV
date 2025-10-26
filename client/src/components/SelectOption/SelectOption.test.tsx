@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 
 import { SelectOption } from "@src/components/SelectOption/SelectOption";
 
-describe("SelectOption", () => {
+describe("SelectOption.tsx", () => {
   describe("General Tests.", () => {
     const props = {
       value: "123",
@@ -15,11 +15,11 @@ describe("SelectOption", () => {
         <SelectOption value={props.value}>{props.text}</SelectOption>
       );
 
-      const option = container.querySelector("option") as HTMLOptionElement;
+      const option = container.querySelector<HTMLOptionElement>("option");
 
       expect(option).toBeInTheDocument();
-      expect(option.value).toEqual(props.value);
-      expect(option.textContent).toEqual(props.text);
+      expect(option!.value).toEqual(props.value);
+      expect(option!.textContent).toEqual(props.text);
     });
   });
 });

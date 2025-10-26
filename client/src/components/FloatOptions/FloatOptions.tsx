@@ -5,7 +5,7 @@ import { FloatOptionsProps } from "@src/entities/props";
 
 import { FloatOption } from "@src/components/FloatOption/FloatOption";
 
-import { useClientContext } from "@src/contexts/Client/ClientProvider";
+import { useClientContext } from "@src/hooks/useClientContext";
 
 import { useTheme } from "@src/hooks/useTheme";
 import { useWindow } from "@src/hooks/useWindow";
