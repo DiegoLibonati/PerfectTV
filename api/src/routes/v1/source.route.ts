@@ -1,11 +1,11 @@
-import { RequestHandler, Router } from "express";
+import { Router } from "express";
 
 import { SourceController } from "@src/controllers/source.controller";
 
 const router = Router();
 
-router.get("/", SourceController.getSources as RequestHandler);
-router.post("/", SourceController.addSource as RequestHandler);
-router.delete("/:id", SourceController.deleteSource as RequestHandler);
+router.get("/", SourceController.getSources);
+router.post("/", SourceController.addSource);
+router.delete("/:id", SourceController.deleteSource);
 
 export default router;

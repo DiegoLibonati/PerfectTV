@@ -1,14 +1,14 @@
-import { RequestHandler, Router } from "express";
+import { Router } from "express";
 
 import { ChannelController } from "@src/controllers/channel.controller";
 
 const router = Router();
 
-router.get("/", ChannelController.getChannels as RequestHandler);
-router.get("/numbers", ChannelController.getChannelsNumber as RequestHandler);
-router.get("/:number", ChannelController.getChannelByNumber as RequestHandler);
-router.post("/", ChannelController.addChannel as RequestHandler);
-router.patch("/:id", ChannelController.updateChannel as RequestHandler);
-router.delete("/:id", ChannelController.deleteChannel as RequestHandler);
+router.get("/", ChannelController.getChannels);
+router.get("/numbers", ChannelController.getChannelsNumber);
+router.get("/:number", ChannelController.getChannelByNumber);
+router.post("/", ChannelController.addChannel);
+router.patch("/:id", ChannelController.updateChannel);
+router.delete("/:id", ChannelController.deleteChannel);
 
 export default router;

@@ -39,11 +39,12 @@ export const ChannelController = {
 
       if (!reload) {
         console.log("Endpoint getChannels executed without reload.");
-        return res.status(200).json({
+        res.status(200).json({
           code: CODES_SUCCESS.getChannels,
           message: MESSAGES_SUCCESS.getChannels,
           data: channels,
         });
+        return;
       }
 
       const sources: Source[] = await SourceService.getAllSources();
@@ -82,14 +83,14 @@ export const ChannelController = {
 
       console.log("Endpoint getChannels executed.");
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.getChannels,
         message: MESSAGES_SUCCESS.getChannels,
         data: channels,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 
@@ -101,19 +102,21 @@ export const ChannelController = {
       const numberChannel = req.params.number;
 
       if (!numberChannel) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validParams,
           message: MESSAGES_NOT.validParams,
         });
+        return;
       }
 
       channel = await ChannelService.getChannelByNumber(Number(numberChannel));
 
       if (!channel) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundChannel,
           message: MESSAGES_NOT.foundChannel,
         });
+        return;
       }
 
       const baseChannel = await BaseService.getBaseByIdSource(
@@ -126,22 +129,24 @@ export const ChannelController = {
         console.log(
           "Endpoint getChannelByNumber executed without reload and not validUrlChannel with pre-baseUrl"
         );
-        return res.status(200).json({
+        res.status(200).json({
           code: CODES_SUCCESS.getChannelByNumber,
           message: MESSAGES_SUCCESS.getChannelByNumber,
           data: channel,
         });
+        return;
       }
 
       if (!reload && validUrlChannel) {
         console.log(
           "Endpoint getChannelByNumber executed without reload and validUrlChannel."
         );
-        return res.status(200).json({
+        res.status(200).json({
           code: CODES_SUCCESS.getChannelByNumber,
           message: MESSAGES_SUCCESS.getChannelByNumber,
           data: channel,
         });
+        return;
       }
 
       const sourceIdChannel = channel.source?.id;
@@ -156,14 +161,14 @@ export const ChannelController = {
 
       console.log("Endpoint getChannelByNumber executed.");
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.getChannelByNumber,
         message: MESSAGES_SUCCESS.getChannelByNumber,
         data: channel,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 
@@ -191,10 +196,11 @@ export const ChannelController = {
         !idCategory ||
         !idSource
       ) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validFields,
           message: MESSAGES_NOT.validFields,
         });
+        return;
       }
 
       const channelExists = await ChannelService.getChannelByNameAndNumber(
@@ -203,19 +209,21 @@ export const ChannelController = {
       );
 
       if (channelExists) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_ERROR.channelAlreadyExists,
           message: MESSAGES_ERROR.channelAlreadyExists,
         });
+        return;
       }
 
       const typeExists = await TypeService.getTypeById(Number(idType));
 
       if (!typeExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundType,
           message: MESSAGES_NOT.foundType,
         });
+        return;
       }
 
       const categoryExists = await CategoryService.getCategoryById(
@@ -223,19 +231,21 @@ export const ChannelController = {
       );
 
       if (!categoryExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundCategory,
           message: MESSAGES_NOT.foundCategory,
         });
+        return;
       }
 
       const sourceExists = await SourceService.getSourceById(Number(idSource));
 
       if (!sourceExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundSource,
           message: MESSAGES_NOT.foundCategory,
         });
+        return;
       }
 
       const channel = await ChannelService.createChannel({
@@ -250,14 +260,14 @@ export const ChannelController = {
         idSource: idSource,
       });
 
-      return res.status(201).json({
+      res.status(201).json({
         code: CODES_SUCCESS.addChannel,
         message: MESSAGES_SUCCESS.addChannel,
         data: channel,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 
@@ -267,10 +277,11 @@ export const ChannelController = {
       const body = req.body;
 
       if (!idChannel) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validFields,
           message: MESSAGES_NOT.validFields,
         });
+        return;
       }
 
       const channelExists = await ChannelService.getChannelById(
@@ -278,10 +289,11 @@ export const ChannelController = {
       );
 
       if (!channelExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundChannel,
           message: MESSAGES_NOT.foundChannel,
         });
+        return;
       }
 
       const name = body.name ? body.name.trim() : null;
@@ -311,14 +323,14 @@ export const ChannelController = {
         data
       );
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.updateChannel,
         message: MESSAGES_SUCCESS.updateChannel,
         data: channelUpdated,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 
@@ -327,10 +339,11 @@ export const ChannelController = {
       const idChannel = req.params.id;
 
       if (!idChannel) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validFields,
           message: MESSAGES_NOT.validFields,
         });
+        return;
       }
 
       const channelExists = await ChannelService.getChannelById(
@@ -338,24 +351,25 @@ export const ChannelController = {
       );
 
       if (!channelExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundChannel,
           message: MESSAGES_NOT.foundChannel,
         });
+        return;
       }
 
       const channelDeleted = await ChannelService.deleteChannel(
         Number(idChannel)
       );
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.deleteChannel,
         message: MESSAGES_SUCCESS.deleteChannel,
         data: channelDeleted,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 
@@ -368,14 +382,14 @@ export const ChannelController = {
       });
       const numbersSorted = numbers.sort((a, b) => a - b);
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.getChannelNumbers,
         message: MESSAGES_SUCCESS.getChannelNumbers,
         data: numbersSorted,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 };

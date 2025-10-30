@@ -19,14 +19,14 @@ export const BaseController = {
     try {
       const bases = await BaseService.getAllBases();
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.getBases,
         message: MESSAGES_SUCCESS.getBases,
         data: bases,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
   async addBase(req: Request, res: Response) {
@@ -37,21 +37,23 @@ export const BaseController = {
       const idSource = body.idSource;
 
       if (!baseUrl || !idSource) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validFields,
           message: MESSAGES_NOT.validFields,
         });
+        return;
       }
 
-      console.log(idSource)
+      console.log(idSource);
       const baseExists = await BaseService.getBaseByIdSource(idSource);
-      console.log(baseExists)
+      console.log(baseExists);
 
       if (baseExists) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_ERROR.baseAlreadyExists,
           message: MESSAGES_ERROR.baseAlreadyExists,
         });
+        return;
       }
 
       const base = await BaseService.createBase({
@@ -59,14 +61,14 @@ export const BaseController = {
         idSource: idSource,
       });
 
-      return res.status(201).json({
+      res.status(201).json({
         code: CODES_SUCCESS.addBase,
         message: MESSAGES_SUCCESS.addBase,
         data: base,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
   async updateBase(req: Request, res: Response) {
@@ -75,19 +77,21 @@ export const BaseController = {
       const body = req.body;
 
       if (!idBase) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validParams,
           message: MESSAGES_NOT.validParams,
         });
+        return;
       }
 
       const baseExists = await BaseService.getBaseById(Number(idBase));
 
       if (!baseExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundBase,
           message: MESSAGES_NOT.foundBase,
         });
+        return;
       }
 
       const baseUrl = body.baseUrl ? body.baseUrl.trim() : null;
@@ -100,14 +104,14 @@ export const BaseController = {
 
       const baseUpdated = await BaseService.updateBase(Number(idBase), data);
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.updateBase,
         message: MESSAGES_SUCCESS.updateBase,
         data: baseUpdated,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
   async deleteBase(req: Request, res: Response) {
@@ -115,31 +119,35 @@ export const BaseController = {
       const idBase = req.params.id;
 
       if (!idBase) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validParams,
           message: MESSAGES_NOT.validParams,
         });
+
+        return;
       }
 
       const baseExists = await BaseService.getBaseById(Number(idBase));
 
       if (!baseExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundBase,
           message: MESSAGES_NOT.foundBase,
         });
+
+        return;
       }
 
       const baseDeleted = await BaseService.deleteBase(Number(idBase));
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.deleteBase,
         message: MESSAGES_SUCCESS.deleteBase,
         data: baseDeleted,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 };

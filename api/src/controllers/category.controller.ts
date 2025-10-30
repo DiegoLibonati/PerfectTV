@@ -19,14 +19,14 @@ export const CategoryController = {
     try {
       const categories = await CategoryService.getAllCategories();
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.getCategories,
         message: MESSAGES_SUCCESS.getCategories,
         data: categories,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
   async addCategory(req: Request, res: Response) {
@@ -37,19 +37,21 @@ export const CategoryController = {
       const description = body.description ? body.description.trim() : null;
 
       if (!code || !description) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validFields,
           message: MESSAGES_NOT.validFields,
         });
+        return;
       }
 
       const categoryExists = await CategoryService.getCategoryByCode(code);
 
       if (categoryExists) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_ERROR.categoryAlreadyExists,
           message: MESSAGES_ERROR.categoryAlreadyExists,
         });
+        return;
       }
 
       const category = await CategoryService.createCategory({
@@ -57,14 +59,14 @@ export const CategoryController = {
         description: description,
       });
 
-      return res.status(201).json({
+      res.status(201).json({
         code: CODES_SUCCESS.addCategory,
         message: MESSAGES_SUCCESS.addCategory,
         data: category,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
   async deleteCategory(req: Request, res: Response) {
@@ -72,31 +74,37 @@ export const CategoryController = {
       const idCategory = req.params.id;
 
       if (!idCategory) {
-        return res.status(400).json({
+        res.status(400).json({
           code: CODES_NOT.validParams,
           message: MESSAGES_NOT.validParams,
         });
+        return;
       }
 
-      const categoryExists = await CategoryService.getCategoryById(Number(idCategory));
+      const categoryExists = await CategoryService.getCategoryById(
+        Number(idCategory)
+      );
 
       if (!categoryExists) {
-        return res.status(404).json({
+        res.status(404).json({
           code: CODES_NOT.foundBase,
           message: MESSAGES_NOT.foundBase,
         });
+        return;
       }
 
-      const categoryDeleted = await CategoryService.deleteCategory(Number(idCategory));
+      const categoryDeleted = await CategoryService.deleteCategory(
+        Number(idCategory)
+      );
 
-      return res.status(200).json({
+      res.status(200).json({
         code: CODES_SUCCESS.deleteCategory,
         message: MESSAGES_SUCCESS.deleteCategory,
         data: categoryDeleted,
       });
     } catch (e) {
       const response = getExceptionMessage(e);
-      return res.status(500).json(response);
+      res.status(500).json(response);
     }
   },
 };
