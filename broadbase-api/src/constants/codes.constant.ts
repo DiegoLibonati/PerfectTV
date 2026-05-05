@@ -1,4 +1,4 @@
-import { CodesError, CodesNot, CodesSuccess } from "@/types/constants";
+import type { CodesError, CodesNot, CodesSuccess } from "@/types/constants";
 
 export const CODES_SUCCESS: CodesSuccess = {
   getTypes: "SUCCESS_GET_TYPES",

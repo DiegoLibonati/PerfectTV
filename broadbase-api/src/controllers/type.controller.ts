@@ -1,22 +1,15 @@
-import { Request, Response } from "express";
-
-import { getExceptionMessage } from "@/helpers/get_exception_message.helper";
-
-import {
-  MESSAGES_ERROR,
-  MESSAGES_NOT,
-  MESSAGES_SUCCESS,
-} from "@/constants/messages.constant";
-import {
-  CODES_ERROR,
-  CODES_NOT,
-  CODES_SUCCESS,
-} from "@/constants/codes.constant";
+import type { Request, Response } from "express";
+import type { TypeCreatePayload } from "@/types/payloads";
 
 import { TypeService } from "@/services/type.service";
 
+import { getExceptionMessage } from "@/helpers/get_exception_message.helper";
+
+import { MESSAGES_ERROR, MESSAGES_NOT, MESSAGES_SUCCESS } from "@/constants/messages.constant";
+import { CODES_ERROR, CODES_NOT, CODES_SUCCESS } from "@/constants/codes.constant";
+
 export const TypeController = {
-  async getTypes(_: Request, res: Response) {
+  getTypes: async (_: Request, res: Response): Promise<void> => {
     try {
       const types = await TypeService.getAllTypes();
 
@@ -26,16 +19,20 @@ export const TypeController = {
         data: types,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
 
-  async addType(req: Request, res: Response) {
+  addType: async (
+    req: Request<object, object, Partial<TypeCreatePayload>>,
+    res: Response
+  ): Promise<void> => {
     try {
-      const body = req.body;
-      const code = body.code ? body.code.trim() : null;
-      const description = body.description ? body.description.trim() : null;
+      const { code: rawCode, description: rawDescription } = req.body;
+
+      const code = rawCode ? rawCode.trim() : null;
+      const description = rawDescription ? rawDescription.trim() : null;
 
       if (!code || !description) {
         res.status(400).json({
@@ -55,10 +52,7 @@ export const TypeController = {
         return;
       }
 
-      const type = await TypeService.createType({
-        code: code,
-        description: description,
-      });
+      const type = await TypeService.createType({ code, description });
 
       res.status(201).json({
         code: CODES_SUCCESS.addType,
@@ -66,12 +60,12 @@ export const TypeController = {
         data: type,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
 
-  async deleteType(req: Request, res: Response) {
+  deleteType: async (req: Request<{ id: string }>, res: Response): Promise<void> => {
     try {
       const idType = req.params.id;
 
@@ -86,7 +80,7 @@ export const TypeController = {
       const typeExists = await TypeService.getTypeById(Number(idType));
 
       if (!typeExists) {
-        res.status(400).json({
+        res.status(404).json({
           code: CODES_NOT.foundType,
           message: MESSAGES_NOT.foundType,
         });
@@ -101,8 +95,8 @@ export const TypeController = {
         data: typeDeleted,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
 };

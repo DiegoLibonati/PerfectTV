@@ -1,27 +1,25 @@
-import type { Category } from "@prisma/client";
 import type { CategoryCreatePayload } from "@/types/payloads";
+import type { CategoryWithRelations } from "@/types/app";
 
 import { CategoryDAO } from "@/daos/category.dao";
 
 export const CategoryService = {
-  getAllCategories: async (): Promise<Category[]> => {
+  getAllCategories: async (): Promise<CategoryWithRelations[]> => {
     return await CategoryDAO.findMany();
   },
-  getCategoryById: async (id: number): Promise<Category | null> => {
+  getCategoryById: async (id: number): Promise<CategoryWithRelations | null> => {
     return await CategoryDAO.findById(id);
   },
-  getCategoryByCode: async (code: string): Promise<Category | null> => {
+  getCategoryByCode: async (code: string): Promise<CategoryWithRelations | null> => {
     return await CategoryDAO.findByCode(code);
   },
-  createCategory: async (data: CategoryCreatePayload): Promise<Category> => {
+  createCategory: async (data: CategoryCreatePayload): Promise<CategoryWithRelations> => {
     return await CategoryDAO.create(data);
   },
-  createManyCategories: async (
-    data: CategoryCreatePayload[]
-  ): Promise<{ count: number }> => {
+  createManyCategories: async (data: CategoryCreatePayload[]): Promise<{ count: number }> => {
     return await CategoryDAO.createMany(data);
   },
-  deleteCategory: async (id: number): Promise<Category> => {
+  deleteCategory: async (id: number): Promise<CategoryWithRelations> => {
     return await CategoryDAO.delete(id);
   },
 };

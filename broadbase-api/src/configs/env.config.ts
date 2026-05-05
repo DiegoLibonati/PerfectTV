@@ -15,7 +15,6 @@ export const envs: Envs = {
   ENV: (process.env.NODE_ENV ?? "development") as Env,
   BASE_URL: process.env.BASE_URL ?? "",
   DATABASE_URL: `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=${DB_SCHEMA}`,
-  PUPPETEER_EXECUTABLE_PATH: process.env.PUPPETEER_EXECUTABLE_PATH as string,
-  FTV_URL: process.env.FTV_URL as string,
+  PUPPETEER_EXECUTABLE_PATH: process.env.PUPPETEER_EXECUTABLE_PATH!,
+  FTV_URL: process.env.FTV_URL!,
 };
-

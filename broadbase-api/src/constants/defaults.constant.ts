@@ -1,5 +1,9 @@
-import { CategoryCreatePayload, SourceCreatePayload, TypeCreatePayload } from "@/types/payloads";
-import { DefaultBase } from "@/types/defaults";
+import type {
+  CategoryCreatePayload,
+  SourceCreatePayload,
+  TypeCreatePayload,
+} from "@/types/payloads";
+import type { DefaultBase } from "@/types/defaults";
 
 import {
   CODE_CATEGORY_NEWS,

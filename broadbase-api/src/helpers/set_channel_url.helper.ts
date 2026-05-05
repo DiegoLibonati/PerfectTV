@@ -1,14 +1,12 @@
-import type { Channel } from "@prisma/client";
+import type { ChannelWithRelations } from "@/types/app";
 
 import { ChannelService } from "@/services/channel.service";
 
 export const setChannelUrl = async (
-  channel: Channel,
+  channel: ChannelWithRelations,
   baseUrl: string
-): Promise<Channel> => {
-  const channelUpdated = await ChannelService.updateChannel(channel.id, {
+): Promise<ChannelWithRelations> => {
+  return await ChannelService.updateChannel(channel.id, {
     url: `${baseUrl}${channel.urlRest}`,
   });
-
-  return channelUpdated!;
 };

@@ -1,4 +1,4 @@
-export type DefaultBase = {
+export interface DefaultBase {
   baseUrl: string;
   codeSource: string;
-};
+}

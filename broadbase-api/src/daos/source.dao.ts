@@ -1,38 +1,22 @@
-import type { Source } from "@prisma/client";
 import type { SourceCreatePayload } from "@/types/payloads";
+import type { SourceWithRelations } from "@/types/app";
 
 import { prisma } from "@/configs/prisma.config";
 
+const include = { base: { include: { source: true } } } as const;
+
 export const SourceDAO = {
-  findMany: async (): Promise<Source[]> =>
-    await prisma.source.findMany({
-      include: { base: { include: { source: true } } },
-    }),
-  findById: async (id: number): Promise<Source | null> =>
-    await prisma.source.findUnique({
-      where: { id: id },
-      include: { base: { include: { source: true } } },
-    }),
-  findByCode: async (code: string): Promise<Source | null> =>
-    await prisma.source.findUnique({
-      where: { code: code },
-      include: { base: { include: { source: true } } },
-    }),
-  findByCodes: async (codes: string[]): Promise<Source[]> =>
-    await prisma.source.findMany({
-      where: { code: { in: codes } },
-      include: { base: { include: { source: true } } },
-    }),
-  create: async (data: SourceCreatePayload): Promise<Source> =>
-    await prisma.source.create({
-      data: data,
-      include: { base: { include: { source: true } } },
-    }),
+  findMany: async (): Promise<SourceWithRelations[]> => await prisma.source.findMany({ include }),
+  findById: async (id: number): Promise<SourceWithRelations | null> =>
+    await prisma.source.findUnique({ where: { id }, include }),
+  findByCode: async (code: string): Promise<SourceWithRelations | null> =>
+    await prisma.source.findUnique({ where: { code }, include }),
+  findByCodes: async (codes: string[]): Promise<SourceWithRelations[]> =>
+    await prisma.source.findMany({ where: { code: { in: codes } }, include }),
+  create: async (data: SourceCreatePayload): Promise<SourceWithRelations> =>
+    await prisma.source.create({ data, include }),
   createMany: async (data: SourceCreatePayload[]): Promise<{ count: number }> =>
-    await prisma.source.createMany({ data: data }),
-  delete: async (id: number): Promise<Source> =>
-    await prisma.source.delete({
-      where: { id: id },
-      include: { base: { include: { source: true } } },
-    }),
+    await prisma.source.createMany({ data }),
+  delete: async (id: number): Promise<SourceWithRelations> =>
+    await prisma.source.delete({ where: { id }, include }),
 };

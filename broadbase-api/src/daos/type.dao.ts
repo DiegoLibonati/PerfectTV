@@ -19,6 +19,5 @@ export const TypeDAO = {
     }),
   createMany: async (data: TypeCreatePayload[]): Promise<{ count: number }> =>
     await prisma.type.createMany({ data: data }),
-  delete: async (id: number): Promise<Type> =>
-    await prisma.type.delete({ where: { id: id } }),
+  delete: async (id: number): Promise<Type> => await prisma.type.delete({ where: { id: id } }),
 };

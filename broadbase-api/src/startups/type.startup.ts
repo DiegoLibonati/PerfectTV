@@ -1,4 +1,4 @@
-import { TypeCreatePayload } from "@/types/payloads";
+import type { TypeCreatePayload } from "@/types/payloads";
 
 import { TypeService } from "@/services/type.service";
 

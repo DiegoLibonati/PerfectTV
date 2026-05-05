@@ -1,4 +1,3 @@
-import type { Source } from "@prisma/client";
 import type { BaseCreatePayload } from "@/types/payloads";
 import type { DefaultBase } from "@/types/defaults";
 
@@ -8,7 +7,7 @@ export const getBasesConstantsParsed = async (
   defaultBases: DefaultBase[]
 ): Promise<BaseCreatePayload[]> => {
   const codes = [...new Set(defaultBases.map((b) => b.codeSource))];
-  const sources = (await SourceService.getSourcesByCodes(codes)) as Source[];
+  const sources = await SourceService.getSourcesByCodes(codes);
   const sourceMap = new Map(sources.map((s) => [s.code, s]));
 
   return defaultBases.map((defaultBase) => ({

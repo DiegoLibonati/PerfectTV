@@ -1,10 +1,10 @@
 import { Router } from "express";
 
-import typeRoutes from "@/routes/v1/type.route"
-import categoryRoutes from "@/routes/v1/category.route"
-import channelRoutes from "@/routes/v1/channel.route"
-import sourceRoutes from "@/routes/v1/source.route"
-import baseRoutes from "@/routes/v1/base.route"
+import typeRoutes from "@/routes/v1/type.route";
+import categoryRoutes from "@/routes/v1/category.route";
+import channelRoutes from "@/routes/v1/channel.route";
+import sourceRoutes from "@/routes/v1/source.route";
+import baseRoutes from "@/routes/v1/base.route";
 
 const router = Router();
 

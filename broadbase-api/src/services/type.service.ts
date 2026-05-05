@@ -16,9 +16,7 @@ export const TypeService = {
   createType: async (data: TypeCreatePayload): Promise<Type> => {
     return await TypeDAO.create(data);
   },
-  createManyTypes: async (
-    data: TypeCreatePayload[]
-  ): Promise<{ count: number }> => {
+  createManyTypes: async (data: TypeCreatePayload[]): Promise<{ count: number }> => {
     return await TypeDAO.createMany(data);
   },
   deleteType: async (id: number): Promise<Type> => {

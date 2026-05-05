@@ -31,8 +31,7 @@ const handleSeedDatabase = async (): Promise<void> => {
 const onInit = (): void => {
   handleSeedDatabase()
     .then(() => {
-      const baseUrl =
-        ENV === "development" ? `http://localhost:${PORT}` : BASE_URL;
+      const baseUrl = ENV === "development" ? `http://localhost:${PORT}` : BASE_URL;
       console.log(`Server running in ${ENV} mode on ${baseUrl}`);
     })
     .catch((err: unknown) => {

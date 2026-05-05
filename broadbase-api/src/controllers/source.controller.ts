@@ -1,22 +1,15 @@
-import { Request, Response } from "express";
-
-import { getExceptionMessage } from "@/helpers/get_exception_message.helper";
-
-import {
-  MESSAGES_ERROR,
-  MESSAGES_NOT,
-  MESSAGES_SUCCESS,
-} from "@/constants/messages.constant";
-import {
-  CODES_ERROR,
-  CODES_NOT,
-  CODES_SUCCESS,
-} from "@/constants/codes.constant";
+import type { Request, Response } from "express";
+import type { SourceCreatePayload } from "@/types/payloads";
 
 import { SourceService } from "@/services/source.service";
 
+import { getExceptionMessage } from "@/helpers/get_exception_message.helper";
+
+import { MESSAGES_ERROR, MESSAGES_NOT, MESSAGES_SUCCESS } from "@/constants/messages.constant";
+import { CODES_ERROR, CODES_NOT, CODES_SUCCESS } from "@/constants/codes.constant";
+
 export const SourceController = {
-  async getSources(_: Request, res: Response) {
+  getSources: async (_: Request, res: Response): Promise<void> => {
     try {
       const sources = await SourceService.getAllSources();
 
@@ -26,16 +19,20 @@ export const SourceController = {
         data: sources,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
-  async addSource(req: Request, res: Response) {
-    try {
-      const body = req.body;
 
-      const code = body.code ? body.code.trim() : null;
-      const description = body.description ? body.description.trim() : null;
+  addSource: async (
+    req: Request<object, object, Partial<SourceCreatePayload>>,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const { code: rawCode, description: rawDescription } = req.body;
+
+      const code = rawCode ? rawCode.trim() : null;
+      const description = rawDescription ? rawDescription.trim() : null;
 
       if (!code || !description) {
         res.status(400).json({
@@ -55,10 +52,7 @@ export const SourceController = {
         return;
       }
 
-      const source = await SourceService.createSource({
-        code: code,
-        description: description,
-      });
+      const source = await SourceService.createSource({ code, description });
 
       res.status(201).json({
         code: CODES_SUCCESS.addSource,
@@ -66,11 +60,12 @@ export const SourceController = {
         data: source,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
-  async deleteSource(req: Request, res: Response) {
+
+  deleteSource: async (req: Request<{ id: string }>, res: Response): Promise<void> => {
     try {
       const idSource = req.params.id;
 
@@ -100,8 +95,8 @@ export const SourceController = {
         data: sourceDeleted,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
 };

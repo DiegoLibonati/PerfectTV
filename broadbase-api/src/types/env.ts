@@ -8,4 +8,3 @@ export interface Envs {
   PUPPETEER_EXECUTABLE_PATH: string;
   FTV_URL: string;
 }
-

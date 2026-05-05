@@ -1,21 +1,15 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
+import type { CategoryCreatePayload } from "@/types/payloads";
+
+import { CategoryService } from "@/services/category.service";
 
 import { getExceptionMessage } from "@/helpers/get_exception_message.helper";
 
-import {
-  MESSAGES_ERROR,
-  MESSAGES_NOT,
-  MESSAGES_SUCCESS,
-} from "@/constants/messages.constant";
-import {
-  CODES_ERROR,
-  CODES_NOT,
-  CODES_SUCCESS,
-} from "@/constants/codes.constant";
-import { CategoryService } from "@/services/category.service";
+import { MESSAGES_ERROR, MESSAGES_NOT, MESSAGES_SUCCESS } from "@/constants/messages.constant";
+import { CODES_ERROR, CODES_NOT, CODES_SUCCESS } from "@/constants/codes.constant";
 
 export const CategoryController = {
-  async getCategories(_: Request, res: Response) {
+  getCategories: async (_: Request, res: Response): Promise<void> => {
     try {
       const categories = await CategoryService.getAllCategories();
 
@@ -25,16 +19,20 @@ export const CategoryController = {
         data: categories,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
-  async addCategory(req: Request, res: Response) {
-    try {
-      const body = req.body;
 
-      const code = body.code ? body.code.trim() : null;
-      const description = body.description ? body.description.trim() : null;
+  addCategory: async (
+    req: Request<object, object, Partial<CategoryCreatePayload>>,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const { code: rawCode, description: rawDescription } = req.body;
+
+      const code = rawCode ? rawCode.trim() : null;
+      const description = rawDescription ? rawDescription.trim() : null;
 
       if (!code || !description) {
         res.status(400).json({
@@ -54,10 +52,7 @@ export const CategoryController = {
         return;
       }
 
-      const category = await CategoryService.createCategory({
-        code: code,
-        description: description,
-      });
+      const category = await CategoryService.createCategory({ code, description });
 
       res.status(201).json({
         code: CODES_SUCCESS.addCategory,
@@ -65,11 +60,12 @@ export const CategoryController = {
         data: category,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
-  async deleteCategory(req: Request, res: Response) {
+
+  deleteCategory: async (req: Request<{ id: string }>, res: Response): Promise<void> => {
     try {
       const idCategory = req.params.id;
 
@@ -81,21 +77,17 @@ export const CategoryController = {
         return;
       }
 
-      const categoryExists = await CategoryService.getCategoryById(
-        Number(idCategory)
-      );
+      const categoryExists = await CategoryService.getCategoryById(Number(idCategory));
 
       if (!categoryExists) {
         res.status(404).json({
-          code: CODES_NOT.foundBase,
-          message: MESSAGES_NOT.foundBase,
+          code: CODES_NOT.foundCategory,
+          message: MESSAGES_NOT.foundCategory,
         });
         return;
       }
 
-      const categoryDeleted = await CategoryService.deleteCategory(
-        Number(idCategory)
-      );
+      const categoryDeleted = await CategoryService.deleteCategory(Number(idCategory));
 
       res.status(200).json({
         code: CODES_SUCCESS.deleteCategory,
@@ -103,8 +95,8 @@ export const CategoryController = {
         data: categoryDeleted,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
 };

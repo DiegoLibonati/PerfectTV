@@ -1,21 +1,15 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
+import type { BaseCreatePayload, BaseUpdatePayload } from "@/types/payloads";
+
+import { BaseService } from "@/services/base.service";
 
 import { getExceptionMessage } from "@/helpers/get_exception_message.helper";
 
-import {
-  MESSAGES_ERROR,
-  MESSAGES_NOT,
-  MESSAGES_SUCCESS,
-} from "@/constants/messages.constant";
-import {
-  CODES_ERROR,
-  CODES_NOT,
-  CODES_SUCCESS,
-} from "@/constants/codes.constant";
-import { BaseService } from "@/services/base.service";
+import { MESSAGES_ERROR, MESSAGES_NOT, MESSAGES_SUCCESS } from "@/constants/messages.constant";
+import { CODES_ERROR, CODES_NOT, CODES_SUCCESS } from "@/constants/codes.constant";
 
 export const BaseController = {
-  async getBases(_: Request, res: Response) {
+  getBases: async (_: Request, res: Response): Promise<void> => {
     try {
       const bases = await BaseService.getAllBases();
 
@@ -25,16 +19,19 @@ export const BaseController = {
         data: bases,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
-  async addBase(req: Request, res: Response) {
-    try {
-      const body = req.body;
 
-      const baseUrl = body.baseUrl ? body.baseUrl.trim() : null;
-      const idSource = body.idSource;
+  addBase: async (
+    req: Request<object, object, Partial<BaseCreatePayload>>,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const { baseUrl: rawBaseUrl, idSource } = req.body;
+
+      const baseUrl = rawBaseUrl ? rawBaseUrl.trim() : null;
 
       if (!baseUrl || !idSource) {
         res.status(400).json({
@@ -44,9 +41,7 @@ export const BaseController = {
         return;
       }
 
-      console.log(idSource);
       const baseExists = await BaseService.getBaseByIdSource(idSource);
-      console.log(baseExists);
 
       if (baseExists) {
         res.status(400).json({
@@ -56,10 +51,7 @@ export const BaseController = {
         return;
       }
 
-      const base = await BaseService.createBase({
-        baseUrl: baseUrl,
-        idSource: idSource,
-      });
+      const base = await BaseService.createBase({ baseUrl, idSource });
 
       res.status(201).json({
         code: CODES_SUCCESS.addBase,
@@ -67,14 +59,17 @@ export const BaseController = {
         data: base,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
-  async updateBase(req: Request, res: Response) {
+
+  updateBase: async (
+    req: Request<{ id: string }, object, BaseUpdatePayload>,
+    res: Response
+  ): Promise<void> => {
     try {
       const idBase = req.params.id;
-      const body = req.body;
 
       if (!idBase) {
         res.status(400).json({
@@ -94,12 +89,12 @@ export const BaseController = {
         return;
       }
 
-      const baseUrl = body.baseUrl ? body.baseUrl.trim() : null;
-      const idSource = body.idSource;
+      const { baseUrl: rawBaseUrl, idSource } = req.body;
+      const baseUrl = rawBaseUrl ? rawBaseUrl.trim() : null;
 
       const data = {
-        ...(baseUrl && { baseUrl: baseUrl }),
-        ...(idSource !== undefined && { idSource: idSource }),
+        ...(baseUrl && { baseUrl }),
+        ...(idSource !== undefined && { idSource }),
       };
 
       const baseUpdated = await BaseService.updateBase(Number(idBase), data);
@@ -110,11 +105,12 @@ export const BaseController = {
         data: baseUpdated,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
-  async deleteBase(req: Request, res: Response) {
+
+  deleteBase: async (req: Request<{ id: string }>, res: Response): Promise<void> => {
     try {
       const idBase = req.params.id;
 
@@ -123,7 +119,6 @@ export const BaseController = {
           code: CODES_NOT.validParams,
           message: MESSAGES_NOT.validParams,
         });
-
         return;
       }
 
@@ -134,7 +129,6 @@ export const BaseController = {
           code: CODES_NOT.foundBase,
           message: MESSAGES_NOT.foundBase,
         });
-
         return;
       }
 
@@ -146,8 +140,8 @@ export const BaseController = {
         data: baseDeleted,
       });
     } catch (e) {
-      const response = getExceptionMessage(e);
-      res.status(500).json(response);
+      const { status, ...response } = getExceptionMessage(e);
+      res.status(status).json(response);
     }
   },
 };

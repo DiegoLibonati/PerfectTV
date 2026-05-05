@@ -1,4 +1,4 @@
-export type MessagesSuccess = {
+export interface MessagesSuccess {
   getTypes: string;
   addType: string;
   deleteType: string;
@@ -19,9 +19,9 @@ export type MessagesSuccess = {
   addBase: string;
   updateBase: string;
   deleteBase: string;
-};
+}
 
-export type MessagesNot = {
+export interface MessagesNot {
   foundResource: string;
   foundRoute: string;
   foundType: string;
@@ -32,9 +32,9 @@ export type MessagesNot = {
   validFields: string;
   validParams: string;
   validQueries: string;
-};
+}
 
-export type MessagesError = {
+export interface MessagesError {
   generic: string;
   itemAlreadyExistsInDatabase: string;
   typeAlreadyExists: string;
@@ -42,9 +42,9 @@ export type MessagesError = {
   channelAlreadyExists: string;
   sourceAlreadyExists: string;
   baseAlreadyExists: string;
-};
+}
 
-export type CodesSuccess = {
+export interface CodesSuccess {
   getTypes: "SUCCESS_GET_TYPES";
   addType: "SUCCESS_ADD_TYPE";
   deleteType: "SUCCESS_DELETE_TYPE";
@@ -65,9 +65,9 @@ export type CodesSuccess = {
   addBase: "SUCCESS_ADD_BASE";
   updateBase: "SUCCESS_UPDATE_BASE";
   deleteBase: "SUCCESS_DELETE_BASE";
-};
+}
 
-export type CodesNot = {
+export interface CodesNot {
   foundResource: "NOT_FOUND_RESOURCE";
   foundRoute: "NOT_FOUND_ROUTE";
   foundType: "NOT_FOUND_TYPE";
@@ -78,9 +78,9 @@ export type CodesNot = {
   validFields: "NOT_VALID_FIELDS";
   validParams: "NOT_VALID_PARAMS";
   validQueries: "NOT_VALID_QUERIES";
-};
+}
 
-export type CodesError = {
+export interface CodesError {
   generic: "ERROR_GENERIC";
   itemAlreadyExistsInDatabase: "ERROR_ITEM_ALREADY_EXISTS_IN_DATABASE";
   typeAlreadyExists: "ERROR_TYPE_ALREADY_EXISTS";
@@ -88,4 +88,4 @@ export type CodesError = {
   channelAlreadyExists: "ERROR_CHANNEL_ALREADY_EXISTS";
   sourceAlreadyExists: "ERROR_SOURCE_ALREADY_EXISTS";
   baseAlreadyExists: "ERROR_BASE_ALREADY_EXISTS";
-};
+}

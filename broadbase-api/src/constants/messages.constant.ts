@@ -1,8 +1,4 @@
-import {
-  MessagesSuccess,
-  MessagesError,
-  MessagesNot,
-} from "@/types/constants";
+import type { MessagesSuccess, MessagesError, MessagesNot } from "@/types/constants";
 
 export const MESSAGES_SUCCESS: MessagesSuccess = {
   addBase: "[Api] Base added.",

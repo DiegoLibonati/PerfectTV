@@ -1,0 +1,1758 @@
+{
+	"info": {
+		"_postman_id": "405242e7-566c-47e0-8fdb-2320d0591399",
+		"name": "Broadbase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27611586"
+	},
+	"item": [
+		{
+			"name": "Type Routes",
+			"item": [
+				{
+					"name": "GET - Get Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/types",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"types"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/types",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_TYPES\",\n    \"message\": \"[Api] Types delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"public\",\n            \"description\": \"Canales de Televisión Públicos\"\n        },\n        {\n            \"id\": 2,\n            \"code\": \"private\",\n            \"description\": \"Canales de Televisión Privados\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Add Type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"public2\",\r\n    \"description\": \"Canales de Televisión Públicos 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_DEV}}/types",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"types"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"public2\",\r\n    \"description\": \"Canales de Televisión Públicos 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/types",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_TYPE\",\n    \"message\": \"[Api] Type added.\",\n    \"data\": {\n        \"id\": 3,\n        \"code\": \"public2\",\n        \"description\": \"Canales de Televisión Públicos 2\"\n    }\n}"
+						},
+						{
+							"name": "400 Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"public\",\r\n    \"description\": \"Canales de Televisión Públicos\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/types",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"ERROR_TYPE_ALREADY_EXISTS\",\n    \"message\": \"[Api] A type already exists in the database!\"\n}"
+						},
+						{
+							"name": "400 Invalid Fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/types",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_VALID_FIELDS\",\n    \"message\": \"[Api] Invalid fields.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Delete Type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/types/3",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"types",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/types/3",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_TYPE\",\n    \"message\": \"[Api] Type deleted.\",\n    \"data\": {\n        \"id\": 3,\n        \"code\": \"public2\",\n        \"description\": \"Canales de Televisión Públicos 2\"\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/types/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"types",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_TYPE\",\n    \"message\": \"[Api] Type not found.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Sources Route",
+			"item": [
+				{
+					"name": "GET - Get Sources",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/sources",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"sources"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_SOURCES\",\n    \"message\": \"[Api] Sources delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"youtube\",\n            \"description\": \"Canales de Televisión de YouTube\",\n            \"base\": {\n                \"id\": 1,\n                \"baseUrl\": \"https://www.youtube.com/embed/live_stream\",\n                \"idSource\": 1,\n                \"source\": {\n                    \"id\": 1,\n                    \"code\": \"youtube\",\n                    \"description\": \"Canales de Televisión de YouTube\"\n                }\n            }\n        },\n        {\n            \"id\": 2,\n            \"code\": \"twitch\",\n            \"description\": \"Canales de Televisión de Twitch\",\n            \"base\": null\n        },\n        {\n            \"id\": 3,\n            \"code\": \"ftv\",\n            \"description\": \"Canales de Televisión de FTV\",\n            \"base\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Add Source",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"ftv2\",\r\n    \"description\": \"Canales de Televisión de FTV 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_DEV}}/sources",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"sources"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"ftv2\",\r\n    \"description\": \"Canales de Televisión de FTV 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_SOURCE\",\n    \"message\": \"[Api] Source added.\",\n    \"data\": {\n        \"id\": 4,\n        \"code\": \"ftv2\",\n        \"description\": \"Canales de Televisión de FTV 2\",\n        \"base\": null\n    }\n}"
+						},
+						{
+							"name": "400 Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"ftv\",\r\n    \"description\": \"Canales de Televisión de FTV\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"ERROR_SOURCE_ALREADY_EXISTS\",\n    \"message\": \"[Api] A source already exists in the database!\"\n}"
+						},
+						{
+							"name": "400 Invalid Fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_VALID_FIELDS\",\n    \"message\": \"[Api] Invalid fields.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Delete Source",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/sources/4",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"sources",
+								"4"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources/4",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_SOURCE\",\n    \"message\": \"[Api] Source deleted.\",\n    \"data\": {\n        \"id\": 4,\n        \"code\": \"ftv2\",\n        \"description\": \"Canales de Televisión de FTV 2\",\n        \"base\": null\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/sources/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"sources",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_SOURCE\",\n    \"message\": \"[Api] Source not found.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Base Routes",
+			"item": [
+				{
+					"name": "GET - Get Bases",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/bases",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"bases"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_BASES\",\n    \"message\": \"[Api] Bases delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"baseUrl\": \"https://www.youtube.com/embed/live_stream\",\n            \"idSource\": 1,\n            \"source\": {\n                \"id\": 1,\n                \"code\": \"youtube\",\n                \"description\": \"Canales de Televisión de YouTube\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Add Base",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\",\r\n    \"idSource\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_DEV}}/bases",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"bases"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\",\r\n    \"idSource\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_BASE\",\n    \"message\": \"[Api] Base added.\",\n    \"data\": {\n        \"id\": 2,\n        \"baseUrl\": \"https://www.twitch.tv\",\n        \"idSource\": 2,\n        \"source\": {\n            \"id\": 2,\n            \"code\": \"twitch\",\n            \"description\": \"Canales de Televisión de Twitch\"\n        }\n    }\n}"
+						},
+						{
+							"name": "400 Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"https://www.youtube.com/embed/live_stream\",\r\n    \"idSource\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"ERROR_BASE_ALREADY_EXISTS\",\n    \"message\": \"[Api] A base already exists in the database!\"\n}"
+						},
+						{
+							"name": "400 Invalid Fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_VALID_FIELDS\",\n    \"message\": \"[Api] Invalid fields.\"\n}"
+						},
+						{
+							"name": "404 Source Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\",\r\n    \"idSource\": 999\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_SOURCE\",\n    \"message\": \"[Api] Source not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "PATCH - Update Base",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_DEV}}/bases/2",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"bases",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/2",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_UPDATE_BASE\",\n    \"message\": \"[Api] Base updated.\",\n    \"data\": {\n        \"id\": 2,\n        \"baseUrl\": \"https://www.twitch.tv\",\n        \"idSource\": 2,\n        \"source\": {\n            \"id\": 2,\n            \"code\": \"twitch\",\n            \"description\": \"Canales de Televisión de Twitch\"\n        }\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"baseUrl\": \"https://www.twitch.tv\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_BASE\",\n    \"message\": \"[Api] Base not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Delete Base",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/bases/2",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"bases",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/2",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_BASE\",\n    \"message\": \"[Api] Base deleted.\",\n    \"data\": {\n        \"id\": 2,\n        \"baseUrl\": \"https://www.twitch.tv\",\n        \"idSource\": 2,\n        \"source\": {\n            \"id\": 2,\n            \"code\": \"twitch\",\n            \"description\": \"Canales de Televisión de Twitch\"\n        }\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/bases/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"bases",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_BASE\",\n    \"message\": \"[Api] Base not found.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Category Routes",
+			"item": [
+				{
+					"name": "GET - Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/categories",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_CATEGORIES\",\n    \"message\": \"[Api] Categories delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"news\",\n            \"description\": \"Canales de Televisión de Noticias\",\n            \"channels\": []\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Add Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"esports\",\r\n    \"description\": \"Canales de Televisión de Deportes Electrónicos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_DEV}}/categories",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"esports\",\r\n    \"description\": \"Canales de Televisión de Deportes Electrónicos\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_CATEGORY\",\n    \"message\": \"[Api] Category added.\",\n    \"data\": {\n        \"id\": 2,\n        \"code\": \"esports\",\n        \"description\": \"Canales de Televisión de Deportes Electrónicos\",\n        \"channels\": []\n    }\n}"
+						},
+						{
+							"name": "400 Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"news\",\r\n    \"description\": \"Canales de Televisión de Noticias\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"ERROR_CATEGORY_ALREADY_EXISTS\",\n    \"message\": \"[Api] A category already exists in the database!\"\n}"
+						},
+						{
+							"name": "400 Invalid Fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_VALID_FIELDS\",\n    \"message\": \"[Api] Invalid fields.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/categories/2",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"categories",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories/2",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_CATEGORY\",\n    \"message\": \"[Api] Category deleted.\",\n    \"data\": {\n        \"id\": 2,\n        \"code\": \"esports\",\n        \"description\": \"Canales de Televisión de Deportes Electrónicos\",\n        \"channels\": []\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/categories/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"categories",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_CATEGORY\",\n    \"message\": \"[Api] Category not found.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Channel Routes",
+			"item": [
+				{
+					"name": "GET - Get Channels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/channels",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"channels"
+							],
+							"query": [
+								{
+									"key": "reload",
+									"value": "true",
+									"description": "If true, refreshes base URLs and re-fetches live stream data before returning",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_CHANNELS\",\n    \"message\": \"[Api] Channels delivered.\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"América TV\",\n            \"description\": \"Canal de televisión abierta argentino.\",\n            \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\n            \"url\": \"https://www.youtube.com/embed/live_stream?channel=AmericaTV&lang=1&start=true\",\n            \"urlRest\": null,\n            \"number\": 1,\n            \"idType\": 1,\n            \"idCategory\": 1,\n            \"idSource\": 1,\n            \"type\": {\n                \"id\": 1,\n                \"code\": \"public\",\n                \"description\": \"Canales de Televisión Públicos\"\n            },\n            \"category\": {\n                \"id\": 1,\n                \"code\": \"news\",\n                \"description\": \"Canales de Televisión de Noticias\"\n            },\n            \"source\": {\n                \"id\": 1,\n                \"code\": \"youtube\",\n                \"description\": \"Canales de Televisión de YouTube\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Get Channel By Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/channels/1",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"channels",
+								"1"
+							],
+							"query": [
+								{
+									"key": "reload",
+									"value": "true",
+									"description": "If true, refreshes the base URL and re-fetches live stream data before returning",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels/1",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_CHANNEL_BY_NUMBER\",\n    \"message\": \"[Api] Channel delivered.\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"América TV\",\n        \"description\": \"Canal de televisión abierta argentino.\",\n        \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\n        \"url\": \"https://www.youtube.com/embed/live_stream?channel=AmericaTV&lang=1&start=true\",\n        \"urlRest\": null,\n        \"number\": 1,\n        \"idType\": 1,\n        \"idCategory\": 1,\n        \"idSource\": 1,\n        \"type\": {\n            \"id\": 1,\n            \"code\": \"public\",\n            \"description\": \"Canales de Televisión Públicos\"\n        },\n        \"category\": {\n            \"id\": 1,\n            \"code\": \"news\",\n            \"description\": \"Canales de Televisión de Noticias\"\n        },\n        \"source\": {\n            \"id\": 1,\n            \"code\": \"youtube\",\n            \"description\": \"Canales de Televisión de YouTube\"\n        }\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_CHANNEL\",\n    \"message\": \"[Api] Channel not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Get Channel Numbers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/channels/numbers",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"channels",
+								"numbers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels/numbers",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels",
+										"numbers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_GET_CHANNEL_NUMBERS\",\n    \"message\": \"[Api] Channel numbers delivered.\",\n    \"data\": [1, 2, 3, 4, 5]\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Add Channel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"América TV\",\r\n    \"description\": \"Canal de televisión abierta argentino.\",\r\n    \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\r\n    \"url\": \"?channel=AmericaTV&lang=1&start=true\",\r\n    \"urlRest\": null,\r\n    \"number\": 1,\r\n    \"idType\": 1,\r\n    \"idCategory\": 1,\r\n    \"idSource\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_DEV}}/channels",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"channels"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"América TV\",\r\n    \"description\": \"Canal de televisión abierta argentino.\",\r\n    \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\r\n    \"url\": \"?channel=AmericaTV&lang=1&start=true\",\r\n    \"urlRest\": null,\r\n    \"number\": 1,\r\n    \"idType\": 1,\r\n    \"idCategory\": 1,\r\n    \"idSource\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_ADD_CHANNEL\",\n    \"message\": \"[Api] Channel added.\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"América TV\",\n        \"description\": \"Canal de televisión abierta argentino.\",\n        \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\n        \"url\": \"?channel=AmericaTV&lang=1&start=true\",\n        \"urlRest\": null,\n        \"number\": 1,\n        \"idType\": 1,\n        \"idCategory\": 1,\n        \"idSource\": 1,\n        \"type\": {\n            \"id\": 1,\n            \"code\": \"public\",\n            \"description\": \"Canales de Televisión Públicos\"\n        },\n        \"category\": {\n            \"id\": 1,\n            \"code\": \"news\",\n            \"description\": \"Canales de Televisión de Noticias\"\n        },\n        \"source\": {\n            \"id\": 1,\n            \"code\": \"youtube\",\n            \"description\": \"Canales de Televisión de YouTube\"\n        }\n    }\n}"
+						},
+						{
+							"name": "400 Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"América TV\",\r\n    \"number\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"ERROR_CHANNEL_ALREADY_EXISTS\",\n    \"message\": \"[Api] A channel already exists in the database!\"\n}"
+						},
+						{
+							"name": "400 Invalid Fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_VALID_FIELDS\",\n    \"message\": \"[Api] Invalid fields.\"\n}"
+						},
+						{
+							"name": "404 Type Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"América TV\",\r\n    \"description\": \"Canal de televisión abierta argentino.\",\r\n    \"thumbUrl\": \"https://example.com/thumb.png\",\r\n    \"url\": \"?channel=AmericaTV\",\r\n    \"number\": 99,\r\n    \"idType\": 999,\r\n    \"idCategory\": 1,\r\n    \"idSource\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_TYPE\",\n    \"message\": \"[Api] Type not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "PATCH - Update Channel",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"?channel=AmericaTV&lang=1&start=true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_DEV}}/channels/1",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"channels",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"?channel=AmericaTV&lang=1&start=true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels/1",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_UPDATE_CHANNEL\",\n    \"message\": \"[Api] Channel updated.\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"América TV\",\n        \"description\": \"Canal de televisión abierta argentino.\",\n        \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\n        \"url\": \"?channel=AmericaTV&lang=1&start=true\",\n        \"urlRest\": null,\n        \"number\": 1,\n        \"idType\": 1,\n        \"idCategory\": 1,\n        \"idSource\": 1,\n        \"type\": {\n            \"id\": 1,\n            \"code\": \"public\",\n            \"description\": \"Canales de Televisión Públicos\"\n        },\n        \"category\": {\n            \"id\": 1,\n            \"code\": \"news\",\n            \"description\": \"Canales de Televisión de Noticias\"\n        },\n        \"source\": {\n            \"id\": 1,\n            \"code\": \"youtube\",\n            \"description\": \"Canales de Televisión de YouTube\"\n        }\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"?channel=AmericaTV&lang=1&start=true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_CHANNEL\",\n    \"message\": \"[Api] Channel not found.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Delete Channel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL_DEV}}/channels/1",
+							"host": [
+								"{{API_URL_DEV}}"
+							],
+							"path": [
+								"channels",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Ok",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels/1",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"SUCCESS_DELETE_CHANNEL\",\n    \"message\": \"[Api] Channel deleted.\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"América TV\",\n        \"description\": \"Canal de televisión abierta argentino.\",\n        \"thumbUrl\": \"https://upload.wikimedia.org/wikipedia/commons/c/c8/Am%C3%A9rica_TV_%28Nuevo_logo_Junio_2020%29.png\",\n        \"url\": \"?channel=AmericaTV&lang=1&start=true\",\n        \"urlRest\": null,\n        \"number\": 1,\n        \"idType\": 1,\n        \"idCategory\": 1,\n        \"idSource\": 1,\n        \"type\": {\n            \"id\": 1,\n            \"code\": \"public\",\n            \"description\": \"Canales de Televisión Públicos\"\n        },\n        \"category\": {\n            \"id\": 1,\n            \"code\": \"news\",\n            \"description\": \"Canales de Televisión de Noticias\"\n        },\n        \"source\": {\n            \"id\": 1,\n            \"code\": \"youtube\",\n            \"description\": \"Canales de Televisión de YouTube\"\n        }\n    }\n}"
+						},
+						{
+							"name": "404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL_DEV}}/channels/999",
+									"host": [
+										"{{API_URL_DEV}}"
+									],
+									"path": [
+										"channels",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": \"NOT_FOUND_CHANNEL\",\n    \"message\": \"[Api] Channel not found.\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL_DEV",
+			"value": "http://localhost:5000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "API_URL_PROD",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
