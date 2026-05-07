@@ -1,103 +1,107 @@
-name: perfect-tv-dev
+name: broadbase-dev
 services:
-  perfect-tv-api:
+  broadbase-api:
     build:
-      context: ./api
+      context: ./broadbase-api
       dockerfile: Dockerfile.development
     restart: always
-    env_file:
-      - ./api/.env
-    volumes:
-      - ./api/src:/home/app/src
     ports:
-      - 5000:5000
-    depends_on:
-      perfect-tv-db:
-        condition: service_healthy
+      - "5050:5050"
+    env_file:
+      - ./broadbase-api/.env
+    volumes:
+      - ./broadbase-api:/home/app
+      - /home/app/node_modules
     init: true
     dns:
       - 8.8.8.8
       - 8.8.4.4
     networks:
-      - perfect-tv-net
-
-  perfect-tv-graphql:
-    build:
-      context: ./graphql
-      dockerfile: Dockerfile.development
-    restart: always
-    env_file:
-      - ./graphql/.env
-    volumes:
-      - ./graphql/src:/home/app/src
-    ports:
-      - 5001:5001
+      - broadbase-net
     depends_on:
-      perfect-tv-db:
+      broadbase-db:
         condition: service_healthy
-      perfect-tv-api:
-        condition: service_started
-    networks:
-      - perfect-tv-net
 
-  perfect-tv-client:
+  broadbase-graphql:
     build:
-      context: ./client
+      context: ./broadbase-graphql
       dockerfile: Dockerfile.development
     restart: always
     env_file:
-      - ./client/.env
+      - ./broadbase-graphql/.env
     volumes:
-      - ./client:/home/app
+      - ./broadbase-graphql:/home/app
       - /home/app/node_modules
-    ports:
-      - 5173:5173
     depends_on:
-      perfect-tv-db:
+      broadbase-db:
         condition: service_healthy
-      perfect-tv-api:
+      broadbase-api:
         condition: service_started
-      perfect-tv-graphql:
-        condition: service_started
+    ports:
+      - "5051:5051"
     networks:
-      - perfect-tv-net
+      - broadbase-net
+
+  broadbase-app:
+    build:
+      context: ./broadbase-app
+      dockerfile: Dockerfile.development
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./broadbase-app/.env
+    volumes:
+      - ./broadbase-app:/home/app
+      - /home/app/node_modules
+    networks:
+      - broadbase-net
+    depends_on:
+      broadbase-db:
+        condition: service_healthy
+      broadbase-api:
+        condition: service_started
+      broadbase-graphql:
+        condition: service_started
+    stdin_open: true
     tty: true
 
-  perfect-tv-db:
-    image: postgres:17
+  broadbase-db:
+    image: postgres:16
     restart: always
     ports:
       - "5432:5432"
+    env_file:
+      - ./.env
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: perfecttvdb
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ./perfect-tv-dev-db-data:/var/lib/postgresql/data
-    networks:
-      - perfect-tv-net
+      - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "root", "-d", "perfecttvdb"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 10s
-      retries: 5
-      start_period: 75s
       timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - broadbase-net
 
-  perfect-tv-adminer:
+  adminer:
     image: adminer:latest
     restart: always
     ports:
       - "8080:8080"
-    environment:
-      ADMINER_DEFAULT_SERVER: perfect-tv-db
-    networks:
-      - perfect-tv-net
     depends_on:
-      perfect-tv-db:
+      broadbase-db:
         condition: service_healthy
+    networks:
+      - broadbase-net
 
 networks:
-  perfect-tv-net:
+  broadbase-net:
 
 volumes:
-  perfect-tv-dev-db-data:
+  db-data:
+    driver: local

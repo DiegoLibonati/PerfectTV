@@ -1,10 +1,10 @@
 {
-  "name": "broadbase",
+  "name": "broadbase-graphql",
   "version": "0.0.1",
   "engines": {
     "node": ">=22.0.0"
   },
-  "description": "Node Ts Express GraphQL Boilerplate is a production-ready starting point for building GraphQL APIs with Node.js, Express, and TypeScript.",
+  "description": "Broadbase is a full-stack web application for streaming and managing TV channels.",
   "author": {
     "name": "Diego Libonati",
     "email": "diego.libonati1998@gmail.com"

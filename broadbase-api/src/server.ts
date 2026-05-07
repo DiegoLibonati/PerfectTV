@@ -7,12 +7,15 @@ import { TypesStartUp } from "@/startups/type.startup";
 import { CategoriesStartUp } from "@/startups/category.startup";
 import { SourcesStartUp } from "@/startups/source.startup";
 import { BasesStartUp } from "@/startups/base.startup";
+import { ChannelsStartUp } from "@/startups/channel.startup";
 
 import { getBasesConstantsParsed } from "@/helpers/get_bases_constants_parsed.helper";
+import { getChannelsConstantsParsed } from "@/helpers/get_channels_constants_parsed.helper";
 
 import {
   defaultBases,
   defaultCategories,
+  defaultChannels,
   defaultSources,
   defaultTypes,
 } from "@/constants/defaults.constant";
@@ -26,6 +29,7 @@ const handleSeedDatabase = async (): Promise<void> => {
   await CategoriesStartUp(defaultCategories);
   await SourcesStartUp(defaultSources);
   await BasesStartUp(await getBasesConstantsParsed(defaultBases));
+  await ChannelsStartUp(await getChannelsConstantsParsed(defaultChannels));
 };
 
 const onInit = (): void => {

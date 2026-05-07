@@ -1,80 +1,93 @@
-name: perfect-tv-prod
+name: broadbase-prod
 services:
-  perfect-tv-api:
+  broadbase-api:
     build:
-      context: ./api
+      context: ./broadbase-api
       dockerfile: Dockerfile.production
     restart: always
     env_file:
-      - ./api/.env
-    ports:
-      - "5000:5000"
+      - ./broadbase-api/.env
     depends_on:
-      perfect-tv-db:
+      broadbase-db:
         condition: service_healthy
-    networks:
-      - perfect-tv-net
+    expose:
+      - 5050:5050
     init: true
     dns:
       - 8.8.8.8
       - 8.8.4.4
+    networks:
+      - broadbase-net
 
-  perfect-tv-graphql:
+  broadbase-graphql:
     build:
-      context: ./graphql
+      context: ./broadbase-graphql
       dockerfile: Dockerfile.production
     restart: always
     env_file:
-      - ./graphql/.env
-    ports:
-      - "5001:5001"
+      - ./broadbase-graphql/.env
     depends_on:
-      perfect-tv-db:
+      broadbase-db:
         condition: service_healthy
-      perfect-tv-api:
+      broadbase-api:
         condition: service_started
+    expose:
+      - 5051:5051
     networks:
-      - perfect-tv-net
+      - broadbase-net
 
-  perfect-tv-client:
+  broadbase-app:
     build:
-      context: ./client
+      context: ./broadbase-app
       dockerfile: Dockerfile.production
     restart: always
     env_file:
-      - ./client/.env
-    ports:
-      - "5173:80"
+      - ./broadbase-app/.env
     depends_on:
-      perfect-tv-api:
+      broadbase-db:
+        condition: service_healthy
+      broadbase-api:
         condition: service_started
-      perfect-tv-graphql:
+      broadbase-graphql:
         condition: service_started
+    ports:
+      - 3000:8080
     networks:
-      - perfect-tv-net
+      - broadbase-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
-  perfect-tv-db:
-    image: postgres:17
+  broadbase-db:
+    image: postgres:16
     restart: always
     ports:
       - "5432:5432"
+    env_file:
+      - ./.env
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: perfecttvdb
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ./data:/var/lib/postgresql/data
-    networks:
-      - perfect-tv-net
+      - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "root", "-d", "perfecttvdb"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 10s
-      retries: 5
-      start_period: 30s
       timeout: 5s
-
-networks:
-  perfect-tv-net:
+      retries: 5
+      start_period: 15s
+    networks:
+      - broadbase-net
 
 volumes:
-  data:
+  db-data:
+    driver: local
+
+networks:
+  broadbase-net:
+    name: broadbase-net
+    driver: bridge

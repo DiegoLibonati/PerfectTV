@@ -22,6 +22,9 @@ export const ChannelService = {
   createChannel: async (data: ChannelCreatePayload): Promise<ChannelWithRelations> => {
     return await ChannelDAO.create(data);
   },
+  createManyChannels: async (data: ChannelCreatePayload[]): Promise<{ count: number }> => {
+    return await ChannelDAO.createMany(data);
+  },
   updateChannel: async (id: number, data: ChannelUpdatePayload): Promise<ChannelWithRelations> => {
     return await ChannelDAO.update(id, data);
   },

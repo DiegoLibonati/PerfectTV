@@ -16,7 +16,7 @@ export const SourceDAO = {
   create: async (data: SourceCreatePayload): Promise<SourceWithRelations> =>
     await prisma.source.create({ data, include }),
   createMany: async (data: SourceCreatePayload[]): Promise<{ count: number }> =>
-    await prisma.source.createMany({ data }),
+    await prisma.source.createMany({ data, skipDuplicates: true }),
   delete: async (id: number): Promise<SourceWithRelations> =>
     await prisma.source.delete({ where: { id }, include }),
 };

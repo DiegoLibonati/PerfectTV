@@ -1,3 +1,6 @@
-perfect-tv-dev-db-data
-perfect-tv-prod-db-data
+broadbase-dev-db-data
+broadbase-prod-db-data
 data
+
+.env
+

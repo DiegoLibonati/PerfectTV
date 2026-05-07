@@ -15,6 +15,8 @@ export const ChannelDAO = {
     await prisma.channel.findUnique({ where: { name, number }, include }),
   create: async (data: ChannelCreatePayload): Promise<ChannelWithRelations> =>
     await prisma.channel.create({ data, include }),
+  createMany: async (data: ChannelCreatePayload[]): Promise<{ count: number }> =>
+    await prisma.channel.createMany({ data, skipDuplicates: true }),
   update: async (id: number, data: ChannelUpdatePayload): Promise<ChannelWithRelations> =>
     await prisma.channel.update({ where: { id }, data, include }),
   delete: async (id: number): Promise<ChannelWithRelations> =>

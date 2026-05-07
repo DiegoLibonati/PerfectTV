@@ -1,10 +1,10 @@
 {
-  "name": "broadbase",
+  "name": "broadbase-api",
   "version": "0.0.1",
   "engines": {
     "node": ">=22.0.0"
   },
-  "description": "Broadbase.",
+  "description": "Broadbase is a full-stack web application for streaming and managing TV channels.",
   "author": {
     "name": "Diego Libonati",
     "email": "diego.libonati1998@gmail.com"

@@ -18,6 +18,6 @@ export const TypeDAO = {
       data: data,
     }),
   createMany: async (data: TypeCreatePayload[]): Promise<{ count: number }> =>
-    await prisma.type.createMany({ data: data }),
+    await prisma.type.createMany({ data, skipDuplicates: true }),
   delete: async (id: number): Promise<Type> => await prisma.type.delete({ where: { id: id } }),
 };

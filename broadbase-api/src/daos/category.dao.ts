@@ -15,7 +15,7 @@ export const CategoryDAO = {
   create: async (data: CategoryCreatePayload): Promise<CategoryWithRelations> =>
     await prisma.category.create({ data, include }),
   createMany: async (data: CategoryCreatePayload[]): Promise<{ count: number }> =>
-    await prisma.category.createMany({ data }),
+    await prisma.category.createMany({ data, skipDuplicates: true }),
   delete: async (id: number): Promise<CategoryWithRelations> =>
     await prisma.category.delete({ where: { id }, include }),
 };

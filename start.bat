@@ -1,3 +1,3 @@
 @echo off
 
-start chrome.bat
+start "" "%~dp0chrome.bat"
