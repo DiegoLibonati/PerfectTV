@@ -17,6 +17,16 @@ const buildRes = (): Response => {
 const buildNext = (): NextFunction => jest.fn();
 
 describe("error_handler.middleware", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {
+      // Empty fn
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it("should respond with 500 and generic error body", () => {
     const error: Error = new Error("Something exploded");
     const req: Request = buildReq();

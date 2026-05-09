@@ -15,6 +15,16 @@ const buildRes = (): Partial<Response> => {
 };
 
 describe("error_handler.middleware", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {
+      // Empty fn
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it("should respond with status 500", () => {
     const err: Error = new Error("unexpected error");
     const req: Request = buildReq() as Request;

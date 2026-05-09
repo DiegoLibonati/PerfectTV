@@ -10,6 +10,16 @@ jest.mock("@/helpers/get_src_by_iframe.helper");
 jest.mock("@/services/base.service");
 
 describe("manage_base_url_by_iframe.helper", () => {
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {
+      // Empty fn
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe("manageBaseUrlByIframe", () => {
     it("should extract base URL, upsert it, and return true", async () => {
       (getSrcByIframe as jest.Mock).mockResolvedValue(
