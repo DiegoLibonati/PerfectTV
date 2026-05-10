@@ -6,35 +6,6 @@ This project was created primarily for **educational and learning purposes**.
 While it is well-structured and could technically be used in production, it is **not intended for commercialization**.  
 The main goal is to explore and demonstrate best practices, patterns, and technologies in software development.
 
-## Getting Started
-
-1. Clone the repository with `git clone "repository link"`
-2. Join to `broadbase-app` folder, `broadbase-graphql` and `broadbase-api` folder and execute: `npm install` or `yarn install` in the terminal
-3. Go to the previous folder and execute: `docker-compose -f dev.docker-compose.yml build --no-cache` in the terminal
-4. Once built, you must execute the command: `docker-compose -f dev.docker-compose.yml up --force-recreate` in the terminal
-
-NOTE: You have to be standing in the folder containing the: `dev.docker-compose.yml` and you need to install `Docker Desktop` if you are in Windows.
-
-## Automate open Google Chrome when computer is turned On
-
-To run Chrome when the computer starts, configure `chrome.bat` and place it in the Windows Startup folder.
-
-### 1. Edit chrome.bat with your configuration
-
-```
-"PATH_CHROME.exe" --autoplay-policy=no-user-gesture-required -kiosk --disable-site-isolation-trials --disable-web-security --user-data-dir="PATH_CHROME_USER_DATA" YOUR_CLIENT_URL
-```
-
-### 2. Place chrome.bat in the Windows Startup folder
-
-Open Run (`Win + R`), type `shell:startup` and press Enter, then move `chrome.bat` into that folder.
-
-### Example
-
-```
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --autoplay-policy=no-user-gesture-required -kiosk --disable-site-isolation-trials --disable-web-security --user-data-dir="C:\Users\<YOUR_USER>\AppData\Local\Google\Chrome\UserData" http://localhost:5173/
-```
-
 ## Description
 
 **Broadbase** is a full-stack web application for streaming and managing TV channels. It is designed to run as a kiosk-style TV viewer — launched in full-screen mode on startup — and lets users navigate channels entirely via keyboard, without touching a mouse.
@@ -75,7 +46,7 @@ The database (PostgreSQL via Prisma) stores five entities:
 | `Source`   | The streaming provider or origin of the content                        |
 | `Base`     | The dynamic base URL extracted from iframe sources, linked to a Source |
 
-### Deployment
+### Stack Topology
 
 The entire stack runs in Docker via `docker-compose`. In development it includes Adminer for database inspection. In production it adds Nginx as a reverse proxy. All three services share a private Docker network and communicate using Docker internal hostnames.
 
@@ -229,30 +200,30 @@ Database:
 "typescript-eslint": "^8.0.0"
 ```
 
-## Portfolio Link
+## Getting Started
 
-[`https://www.diegolibonati.com.ar/#/project/broadbase`](https://www.diegolibonati.com.ar/#/project/broadbase)
+With the stack and dependencies in mind, follow these steps to spin up the development environment locally. You will need [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
 
-## Testing
+1. Clone the repository with `git clone "repository link"`.
+2. Move into each service folder (`broadbase-app`, `broadbase-graphql`, `broadbase-api`) and run `npm install` (or `yarn install`).
+3. Create the required `.env` files in the root and in each service folder. See [Env Keys](#env-keys) for the full reference.
+4. From the root folder (the one containing `dev.docker-compose.yml`), build the images:
 
-1. Navigate to the `broadbase-app` | `broadbase-api` | `broadbase-graphql`
-2. Execute: `npm test`
+   ```bash
+   docker-compose -f dev.docker-compose.yml build --no-cache
+   ```
 
-For coverage report:
+5. Start the stack:
 
-```bash
-npm run test:coverage
-```
+   ```bash
+   docker-compose -f dev.docker-compose.yml up --force-recreate
+   ```
 
-## Production
+> NOTE: You must run the `docker-compose` commands from the folder that contains `dev.docker-compose.yml`. On Windows, `Docker Desktop` is required.
 
-### Requirements
+## Env Keys
 
-- Docker Desktop installed and running
-- A `.env` file in each service folder with the appropriate environment variables (see **Env Keys** section below)
-- A `.env` file in the root folder with the database credentials
-
-### Environment files
+The previous step relied on `.env` files. Each service reads its own variables, plus a root-level `.env` shared by the PostgreSQL container.
 
 | File                       | Used by                                                    |
 | -------------------------- | ---------------------------------------------------------- |
@@ -261,69 +232,7 @@ npm run test:coverage
 | `./broadbase-graphql/.env` | GraphQL service                                            |
 | `./broadbase-app/.env`     | App build-time env vars (e.g. `VITE_GRAPHQL_URL`)          |
 
-### Build and run
-
-```bash
-docker-compose -f prod.docker-compose.yml build --no-cache
-docker-compose -f prod.docker-compose.yml up --force-recreate -d
-```
-
-The `-d` flag runs all containers in the background. The startup order is enforced automatically: the database starts first, then the API, then GraphQL, and finally the App.
-
-### Database migration
-
-After the first deploy (or after schema changes), run Prisma migrations inside the API container:
-
-```bash
-docker exec -it broadbase-api npx prisma migrate deploy
-```
-
-### Services and ports
-
-Once running, only one port is exposed to the host:
-
-| Service             | Internal port | Host port | Description                    |
-| ------------------- | ------------- | --------- | ------------------------------ |
-| `broadbase-app`     | 8080          | **3000**  | React app served by Nginx      |
-| `broadbase-api`     | 5050          | —         | REST API (internal only)       |
-| `broadbase-graphql` | 5051          | —         | GraphQL server (internal only) |
-| `broadbase-db`      | 5432          | 5432      | PostgreSQL                     |
-
-The React app is the only public entry point. Nginx handles everything:
-
-- Serves the static build with aggressive caching (`max-age=31536000`) for JS/CSS/assets
-- Proxies `/graphql` requests to the GraphQL container
-- Falls back to `index.html` for client-side routing (SPA support)
-
-### Kiosk mode
-
-To launch the app automatically in full-screen on startup, configure `chrome.bat` as described in the **Automate open Google Chrome when computer is turned On** section above, pointing `YOUR_CLIENT_URL` to `http://localhost:3000`.
-
-### Stopping the stack
-
-```bash
-docker-compose -f prod.docker-compose.yml down
-```
-
-To also remove the database volume (deletes all data):
-
-```bash
-docker-compose -f prod.docker-compose.yml down -v
-```
-
-## Documentation APP
-
-### **Version**
-
-```ts
-APP VERSION: 1.0.0
-README UPDATED: 06/05/2026
-AUTHOR: Diego Libonati
-```
-
-### **Env Keys**
-
-#### Root `.env` (PostgreSQL credentials — shared with `broadbase-db` container)
+### Root `.env` (PostgreSQL credentials — shared with `broadbase-db` container)
 
 | Key           | Description                           |
 | ------------- | ------------------------------------- |
@@ -344,7 +253,7 @@ DB_NAME=broadbase_db
 DB_SCHEMA=public
 ```
 
-#### `broadbase-api/.env`
+### `broadbase-api/.env`
 
 | Key                                                                         | Description                                                |
 | --------------------------------------------------------------------------- | ---------------------------------------------------------- |
@@ -379,7 +288,7 @@ CHOKIDAR_USEPOLLING=true
 CHOKIDAR_INTERVAL=100
 ```
 
-#### `broadbase-graphql/.env`
+### `broadbase-graphql/.env`
 
 | Key                   | Description                                                |
 | --------------------- | ---------------------------------------------------------- |
@@ -402,7 +311,7 @@ CHOKIDAR_USEPOLLING=true
 CHOKIDAR_INTERVAL=100
 ```
 
-#### `broadbase-app/.env`
+### `broadbase-app/.env`
 
 | Key                          | Description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
@@ -417,16 +326,20 @@ VITE_CODE_USE_IFRAME=ftv,youtube
 VITE_CHANNELS_NEEDS_TO_RUN=505
 ```
 
-### API
+## API Reference
 
-- You can use the `Broadbase.postman_collection.json` collection in Postman. It is located inside the `broadbase-api` folder.
+Once the stack is configured and running, the system exposes a REST API (Broadbase API) and a GraphQL gateway (Broadbase GraphQL). Use the following entry points to explore them.
+
+### Postman
+
+- A `Broadbase.postman_collection.json` collection is available inside the `broadbase-api` folder for the REST API.
 
 ### GraphQL
 
-- GraphQL endpoint is available at `http://localhost:5051/graphql`
+- The GraphQL endpoint is available at `http://localhost:5051/graphql`.
 - Use a client such as [Insomnia](https://insomnia.rest/) or [Altair](https://altairgraphql.dev/) to explore queries and mutations.
 
-### **Broadbase Endpoints API**
+### Broadbase Endpoints API
 
 ---
 
@@ -704,7 +617,22 @@ VITE_CHANNELS_NEEDS_TO_RUN=505
 
 ---
 
-## Security
+## Testing
+
+Each service ships with its own Jest test suite. Validate the codebase before promoting changes:
+
+1. Navigate to the `broadbase-app` | `broadbase-api` | `broadbase-graphql` folder.
+2. Execute: `npm test`.
+
+For coverage report:
+
+```bash
+npm run test:coverage
+```
+
+## Security Audit
+
+After tests pass, audit dependencies and code health.
 
 ### npm audit
 
@@ -716,7 +644,7 @@ npm audit
 
 ### React Doctor
 
-Run a health check on the project (security, performance, dead code, architecture):
+Run a health check on the frontend (security, performance, dead code, architecture):
 
 ```bash
 npm run doctor
@@ -728,6 +656,93 @@ Use `--verbose` to see specific files and line numbers:
 npm run doctor -- --verbose
 ```
 
+## Production
+
+With [Testing](#testing) and [Security Audit](#security-audit) green, the stack can be promoted to production. The deployment uses a separate `prod.docker-compose.yml` that adds Nginx as the public entry point.
+
+### Requirements
+
+- Docker Desktop installed and running.
+- The `.env` files described in [Env Keys](#env-keys) in each service folder and in the root, populated with **production** values.
+
+### Build and run
+
+```bash
+docker-compose -f prod.docker-compose.yml build --no-cache
+docker-compose -f prod.docker-compose.yml up --force-recreate -d
+```
+
+The `-d` flag runs all containers in the background. The startup order is enforced automatically: the database starts first, then the API, then GraphQL, and finally the App.
+
+### Database migration
+
+After the first deploy (or after schema changes), run Prisma migrations inside the API container:
+
+```bash
+docker exec -it broadbase-api npx prisma migrate deploy
+```
+
+### Services and ports
+
+Once running, only one port is exposed to the host:
+
+| Service             | Internal port | Host port | Description                    |
+| ------------------- | ------------- | --------- | ------------------------------ |
+| `broadbase-app`     | 8080          | **3000**  | React app served by Nginx      |
+| `broadbase-api`     | 5050          | —         | REST API (internal only)       |
+| `broadbase-graphql` | 5051          | —         | GraphQL server (internal only) |
+| `broadbase-db`      | 5432          | 5432      | PostgreSQL                     |
+
+The React app is the only public entry point. Nginx handles everything:
+
+- Serves the static build with aggressive caching (`max-age=31536000`) for JS/CSS/assets.
+- Proxies `/graphql` requests to the GraphQL container.
+- Falls back to `index.html` for client-side routing (SPA support).
+
+### Kiosk mode
+
+To launch the app in full-screen on system startup, configure a `chrome.bat` script and place it in the Windows Startup folder so it points to `http://localhost:3000`.
+
+#### 1. Edit `chrome.bat` with your configuration
+
+```
+"PATH_CHROME.exe" --autoplay-policy=no-user-gesture-required -kiosk --disable-site-isolation-trials --disable-web-security --user-data-dir="PATH_CHROME_USER_DATA" YOUR_CLIENT_URL
+```
+
+#### 2. Place `chrome.bat` in the Windows Startup folder
+
+Open Run (`Win + R`), type `shell:startup` and press Enter, then move `chrome.bat` into that folder.
+
+#### Example
+
+```
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --autoplay-policy=no-user-gesture-required -kiosk --disable-site-isolation-trials --disable-web-security --user-data-dir="C:\Users\<YOUR_USER>\AppData\Local\Google\Chrome\UserData" http://localhost:3000/
+```
+
+### Stopping the stack
+
+```bash
+docker-compose -f prod.docker-compose.yml down
+```
+
+To also remove the database volume (deletes all data):
+
+```bash
+docker-compose -f prod.docker-compose.yml down -v
+```
+
 ## Known Issues
 
 None at the moment.
+
+## Portfolio Link
+
+[`https://www.diegolibonati.com.ar/#/project/broadbase`](https://www.diegolibonati.com.ar/#/project/broadbase)
+
+---
+
+```ts
+APP VERSION: 1.0.0
+README UPDATED: 06/05/2026
+AUTHOR: Diego Libonati
+```
